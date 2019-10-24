@@ -10,3 +10,7 @@ def test_func_1:
 
 def test_func_2:
     print("test2")
+
+
+def test_func_john_kolloq():
+    x = 100
