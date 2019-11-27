@@ -17,6 +17,7 @@ import pandas as pd
 import skimage
 import skimage.filters as filters
 from skimage import io
+from skimage.io import imread
 from PIL import Image
 
 
@@ -34,18 +35,20 @@ plt.plot(x,y)
 
 """
 
-id = 1
+id = 0
 
-filenames = ["VH", "VV"]
+filenames = ["VH"]
 
-filename = "C:/Users/jonas/Documents/Studium/Master/1. Semester/Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/Ziemer_uebungen/Python/data/radar/Subset_" + filenames[id] + ".tif"
-
-
-img = skimage.io.imread(filename)
+filename = "C:/Users/marli/Desktop/GEO402_Testdaten/test_1d_" + filenames[id] + ".tif"
 
 
-plt.plot(img)
+img = imread(filename)
 
+
+#plt.plot(img)
+
+plt.imshow(img)
+plt.show()
 """
 I = plt.imread("C:/Users/jonas/Desktop/Subset_VV.tif")
 """
