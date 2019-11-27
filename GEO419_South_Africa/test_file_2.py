@@ -39,13 +39,12 @@ id = 0
 filenames = ["VH"]
 
 #Marlin Pfad
-#filename = "C:/Users/marli/Desktop/GEO402_Testdaten/test_1d_" + filenames[id] + ".tif"
+filename = "C:/Users/marli/Desktop/GEO402_Testdaten/test_1d_" + filenames[id] + ".tif"
 
 #Jonas Pfad
-filename = "C:/Users/jonas/Documents/Studium/Master/1. Semester/Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/Ziemer_uebungen/Python/data/radar/test_1d_" + filenames[id] + ".tif"
+#filename = "C:/Users/jonas/Documents/Studium/Master/1. Semester/Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/Ziemer_uebungen/Python/data/radar/test_1d_" + filenames[id] + ".tif"
 
 img = imread(filename)
-
 
 #plt.plot(img)
 
@@ -56,7 +55,7 @@ img = imread(filename)
 # Parameters to twiggle
 scale = 1000   # Higher means larger clusters
 sigma = 0.5   # Smoothing parameter for Gaussian kernel prior segmentation
-min_size = 50 # minimum component size (enforced during processing)
+min_size = 500 # minimum component size (enforced during processing)
 
 segments_fz = felzenszwalb(img, scale=scale, sigma=sigma, min_size=min_size)
 
@@ -64,3 +63,4 @@ print("Felzenszwalb number of segments: {}".format(len(np.unique(segments_fz))))
 
 plt.imshow(mark_boundaries(img, segments_fz))
 plt.show()
+
