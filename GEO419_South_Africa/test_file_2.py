@@ -18,8 +18,7 @@ import skimage
 import skimage.filters as filters
 from skimage import io
 from skimage.io import imread
-from PIL import Image
-
+from skimage.segmentation import felzenszwalb, mark_boundaries
 
 """
 df = pd.read_csv("C:/Users/jonas/Documents/Studium/Master/1. Semester/Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/Ziemer_uebungen/Python/data/testpivot3EEVH.csv")
@@ -52,3 +51,15 @@ plt.show()
 """
 I = plt.imread("C:/Users/jonas/Desktop/Subset_VV.tif")
 """
+
+# Parameters to twiggle
+scale = 1000   # Higher means larger clusters
+sigma = 0.5   # Smoothing parameter for Gaussian kernel prior segmentation
+min_size = 50 # minimum component size (enforced during processing)
+
+segments_fz = felzenszwalb(img, scale=scale, sigma=sigma, min_size=min_size)
+
+print("Felzenszwalb number of segments: {}".format(len(np.unique(segments_fz))))
+
+plt.imshow(mark_boundaries(img, segments_fz))
+plt.show()
