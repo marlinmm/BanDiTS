@@ -38,19 +38,20 @@ id = 0
 
 filenames = ["VH"]
 
-filename = "C:/Users/marli/Desktop/GEO402_Testdaten/test_1d_" + filenames[id] + ".tif"
+#Marlin Pfad
+#filename = "C:/Users/marli/Desktop/GEO402_Testdaten/test_1d_" + filenames[id] + ".tif"
 
+#Jonas Pfad
+filename = "C:/Users/jonas/Documents/Studium/Master/1. Semester/Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/Ziemer_uebungen/Python/data/radar/test_1d_" + filenames[id] + ".tif"
 
 img = imread(filename)
 
 
 #plt.plot(img)
 
-plt.imshow(img)
-plt.show()
-"""
-I = plt.imread("C:/Users/jonas/Desktop/Subset_VV.tif")
-"""
+#plt.imshow(img)
+#plt.show()
+
 
 # Parameters to twiggle
 scale = 1000   # Higher means larger clusters
