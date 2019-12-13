@@ -20,6 +20,7 @@ from skimage import io
 from skimage.io import imread
 from skimage.segmentation import felzenszwalb, mark_boundaries
 
+
 """
 df = pd.read_csv("C:/Users/jonas/Documents/Studium/Master/1. Semester/Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/Ziemer_uebungen/Python/data/testpivot3EEVH.csv")
 
@@ -68,7 +69,7 @@ plt.show()
 
 #im = io.imread("C:/Users/jonas/Documents/Studium/Master/1. Semester/Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/Ziemer_uebungen/Python/data/radar/test_1d_VH.tif")
 
-im2 = io.imread("C:/Users/jonas/Desktop/PivotVV.tif")
+im2 = io.imread("C:/Users/jonas/Desktop/PivotVH4.tif")
 #print(im.shape)
 
 #print(im[79].shape)
@@ -84,4 +85,3 @@ with rasterio.open('C:/Users/jonas/Desktop/test_1d_VH.tif', 'r') as ds:
 
 print(arr.shape)  # this is a 3D numpy array, with dimensions [band, row, col]
 """
-
