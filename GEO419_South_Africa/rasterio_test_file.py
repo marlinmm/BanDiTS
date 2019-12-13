@@ -1,9 +1,9 @@
 import rasterio
 from matplotlib import pyplot
 from rasterio.plot import *
-
-
-dataset = rasterio.open("C:/Users/marli/Desktop/GEO402_Testdaten/S1A_VH_Agulhas_50m_selected_bands_VH.tif")
+from osgeo import gdal
+"""
+dataset = rasterio.open("C:/Users/jonas/Desktop/PivotVH4.tif")
 
 print(dataset.count)
 
@@ -14,7 +14,11 @@ for i in range(0,dataset.count-2):
 show(dataset, 1)
 
 show(dataset, 3)
+"""
 
+ds = gdal.Open("C:/Users/jonas/Desktop/test_1d_VH.tif")
+myarray = np.array(ds.GetRasterBand(1).ReadAsArray())
+print(myarray)
 
 #print(dataset.name)
 #print(dataset.bounds)

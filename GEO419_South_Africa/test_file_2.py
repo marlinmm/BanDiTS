@@ -32,26 +32,26 @@ y = df['VH']
 plt.xlabel('Time Series'); plt.ylabel('VH')
 plt.plot(x,y)
 
-"""
+
 
 id = 0
 
 filenames = ["VH"]
 
 #Marlin Pfad
-filename = "C:/Users/marli/Desktop/GEO402_Testdaten/test_1d_" + filenames[id] + ".tif"
+#filename = "C:/Users/marli/Desktop/GEO402_Testdaten/test_1d_" + filenames[id] + ".tif"
 
 #Jonas Pfad
-#filename = "C:/Users/jonas/Documents/Studium/Master/1. Semester/Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/Ziemer_uebungen/Python/data/radar/test_1d_" + filenames[id] + ".tif"
+filename = "C:/Users/jonas/Documents/Studium/Master/1. Semester/Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/Ziemer_uebungen/Python/data/radar/test_1d_" + filenames[id] + ".tif"
 
 img = imread(filename)
 
 #plt.plot(img)
 
-#plt.imshow(img)
-#plt.show()
-
-
+plt.imshow(img)
+plt.show()
+"""
+"""
 # Parameters to twiggle
 scale = 1000   # Higher means larger clusters
 sigma = 0.5   # Smoothing parameter for Gaussian kernel prior segmentation
@@ -63,4 +63,25 @@ print("Felzenszwalb number of segments: {}".format(len(np.unique(segments_fz))))
 
 plt.imshow(mark_boundaries(img, segments_fz))
 plt.show()
+
+"""
+
+#im = io.imread("C:/Users/jonas/Documents/Studium/Master/1. Semester/Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/Ziemer_uebungen/Python/data/radar/test_1d_VH.tif")
+
+im2 = io.imread("C:/Users/jonas/Desktop/PivotVV.tif")
+#print(im.shape)
+
+#print(im[79].shape)
+#plt.imshow(im)
+#plt.show()
+plt.imshow(im2)
+plt.show()
+
+
+"""
+with rasterio.open('C:/Users/jonas/Desktop/test_1d_VH.tif', 'r') as ds:
+    arr = ds.read()  # read all raster values
+
+print(arr.shape)  # this is a 3D numpy array, with dimensions [band, row, col]
+"""
 
