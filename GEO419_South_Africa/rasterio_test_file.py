@@ -16,7 +16,7 @@ show(dataset, 1)
 show(dataset, 3)
 """
 
-ds = gdal.Open("C:/Users/jonas/Desktop/test_1d_VH.tif")
+ds = gdal.Open("C:/Users/marli/Desktop/GEO402_Testdaten/S1A_VH_Agulhas_50m_selected_bands_VH.tif")
 myarray = np.array(ds.GetRasterBand(1).ReadAsArray())
 print(myarray)
 

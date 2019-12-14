@@ -10,29 +10,31 @@ from datetime import datetime
 
 start_time = datetime.now()
 
-dataset = rasterio.open("C:/Users/jonas/Desktop/SubsetVH.tif")
+dataset = rasterio.open("C:/Users/marli/Desktop/GEO402_Testdaten/S1A_VH_Agulhas_50m_selected_bands_VH.tif")
 
 band_count = int(dataset.count)
 print(band_count)
 
 
-mid_time = datetime.now()
-print("mid-time = ", mid_time-start_time, "Hr:min:sec")
+
 
 #for-Schleife für automatisierte Pixel-Iterating schreiben
-ds = gdal.Open("C:/Users/jonas/Desktop/SubsetVH.tif")
+ds = gdal.Open("C:/Users/marli/Desktop/GEO402_Testdaten/S1A_VH_Agulhas_50m_selected_bands_VH.tif")
 myarray = np.array(ds.GetRasterBand(2).ReadAsArray())
 
 value_list = []
 value = 0
+mid_time = datetime.now()
+print("mid-time = ", mid_time-start_time, "Hr:min:sec")
 
 # for-Schleife durch numpy.apply_along_axis() ersetzen, um nicht mehr durch alle Zeitreihen durchiterieren zu müssen
 for band in range(1, band_count+1):
     myarray = np.array(ds.GetRasterBand(band).ReadAsArray())
-    value = float(myarray[500][500])
+    value = float(myarray[0][0])
     value_list.append(value)
     band =+1
-
+mid2_time = datetime.now()
+print("mid2-time = ", mid2_time-start_time, "Hr:min:sec")
 # Unbrauchbare Werte eliminieren
 value_list = np.array(value_list)
 value_list = value_list[value_list != -99]
