@@ -10,9 +10,9 @@ start_time = datetime.now()
 def geek_fun(a):
     # Returning the sum of elements at start index and at last index
     # inout array
-    return (a[-1])
+    return (a[1])
 
-
+# Unser Rasterbild als 2D-Array
 arr = geek.array([[1, 4, 5],
                   [6, 2, 8],
                   [9, 3, 5]])

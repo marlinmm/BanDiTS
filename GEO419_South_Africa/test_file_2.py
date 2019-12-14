@@ -19,7 +19,7 @@ import skimage.filters as filters
 from skimage import io
 from skimage.io import imread
 from skimage.segmentation import felzenszwalb, mark_boundaries
-
+import gdal
 
 """
 df = pd.read_csv("C:/Users/jonas/Documents/Studium/Master/1. Semester/Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/Ziemer_uebungen/Python/data/testpivot3EEVH.csv")
@@ -69,7 +69,8 @@ plt.show()
 
 #im = io.imread("C:/Users/jonas/Documents/Studium/Master/1. Semester/Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/Ziemer_uebungen/Python/data/radar/test_1d_VH.tif")
 
-im2 = io.imread("C:/Users/jonas/Desktop/PivotVH4.tif")
+im2 = io.imread("C:/Users/jz199/Desktop/S1A_VH_Agulhas_50m_selected_bands_VH.tif", 1)
+
 #print(im.shape)
 
 #print(im[79].shape)

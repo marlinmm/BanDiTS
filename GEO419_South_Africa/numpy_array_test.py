@@ -15,7 +15,10 @@ from datetime import datetime
 start_time = datetime.now()
 
 numpy.set_printoptions(threshold=sys.maxsize)
-im = io.imread("C:/Users/marli/Desktop/GEO402_Testdaten/S1A_VH_Agulhas_50m_selected_bands_VH_subset.tif")
+#im = io.imread("C:/Users/marli/Desktop/GEO402_Testdaten/S1A_VH_Agulhas_50m_selected_bands_VH_subset.tif")
+
+im = io.imread("C:/Users/jz199/Desktop/S1A_VH_Agulhas_50m_selected_bands_VH.tif")
+
 print(im.shape)
 result_list = []
 time_list = []
