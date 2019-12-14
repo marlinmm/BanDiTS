@@ -10,16 +10,16 @@ from datetime import datetime
 
 start_time = datetime.now()
 
-dataset = rasterio.open("C:/Users/marli/Desktop/GEO402_Testdaten/S1A_VH_Agulhas_50m_selected_bands_VH.tif")
+#dataset = rasterio.open("C:/Users/marli/Desktop/GEO402_Testdaten/S1A_VH_Agulhas_50m_selected_bands_VH.tif")
+dataset = rasterio.open("C:/Users/jz199/Desktop/S1A_VH_Agulhas_50m_selected_bands_VH.tif")
 
 band_count = int(dataset.count)
 print(band_count)
 
 
-
-
 #for-Schleife für automatisierte Pixel-Iterating schreiben
-ds = gdal.Open("C:/Users/marli/Desktop/GEO402_Testdaten/S1A_VH_Agulhas_50m_selected_bands_VH.tif")
+#ds = gdal.Open("C:/Users/marli/Desktop/GEO402_Testdaten/S1A_VH_Agulhas_50m_selected_bands_VH.tif")
+ds = gdal.Open("C:/Users/jz199/Desktop/S1A_VH_Agulhas_50m_selected_bands_VH.tif")
 myarray = np.array(ds.GetRasterBand(2).ReadAsArray())
 
 value_list = []
