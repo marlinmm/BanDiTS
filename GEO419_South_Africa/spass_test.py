@@ -32,7 +32,7 @@ for band in range(1, band_count+1):
     myarray = np.array(ds.GetRasterBand(band).ReadAsArray())
     #mid2_time = datetime.now()
     #print("mid" + str(band) + "-time = ", mid2_time - start_time, "Hr:min:sec")
-    value = float(myarray[0][0])
+    value = float(myarray[500][500])
     value_list.append(value)
     band =+1
     #mide_time = datetime.now()
@@ -49,7 +49,7 @@ print(value_list)
 end_time = datetime.now()
 print("end-time = ", end_time-start_time, "hr:min:sec")
 
-#plt.plot(value_list)
-#plt.show()
+plt.plot(value_list)
+plt.show()
 
 
