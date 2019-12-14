@@ -10,7 +10,7 @@ start_time = datetime.now()
 def geek_fun(a):
     # Returning the sum of elements at start index and at last index
     # inout array
-    return (a[0])
+    return (a[-1])
 
 
 arr = geek.array([[1, 4, 5],
