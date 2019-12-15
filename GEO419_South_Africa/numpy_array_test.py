@@ -25,14 +25,19 @@ result_list = []
 time_list = []
 
 def for_loop_pixel():
-    for y in range(0, 122):
-        for x in range(0,117):
+    for y in range(0, 88):
+        for x in range(0,34):
             time_list = im[x, y, :]
             time_list = time_list[time_list != -99]
-            result_list.append(time_list)
+
+            #tolist() makes it 10x faster
+            result_list.append(time_list.tolist())
             x += 1
         y += 1
     print(result_list)
+    print(len(result_list))
+    print(len(result_list[0]))
+    print(len(result_list[1]))
     mid_time = datetime.now()
     print("mid-time = ", mid_time - start_time, "Hr:min:sec")
 
