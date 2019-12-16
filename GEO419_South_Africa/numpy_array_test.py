@@ -7,6 +7,7 @@ import os
 from skimage import io
 from datetime import datetime
 import pathos.multiprocessing as mp
+import pylab as plt
 
 start_time = datetime.now()
 
@@ -44,10 +45,15 @@ def for_loop_pixel():
             result_list.append(time_list.tolist())
             x += 1
         y += 1
-    print("Result-list = ", result_list)
+    print("Result-list = ", result_list)                        # Der erste Wert in der Liste ist komisch !!!
     print("Length of Result-list = ", len(result_list))
+    #Test if every Result-list has 119 Time Series
     print(len(result_list[0]))
-    print(len(result_list[1]))
+    print(len(result_list[2991]))
+
+    #Plot for result_list[0]
+    plt.plot(result_list[0]) #if [x] in for(x)-Schleife, dann plottet der x*y Diagramme
+    plt.show()
 
     mid_time2 = datetime.now()
     print("mid-time2 = ", mid_time2 - start_time, "Hr:min:sec")
@@ -55,7 +61,7 @@ def for_loop_pixel():
 for_loop_pixel()
 
 
-print(shape)
+#print(shape)
 
-end_time = datetime.now()
-print("end-time = ", end_time-start_time, "Hr:min:sec")
+#end_time = datetime.now()
+#print("end-time = ", end_time-start_time, "Hr:min:sec")
