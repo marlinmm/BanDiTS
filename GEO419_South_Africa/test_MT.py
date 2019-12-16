@@ -5,11 +5,11 @@ import sys
 
 np.set_printoptions(threshold=sys.maxsize)
 
-#arr = io.imread("C:/Users/marli/Desktop/GEO402_Testdaten/S1A_VH_Agulhas_50m_selected_bands_VH_subset.tif")
-arr = io.imread("C:/Users/jz199/Desktop/S1A_VH_Agulhas_50m_selected_bands_VH.tif")
+arr = io.imread("C:/Users/marli/Desktop/GEO402_Testdaten/S1A_VH_Agulhas_50m_selected_bands_VH_subset.tif")
+#arr = io.imread("C:/Users/jz199/Desktop/S1A_VH_Agulhas_50m_selected_bands_VH.tif")
 
 
-def parallel_apply_along_axis(func1d, axis, arr, cores=4, *args, **kwargs):
+def parallel_apply_along_axis(func1d, axis, arr, cores=16, *args, **kwargs):
     """
     Like :func:`numpy.apply_along_axis()`, but takes advantage of multiple cores.
     Adapted from `here <https://stackoverflow.com/questions/45526700/
@@ -62,13 +62,14 @@ def np_fun(a):
     for i in range(0, shape[0]-1):
         # Returning the sum of elements at start index and at last index
         # inout array
-        #print(i)
+        print(i)
         return (a[i])
+
 
 print("axis=0 : ", np.apply_along_axis(np_fun, 1, arr))
 print("\n")
 
-print(shape[0]-1)
+print(shape)
 #print("axis=1 : ", np.apply_along_axis(np_fun, 1, arr))
 
 
