@@ -20,6 +20,7 @@ np.set_printoptions(threshold=sys.maxsize)
 #arr = io.imread("C:/Users/marli/Desktop/GEO402_Testdaten/S1A_VH_Agulhas_50m_selected_bands_VH_subset.tif")
 arr = io.imread("C:/Users/jz199/Desktop/S1A_VH_Agulhas_50m_selected_bands_VH_subset.tif")
 
+# number of chunks equals number of logical threads (n-1)
 chunks = [(sub_arr)
           for sub_arr in np.array_split(arr, mp.cpu_count())]
 
@@ -36,7 +37,8 @@ def take_z_values():
     return np.concatenate(individual_results)
 
 
-# Individuell nach Anzahl logischer Prozessoren (-1) angeben
+# call chunks individually through n-1
+
 print(len(chunks))
 print(chunks[11].shape)
 
