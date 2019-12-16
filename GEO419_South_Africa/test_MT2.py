@@ -19,6 +19,9 @@ np.set_printoptions(threshold=sys.maxsize)
 arr = io.imread("C:/Users/marli/Desktop/GEO402_Testdaten/S1A_VH_Agulhas_50m_selected_bands_VH_subset.tif")
 #arr = io.imread("C:/Users/jz199/Desktop/S1A_VH_Agulhas_50m_selected_bands_VH.tif")
 
+chunks = [(sub_arr)
+          for sub_arr in np.array_split(arr, mp.cpu_count())]
+
 def take_z_values():
     chunks = [(sub_arr)
           for sub_arr in np.array_split(arr, mp.cpu_count())]
