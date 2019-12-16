@@ -1,5 +1,6 @@
 import numpy as np
 import pathos.multiprocessing as mp
+from pathos import multiprocessing
 from skimage import io
 import sys
 from functools import reduce
@@ -16,8 +17,8 @@ for ii in ndindex(Ni):
 
 np.set_printoptions(threshold=sys.maxsize)
 
-arr = io.imread("C:/Users/marli/Desktop/GEO402_Testdaten/S1A_VH_Agulhas_50m_selected_bands_VH_subset.tif")
-#arr = io.imread("C:/Users/jz199/Desktop/S1A_VH_Agulhas_50m_selected_bands_VH.tif")
+#arr = io.imread("C:/Users/marli/Desktop/GEO402_Testdaten/S1A_VH_Agulhas_50m_selected_bands_VH_subset.tif")
+arr = io.imread("C:/Users/jz199/Desktop/S1A_VH_Agulhas_50m_selected_bands_VH_subset.tif")
 
 chunks = [(sub_arr)
           for sub_arr in np.array_split(arr, mp.cpu_count())]
@@ -35,9 +36,9 @@ def take_z_values():
     return np.concatenate(individual_results)
 
 
-
+# Individuell nach Anzahl logischer Prozessoren (-1) angeben
 print(len(chunks))
-print(chunks[13].shape)
+print(chunks[11].shape)
 
 print(sum([chunk.shape[0] for chunk in chunks]))
 

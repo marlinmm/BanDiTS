@@ -10,41 +10,52 @@ import pathos.multiprocessing as mp
 
 start_time = datetime.now()
 
+####### Print complete result array #########
 numpy.set_printoptions(threshold=sys.maxsize)
 
+####### Import Rasterstack #######
 #Marlin-PC-Path:
-im = io.imread("C:/Users/marli/Desktop/GEO402_Testdaten/S1A_VH_Agulhas_50m_selected_bands_VH_subset.tif")
+#im = io.imread("C:/Users/marli/Desktop/GEO402_Testdaten/S1A_VH_Agulhas_50m_selected_bands_VH_subset.tif")
 
 #Jonas-Laptop-Path:
-#im = io.imread("C:/Users/jz199/Desktop/S1A_VH_Agulhas_50m_selected_bands_VH.tif")
+im = io.imread("C:/Users/jz199/Desktop/S1A_VH_Agulhas_50m_selected_bands_VH_subset.tif")
 
+####### Shape of Rasterstack ########
 shape = im.shape
-print(shape)
+print("Raster-Stack-Shape = ", shape)
 
-result_list = []
+mid_time1 = datetime.now()
+print("mid-time1 = ", mid_time1 - start_time, "Hr:min:sec")
+
+####### Create empty result-lists #########
 time_list = []
+result_list = []
 
+###### Iterate through Rasterstack #########
 def for_loop_pixel():
     for y in range(0, 88):
         for x in range(0,34):
             time_list = im[x, y, :]
+
+            #Eliminate -99 values
             time_list = time_list[time_list != -99]
 
             #tolist() makes it 10x faster
             result_list.append(time_list.tolist())
             x += 1
         y += 1
-    print(result_list)
-    print(len(result_list))
+    print("Result-list = ", result_list)
+    print("Length of Result-list = ", len(result_list))
     print(len(result_list[0]))
     print(len(result_list[1]))
-    mid_time = datetime.now()
-    print("mid-time = ", mid_time - start_time, "Hr:min:sec")
+
+    mid_time2 = datetime.now()
+    print("mid-time2 = ", mid_time2 - start_time, "Hr:min:sec")
 
 for_loop_pixel()
 
 
 print(shape)
 
-mid_time = datetime.now()
-print("mid-time = ", mid_time-start_time, "Hr:min:sec")
+end_time = datetime.now()
+print("end-time = ", end_time-start_time, "Hr:min:sec")
