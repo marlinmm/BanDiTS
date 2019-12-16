@@ -55,6 +55,7 @@ def parallel_apply_along_axis(func1d, axis, arr, cores=16, *args, **kwargs):
 
     return np.concatenate(individual_results)
 
+
 shape = arr.shape
 
 
