@@ -86,3 +86,4 @@ with rasterio.open('C:/Users/jonas/Desktop/test_1d_VH.tif', 'r') as ds:
 
 print(arr.shape)  # this is a 3D numpy array, with dimensions [band, row, col]
 """
+

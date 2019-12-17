@@ -20,10 +20,10 @@ np.set_printoptions(threshold=sys.maxsize)
 #arr = io.imread("C:/Users/marli/Desktop/GEO402_Testdaten/S1A_VH_Agulhas_50m_selected_bands_VH_subset.tif")
 arr = io.imread("C:/Users/jz199/Desktop/S1A_VH_Agulhas_50m_selected_bands_VH_subset.tif")
 
-# number of chunks equals number of logical threads (n-1)
 chunks = [(sub_arr)
           for sub_arr in np.array_split(arr, mp.cpu_count())]
 
+"""
 def take_z_values():
     chunks = [(sub_arr)
           for sub_arr in np.array_split(arr, mp.cpu_count())]
@@ -35,12 +35,25 @@ def take_z_values():
     pool.join()
 
     return np.concatenate(individual_results)
-
-
-# call chunks individually through n-1
-
+"""
+#Call chunks individually through n-1
+print(chunks[11])
 print(len(chunks))
+
+print(chunks[0].shape)
+"""
+print(chunks[1].shape)
+print(chunks[2].shape)
+print(chunks[3].shape)
+print(chunks[4].shape)
+print(chunks[5].shape)
+print(chunks[6].shape)
+print(chunks[7].shape)
+print(chunks[8].shape)
+print(chunks[9].shape)
+print(chunks[10].shape)
 print(chunks[11].shape)
+"""
 
 print(sum([chunk.shape[0] for chunk in chunks]))
 
