@@ -58,7 +58,7 @@ def for_loop_pixel():
     #1st attempt with Pool-Processing - does not work very well
     # dont run that itll kill your cpu !!!
     pool = multiprocessing.Pool(mp.cpu_count())
-    results = pool.map(for_loop_pixel, chunks)  # needs to be placed at the right position in script
+    results = pool.map(for_loop_pixel, result_list)  # needs to be placed at the right position in script
     # Freeing the workers:
     pool.close()
     pool.join()
