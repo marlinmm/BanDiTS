@@ -16,10 +16,10 @@ numpy.set_printoptions(threshold=sys.maxsize)
 
 ####### Import Rasterstack #######
 #Marlin-PC-Path:
-#im = io.imread("C:/Users/marli/Desktop/GEO402_Testdaten/S1A_VH_Agulhas_50m_selected_bands_VH_subset.tif")
+im = io.imread("C:/Users/marli/Desktop/GEO402_Testdaten/S1A_VH_Agulhas_50m_selected_bands_VH_subset_big.tif")
 
 #Jonas-Laptop-Path:
-im = io.imread("C:/Users/jz199/Desktop/S1A_VH_Agulhas_50m_selected_bands_VH_subset.tif")
+#im = io.imread("C:/Users/jz199/Desktop/S1A_VH_Agulhas_50m_selected_bands_VH_subset.tif")
 
 ####### Shape of Rasterstack ########
 shape = im.shape
@@ -34,8 +34,8 @@ result_list = []
 
 ###### Iterate through Rasterstack #########
 def for_loop_pixel():
-    for y in range(0, 88):
-        for x in range(0,34):
+    for y in range(0, 128):
+        for x in range(0,58):
             time_list = im[x, y, :]
 
             #Eliminate -99 values
@@ -60,7 +60,7 @@ def for_loop_pixel():
 
 for_loop_pixel()
 
-
+print("Raster-Stack-Shape = ", shape)
 #print(shape)
 
 #end_time = datetime.now()
