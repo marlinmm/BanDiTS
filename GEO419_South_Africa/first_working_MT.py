@@ -15,12 +15,12 @@ start_time = datetime.now()
 
 ####### Import Rasterstack #######
 #Marlin-PC-Path:
-#arr = io.imread("C:/Users/marli/Desktop/GEO402_Testdaten/S1A_VH_Agulhas_50m_selected_bands_VH_subset.tif")
+arr = io.imread("C:/Users/marli/Desktop/GEO402_Testdaten/S1A_VH_Agulhas_50m_selected_bands_VH_subset.tif")
 
 #Jonas-Laptop-Path:
 #arr = io.imread("C:/Users/jz199/Desktop/Pivot_subset.tif")
 #list_arr = list(arr)
-arr = io.imread("C:/Users/jonas/Desktop/S1A_VH_Agulhas_50m_selected_bands_VH_subset.tif")
+#arr = io.imread("C:/Users/jonas/Desktop/S1A_VH_Agulhas_50m_selected_bands_VH_subset.tif")
 
 print(arr.shape)
 
@@ -32,14 +32,14 @@ print(arr.shape)
 #print(chunks[3][7][1])
 
 #data_list = [[[1, 2, 3], [4, 5,6 ,7, 8]],[[9, 10, 11, 12], [13, 14, 15, 16]]]
-#y = 1
-#x = 1
+y = 1
+x = 1
 
-#def prod_xy(x,y):
-#    return x,y
+def prod_xy(x,y):
+    return x,y
 
- def quantile(arr1d, percentile):
-     return np.quantile(arr1d, percentile)
+#def quantile(arr1d, percentile):
+#     return np.quantile(arr1d, percentile)
 
 # kw = {'percentile': 5}
 
