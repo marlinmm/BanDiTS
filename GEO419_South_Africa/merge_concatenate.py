@@ -3,6 +3,7 @@ import rasterio as rio
 import numpy as np
 from pathos import multiprocessing as mp
 
+np.set_printoptions(threshold=sys.maxsize)
 
 # arr: full size numpy array 3D XxYxZ 200x300x100
 arr = import_arr.gdal_array()
