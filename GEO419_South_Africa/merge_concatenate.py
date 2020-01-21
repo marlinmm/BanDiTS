@@ -1,4 +1,5 @@
 from GEO419_South_Africa import import_arr, apply_along_axis
+import rasterio as rio
 import numpy as np
 from pathos import multiprocessing as mp
 
@@ -16,6 +17,10 @@ def quantile(arr1d, percentile=0.5):
 def minimum(arr1d):
     import numpy as np
     return np.min(arr1d)
+
+def maximum(arr1d):
+    import numpy as np
+    return np.max(arr1d)
 
 # result = parallel_apply_along_axis(func1d=quantile, arr=arr, axis=2, cores=4, **kw)
 
@@ -72,9 +77,21 @@ def parallel_apply_along_axis(func1d, axis, arr, cores=4, *args, **kwargs):
 
     return np.concatenate(individual_results)
 
+def out_array():
+    with rio.open(import_arr.filename) as src:
+        ras_data = src.read()
+        ras_meta = src.profile
+
+    # make any necessary changes to raster properties, e.g.:
+    ras_meta['dtype'] = "float32"
+    ras_meta['nodata'] = -99
+
+    with rio.open("C:/Users/marli/Desktop/GEO402_Testdaten/AAA_output/test1.tif", 'w', **ras_meta) as dst:
+        dst.write(result, 1)
 
 #parallel_apply_along_axis(func1d=quantile, arr=arr, axis=2, cores=4)
 
 if __name__ == '__main__':
-    #print(parallel_apply_along_axis(func1d=quantile, arr=arr, axis=2, cores=4))
-    print(parallel_apply_along_axis(func1d=minimum, arr=arr, axis=2, cores=4))
+    print(parallel_apply_along_axis(func1d=quantile, arr=arr, axis=2, cores=4))
+    result = parallel_apply_along_axis(func1d=minimum, arr=arr, axis=2, cores=16)
+    out_array()
