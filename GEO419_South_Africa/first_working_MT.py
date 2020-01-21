@@ -44,7 +44,7 @@ def prod_xy(x,y):
 # kw = {'percentile': 5}
 
 # python -m pip install git+https://github.com/johntruckenbrodt/S1_ARD
-from S1_ARD.util import parallel_apply_along_axis
+# from S1_ARD.util import parallel_apply_along_axis
 
 # arr: full size numpy array 3D XxYxZ 200x300x100
 # func1d: function to be applied on 1D array
