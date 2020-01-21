@@ -42,7 +42,7 @@ def parallel_runs(result_list):
 if __name__ == '__main__':
     parallel_runs(data_list)
 
-#print(len(chunks))
+##print(len(chunks))
 #print(chunks[15].shape)
 
 
