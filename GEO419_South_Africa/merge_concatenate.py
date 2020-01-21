@@ -1,3 +1,4 @@
+import sys
 from GEO419_South_Africa import import_arr, apply_along_axis
 import rasterio as rio
 import numpy as np
@@ -90,9 +91,8 @@ def out_array():
     with rio.open("C:/Users/marli/Desktop/GEO402_Testdaten/AAA_output/test1.tif", 'w', **ras_meta) as dst:
         dst.write(result, 1)
 
-#parallel_apply_along_axis(func1d=quantile, arr=arr, axis=2, cores=4)
 
 if __name__ == '__main__':
-    print(parallel_apply_along_axis(func1d=quantile, arr=arr, axis=2, cores=4))
     result = parallel_apply_along_axis(func1d=minimum, arr=arr, axis=2, cores=16)
+    print(result)
     out_array()
