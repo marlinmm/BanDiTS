@@ -8,6 +8,10 @@ np.set_printoptions(threshold=sys.maxsize)
 
 # arr: full size numpy array 3D XxYxZ 200x300x100
 arr = import_arr.gdal_array()
+
+arr = np.rollaxis(arr, 2)
+arr = np.rollaxis(arr, 2)
+print(arr.shape)
 #print(arr)
 #percentile = 5
 
@@ -23,6 +27,10 @@ def minimum(arr1d):
 def maximum(arr1d):
     import numpy as np
     return np.max(arr1d)
+
+def mean(arr1d):
+    import numpy as np
+    return np.mean(arr1d)
 
 # result = parallel_apply_along_axis(func1d=quantile, arr=arr, axis=2, cores=4, **kw)
 
@@ -88,11 +96,11 @@ def out_array():
     ras_meta['dtype'] = "float32"
     ras_meta['nodata'] = -99
 
-    with rio.open("C:/Users/marli/Desktop/GEO402_Testdaten/AAA_output/test1.tif", 'w', **ras_meta) as dst:
+    with rio.open("C:/Users/marli/Desktop/GEO402_Testdaten/AAA_output/test3456_7.tif", 'w', **ras_meta) as dst:
         dst.write(result, 1)
 
 
 if __name__ == '__main__':
-    result = parallel_apply_along_axis(func1d=minimum, arr=arr, axis=2, cores=16)
+    result = parallel_apply_along_axis(func1d=mean, arr=arr, axis=2, cores=16)
     print(result)
-    out_array()
+    #out_array()
