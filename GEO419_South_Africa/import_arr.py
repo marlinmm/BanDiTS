@@ -1,7 +1,8 @@
 from osgeo import gdal
 from osgeo.gdalconst import GA_ReadOnly
 
-filename = "C:/Users/marli/Desktop/GEO402_Testdaten/S1A_VH_Agulhas_50m_selected_bands_VH_minisubset3456.tif"
+# filename = "C:/Users/marli/Desktop/GEO402_Testdaten/S1A_VH_Agulhas_50m_selected_bands_VH_minisubset3456.tif"
+filename = "C:/Users/jz199/Documents/Studium/Master/1. Semester/Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/GEO402_Testdaten/S1A_VH_Agulhas_50m_selected_bands_VH_minisubset3456.tif"
 
 def gdal_array():
     #filename = 'C:/Users/jonas/Desktop/S1A_VH_Agulhas_50m_selected_bands_VH_subset.tif'
