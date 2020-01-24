@@ -1,5 +1,5 @@
 import sys
-from GEO419_South_Africa import import_arr, apply_along_axis
+from GEO419_South_Africa import import_arr #, apply_along_axis
 import rasterio as rio
 import numpy as np
 from pathos import multiprocessing as mp
@@ -9,13 +9,15 @@ np.set_printoptions(threshold=sys.maxsize)
 # arr: full size numpy array 3D XxYxZ 200x300x100
 arr = import_arr.gdal_array()
 
-arr = np.rollaxis(arr, 2)
+# trying to rotate array, doesnt really do anything...
+#arr = np.rollaxis(arr, 2)
 #arr = np.rollaxis(arr, 2)
 print(arr.shape)
 #print(arr)
 #percentile = 5
 
-# func1d: function to be applied on 1D array
+
+# func1d: functions to be applied on 1D array
 def quantile(arr1d, percentile=0.5):
     import numpy as np
     return np.quantile(arr1d, percentile)
@@ -32,17 +34,13 @@ def mean(arr1d):
     import numpy as np
     return np.mean(arr1d)
 
-# result = parallel_apply_along_axis(func1d=quantile, arr=arr, axis=2, cores=4, **kw)
-
-#result = apply_along_axis.parallel_apply_along_axis(func1d=quantile, arr=arr, axis=2, cores=4)
-#print(result)
-#print(result)
-
 
 
 def parallel_apply_along_axis(func1d, axis, arr, cores=4, *args, **kwargs):
     import numpy as np
     """
+    General help: https://docs.scipy.org/doc/numpy-1.10.0/reference/generated/numpy.apply_along_axis.html
+    
     Like :func:`numpy.apply_along_axis()`, but takes advantage of multiple cores.
     Adapted from `here <https://stackoverflow.com/questions/45526700/
     easy-parallelization-of-numpy-apply-along-axis>`_.
@@ -87,6 +85,7 @@ def parallel_apply_along_axis(func1d, axis, arr, cores=4, *args, **kwargs):
 
     return np.concatenate(individual_results)
 
+# function to generate output tif
 def out_array():
     with rio.open(import_arr.filename) as src:
         ras_data = src.read()
@@ -96,14 +95,12 @@ def out_array():
     ras_meta['dtype'] = "float32"
     ras_meta['nodata'] = -99
 
-    # with rio.open("C:/Users/marli/Desktop/GEO402_Testdaten/AAA_output/test3456_7.tif", 'w', **ras_meta) as dst:
-    with rio.open("C:/Users/jz199/Documents/Studium/Master/1. Semester/Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/GEO402_Output/test_1.tif", 'w', **ras_meta) as dst:
+    with rio.open("C:/Users/marli/Desktop/GEO402_Testdaten/AAA_output/test3456_7.tif", 'w', **ras_meta) as dst:
+    #with rio.open("C:/Users/jz199/Documents/Studium/Master/1. Semester/Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/GEO402_Output/test_1.tif", 'w', **ras_meta) as dst:
         dst.write(result, 1)
 
-
-
-
+# main func
 if __name__ == '__main__':
-    result = parallel_apply_along_axis(func1d=mean, arr=arr, axis=0, cores=16)
+    result = parallel_apply_along_axis(func1d=mean, arr=arr, axis=0, cores=mp.cpu_count())
     print(result)
     out_array()
