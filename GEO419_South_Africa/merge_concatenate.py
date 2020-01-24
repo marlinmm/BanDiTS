@@ -95,12 +95,12 @@ def out_array():
     ras_meta['dtype'] = "float32"
     ras_meta['nodata'] = -99
 
-    with rio.open("C:/Users/marli/Desktop/GEO402_Testdaten/AAA_output/test3456_7.tif", 'w', **ras_meta) as dst:
-    #with rio.open("C:/Users/jz199/Documents/Studium/Master/1. Semester/Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/GEO402_Output/test_1.tif", 'w', **ras_meta) as dst:
+    #with rio.open("C:/Users/marli/Desktop/GEO402_Testdaten/AAA_output/test3456_7.tif", 'w', **ras_meta) as dst:
+    with rio.open("C:/Users/jz199/Documents/Studium/Master/1. Semester/Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/GEO402_Output/test_ultrahuge_max.tif", 'w', **ras_meta) as dst:
         dst.write(result, 1)
 
 # main func
 if __name__ == '__main__':
-    result = parallel_apply_along_axis(func1d=mean, arr=arr, axis=0, cores=mp.cpu_count())
+    result = parallel_apply_along_axis(func1d=maximum, arr=arr, axis=0, cores=mp.cpu_count())
     print(result)
     out_array()
