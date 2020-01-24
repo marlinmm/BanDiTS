@@ -1,6 +1,5 @@
 #import os
 from GEO419_South_Africa import import_arr, apply_along_axis, export_arr
-import rasterio as rio
 from pathos import multiprocessing as mp
 
 
