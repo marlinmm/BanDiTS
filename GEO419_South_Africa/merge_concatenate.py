@@ -1,20 +1,44 @@
+import os
 import sys
-from GEO419_South_Africa import import_arr #, apply_along_axis
+from GEO419_South_Africa import import_arr
+from GEO419_South_Africa import apply_along_axis
 import rasterio as rio
 import numpy as np
 from pathos import multiprocessing as mp
 
-np.set_printoptions(threshold=sys.maxsize)
 
-# arr: full size numpy array 3D XxYxZ 200x300x100
-arr = import_arr.gdal_array()
+def main():
 
-# trying to rotate array, doesnt really do anything...
-#arr = np.rollaxis(arr, 2)
-#arr = np.rollaxis(arr, 2)
-print(arr.shape)
-#print(arr)
-#percentile = 5
+    workdir = ''
+    # workdir = ''
+    ####################################################
+    # no user input beyond this line
+    basename = 'out{}.tif'
+
+    tuning = 3
+
+    subdir = os.path.join(workdir, 'sub')
+    os.makedirs(subdir, exist_ok=True)
+
+
+    outname = os.path.join(workdir, basename.format(tuning))
+
+    np.set_printoptions(threshold=sys.maxsize)
+
+    # arr: full size numpy array 3D XxYxZ 200x300x100
+    arr = import_arr.gdal_array()
+
+    # trying to rotate array, doesnt really do anything...
+    #arr = np.rollaxis(arr, 2)
+    #arr = np.rollaxis(arr, 2)
+    print(arr.shape)
+    #print(arr)
+    #percentile = 5
+
+    result = apply_along_axis.parallel_apply_along_axis(func1d=maximum, arr=arr, axis=0, cores=mp.cpu_count())
+    print(result)
+    outname = "C:/Users/jz199/Documents/Studium/Master/1. Semester/Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/GEO402_Output/test_ultrahuge_max.tif"
+    out_array(outname=outname, arr=result)
 
 
 # func1d: functions to be applied on 1D array
@@ -22,71 +46,24 @@ def quantile(arr1d, percentile=0.5):
     import numpy as np
     return np.quantile(arr1d, percentile)
 
+
 def minimum(arr1d):
     import numpy as np
     return np.min(arr1d)
 
+
 def maximum(arr1d):
     import numpy as np
     return np.max(arr1d)
+
 
 def mean(arr1d):
     import numpy as np
     return np.mean(arr1d)
 
 
-
-def parallel_apply_along_axis(func1d, axis, arr, cores=4, *args, **kwargs):
-    import numpy as np
-    """
-    General help: https://docs.scipy.org/doc/numpy-1.10.0/reference/generated/numpy.apply_along_axis.html
-    
-    Like :func:`numpy.apply_along_axis()`, but takes advantage of multiple cores.
-    Adapted from `here <https://stackoverflow.com/questions/45526700/
-    easy-parallelization-of-numpy-apply-along-axis>`_.
-
-    Parameters
-    ----------
-    func1d: function
-        the function to be applied
-    axis: int
-        the axis along which to apply `func1d`
-    arr: numpy.ndarray
-        the input array
-    cores: int
-        the number of parallel cores
-    args: any
-        Additional arguments to `func1d`.
-    kwargs: any
-        Additional named arguments to `func1d`.
-    Returns
-    -------
-    numpy.ndarray
-    """
-    # Effective axis where apply_along_axis() will be applied by each
-    # worker (any non-zero axis number would work, so as to allow the use
-    # of `np.array_split()`, which is only done on axis 0):
-    effective_axis = 1 if axis == 0 else axis
-    if effective_axis != axis:
-        arr = arr.swapaxes(axis, effective_axis)
-
-    def unpack(arguments):
-        func1d, axis, arr, args, kwargs = arguments
-        return np.apply_along_axis(func1d, axis, arr, *args, **kwargs)
-
-    chunks = [(func1d, effective_axis, sub_arr, args, kwargs)
-              for sub_arr in np.array_split(arr, mp.cpu_count())]
-
-    pool = mp.Pool(cores)
-    individual_results = pool.map(unpack, chunks)
-    # Freeing the workers:
-    pool.close()
-    pool.join()
-
-    return np.concatenate(individual_results)
-
 # function to generate output tif
-def out_array():
+def out_array(outname, arr):
     with rio.open(import_arr.filename) as src:
         ras_data = src.read()
         ras_meta = src.profile
@@ -96,11 +73,10 @@ def out_array():
     ras_meta['nodata'] = -99
 
     #with rio.open("C:/Users/marli/Desktop/GEO402_Testdaten/AAA_output/test3456_7.tif", 'w', **ras_meta) as dst:
-    with rio.open("C:/Users/jz199/Documents/Studium/Master/1. Semester/Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/GEO402_Output/test_ultrahuge_max.tif", 'w', **ras_meta) as dst:
-        dst.write(result, 1)
+    with rio.open(outname, 'w', **ras_meta) as dst:
+        dst.write(arr, 1)
+
 
 # main func
 if __name__ == '__main__':
-    result = parallel_apply_along_axis(func1d=maximum, arr=arr, axis=0, cores=mp.cpu_count())
-    print(result)
-    out_array()
+    main()
