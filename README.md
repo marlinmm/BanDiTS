@@ -1,14 +1,10 @@
-# GEO419_South_Africa
-Uni Project for course GEO419
+# **Project for course GEO419 at FSU Jena**
 
-# Test 1
+### This tool aims to make detecting breakpoints and anomalies in Sentinel-1 time series easier:
 
-## Test 2
+* Importing raster data from Sentinel-1 satellite missions
+* applying different functions along time axis of data to retrieve different metrics on a time scale
+* giving user choice, which functions should be applied or used (planned)
+* creating new raster files to visualize applied functions
 
-### Test 3
-
-# Prints "Hello World!"
-
-nkjlj,kmnsdfkljnsdflökjsdfdfgkjn
-
-nbgf
+_developed in Python 3.8_
