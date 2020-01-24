@@ -1,5 +1,6 @@
 import rasterio as rio
 
+
 def out_array(outname, arr, input_file):
     with rio.open(input_file) as src:
         ras_data = src.read()

@@ -1,6 +1,7 @@
 from pathos import multiprocessing as mp
 import numpy as np
 
+
 def parallel_apply_along_axis(func1d, axis, arr, cores, *args, **kwargs):
     """
     Like :func:`numpy.apply_along_axis()`, but takes advantage of multiple cores.
