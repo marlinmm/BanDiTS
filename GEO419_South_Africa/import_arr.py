@@ -1,10 +1,7 @@
-from osgeo import gdal
-from osgeo.gdalconst import GA_ReadOnly
+import rasterio as rio
 
 
 def gdal_array(input_file):
-    ras = gdal.Open(input_file, GA_ReadOnly)
-    arr = ras.ReadAsArray()
-    return(arr)
-
-
+    src = rio.open(input_file)
+    arr = src.read()
+    return arr
