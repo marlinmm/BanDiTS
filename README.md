@@ -8,3 +8,6 @@
 * creating new raster files to visualize applied functions
 
 _developed in Python 3.8_
+
+
+# _WORK IN PROGRESS_
