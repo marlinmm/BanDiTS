@@ -1,0 +1,3 @@
+pathos
+numpy
+rasterio
