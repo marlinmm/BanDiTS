@@ -36,8 +36,8 @@ def main():
     #percentile = 5
 
     result = apply_along_axis.parallel_apply_along_axis(func1d=maximum, arr=arr, axis=0, cores=mp.cpu_count())
-    print(result)
-    outname = "C:/Users/jz199/Documents/Studium/Master/1. Semester/Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/GEO402_Output/test_ultrahuge_max.tif"
+    #print(result)
+    outname = "C:/Users/marli/Desktop/GEO402_Testdaten/AAA_output/test_ultrahuge_max.tif"
     out_array(outname=outname, arr=result)
 
 
