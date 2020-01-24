@@ -1,5 +1,4 @@
 import rasterio as rio
-from GEO419_South_Africa import import_arr
 
 def out_array(outname, arr, input_file):
     with rio.open(input_file) as src:
