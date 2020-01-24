@@ -6,3 +6,5 @@
 * applying different functions along time axis of data to retrieve different metrics on a time scale
 * giving user choice, which functions should be applied or used (planned)
 * creating new raster files to visualize applied functions
+
+_developed in Python 3.8_
