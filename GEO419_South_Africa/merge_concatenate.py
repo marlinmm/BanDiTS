@@ -19,7 +19,7 @@ def main():
     #output_folder = ""
 
     # Output File Name:
-    output_file = "test_original_all_bands_min4.tif"
+    output_file = "test_original_all_bands_min5.tif"
 
     ######################   NO USER INPUT BEYOND THIS POINT   ###############################
 
@@ -36,7 +36,7 @@ def main():
     outname = output_folder + output_file
 
     # arr: full size numpy array 3D XxYxZ 200x300x100
-    arr = ras_preprocessing.preprocessing(input_file)
+    arr = ras_preprocessing.rio_array(input_file)
     result = apply_along_axis.parallel_apply_along_axis(func1d=function.minimum, arr=arr, axis=0, cores=mp.cpu_count())
     export_arr.out_array(outname=outname, arr=result, input_file = input_file)
 
