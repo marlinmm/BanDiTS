@@ -33,3 +33,9 @@ def amplitude_if_test(arr1d):
 def stdev(arr1d):
     import numpy as np
     return np.std(arr1d)
+
+
+def moving_window_test1(arr1d, time_series_length):
+    import numpy as np
+
+    #print(len(arr1d))
