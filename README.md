@@ -6,6 +6,7 @@
 * applying different functions along time axis of data to retrieve different metrics on a time scale
 * giving user choice, which functions should be applied or used (planned)
 * creating new raster files to visualize applied functions
+* working in parallelized, multithreaded way _(6x faster with 16 threads vs 1 thread)_
 
 _developed in Python 3.8_
 
