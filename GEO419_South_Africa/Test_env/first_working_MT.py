@@ -18,7 +18,7 @@ start_time = datetime.now()
 arr = io.imread("C:/Users/marli/Desktop/GEO402_Testdaten/S1A_VH_Agulhas_50m_selected_bands_VH_subset.tif")
 
 #Jonas-Laptop-Path:
-#arr = io.imread("C:/Users/jz199/Desktop/Pivot_subset.tif")
+arr = io.imread("C:/Users/jz199/Desktop/Pivot_subset.tif")
 #list_arr = list(arr)
 #arr = io.imread("C:/Users/jonas/Desktop/S1A_VH_Agulhas_50m_selected_bands_VH_subset.tif")
 
