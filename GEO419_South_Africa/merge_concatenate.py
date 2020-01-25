@@ -1,4 +1,5 @@
 #import os
+import numpy as np
 from GEO419_South_Africa import import_arr, apply_along_axis, export_arr
 from pathos import multiprocessing as mp
 
@@ -18,7 +19,7 @@ def main():
     #output_folder = ""
 
     # Output File Name:
-    output_file = "test_original_min.tif"
+    output_file = "test_original_mean.tif"
 
     ######################   NO USER INPUT BEYOND THIS POINT   ###############################
 
@@ -35,9 +36,11 @@ def main():
     outname = output_folder + output_file
 
     # arr: full size numpy array 3D XxYxZ 200x300x100
-    arr = import_arr.gdal_array(input_file)
-    result = apply_along_axis.parallel_apply_along_axis(func1d=minimum, arr=arr, axis=0, cores=mp.cpu_count())
+    arr = import_arr.rio_array(input_file)
+    #arr[arr == -99] = np.nan ## trying to loose -99 values cause it corrupts output map
+    result = apply_along_axis.parallel_apply_along_axis(func1d=mean, arr=arr, axis=0, cores=mp.cpu_count())
     export_arr.out_array(outname=outname, arr=result, input_file = input_file)
+
 
 
 # func1d: functions to be applied on 1D array
