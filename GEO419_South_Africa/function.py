@@ -19,3 +19,12 @@ def maximum(arr1d):
 def mean(arr1d):
     import numpy as np
     return np.mean(arr1d)
+
+
+def amplitude_if_test(arr1d):
+    import numpy as np
+    diff = np.max(arr1d) - np.min(arr1d)
+    if diff < 9:
+        return 0
+    if diff >= 9:
+        return 1
