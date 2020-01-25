@@ -19,7 +19,7 @@ def main():
     #output_folder = ""
 
     # Output File Name:
-    output_file = "test_original_all_bands_mean3.tif"
+    output_file = "test_original_all_bands_amp_test.tif"
 
     ######################   NO USER INPUT BEYOND THIS POINT   ###############################
 
@@ -37,8 +37,8 @@ def main():
 
     # arr: full size numpy array 3D XxYxZ 200x300x100
     arr = ras_preprocessing.rio_array(input_file)
-    result = apply_along_axis.parallel_apply_along_axis(func1d=function.mean, arr=arr, axis=0, cores=mp.cpu_count())
-    export_arr.out_array(outname=outname, arr=result, input_file = input_file, dtype="float32")
+    result = apply_along_axis.parallel_apply_along_axis(func1d=function.amplitude_if_test, arr=arr, axis=0, cores=mp.cpu_count())
+    export_arr.out_array(outname=outname, arr=result, input_file = input_file, dtype="int32")
 
 
 # main func
