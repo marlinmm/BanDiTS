@@ -1,6 +1,6 @@
 #import os
 import numpy as np
-from GEO419_South_Africa import import_arr, apply_along_axis, export_arr
+from GEO419_South_Africa import import_arr, apply_along_axis, export_arr, function
 from pathos import multiprocessing as mp
 
 
@@ -19,7 +19,7 @@ def main():
     #output_folder = ""
 
     # Output File Name:
-    output_file = "test_original_all_bands_mean1.tif"
+    output_file = "test_original_all_bands_min1.tif"
 
     ######################   NO USER INPUT BEYOND THIS POINT   ###############################
 
@@ -38,48 +38,11 @@ def main():
     # arr: full size numpy array 3D XxYxZ 200x300x100
     arr = import_arr.rio_array(input_file)
 
-    preprocessing(arr=arr)
-
     ######## delete old array from memory to save some #######
 
-    #arr[arr == -99.        ] = np.nan ## converting -99 values to NaN values -> produces warnings, but works
-    #result = apply_along_axis.parallel_apply_along_axis(func1d=mean, arr=arr, axis=0, cores=mp.cpu_count())
-    #export_arr.out_array(outname=outname, arr=result, input_file = input_file)
-
-
-
-
-def preprocessing(arr):
-    import numpy as np
-    new_arr = arr
-    new_arr = np.rollaxis(new_arr, 2)
-    new_arr = np.rollaxis(new_arr, 2)
-    new_arr = new_arr[1100][900]
-    print(new_arr)
-    print(new_arr.shape)
-
-
-
-
-# func1d: functions to be applied on 1D array
-def quantile(arr1d, percentile=0.5):
-    import numpy as np
-    return np.nanpercentile(arr1d, percentile)
-
-
-def minimum(arr1d):
-    import numpy as np
-    return np.nanmin(arr1d)
-
-
-def maximum(arr1d):
-    import numpy as np
-    return np.nanmax(arr1d)
-
-
-def mean(arr1d):
-    import numpy as np
-    return np.nanmean(arr1d)
+    arr[arr == -99.        ] = np.nan ## converting -99 values to NaN values -> produces warnings, but works
+    result = apply_along_axis.parallel_apply_along_axis(func1d=function.minimum, arr=arr, axis=0, cores=mp.cpu_count())
+    export_arr.out_array(outname=outname, arr=result, input_file = input_file)
 
 
 # main func
