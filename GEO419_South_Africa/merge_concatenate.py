@@ -1,5 +1,6 @@
 #import os
-from GEO419_South_Africa import import_arr, apply_along_axis, export_arr
+import numpy as np
+from GEO419_South_Africa import ras_preprocessing, apply_along_axis, export_arr, function
 from pathos import multiprocessing as mp
 
 
@@ -10,7 +11,7 @@ def main():
     # input_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester/Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/GEO402_Testdaten/"
 
     # Input file name
-    input_filename = "S1A_VH_Agulhas_50m_selected_bands_VH.tif"
+    input_filename = "S1_A_VH_agulhas_full_study_site_50m"
 
     # Output Folder Marlin:
     output_folder = "C:/Users/marli/Desktop/GEO402_Testdaten/AAA_output/"
@@ -18,7 +19,7 @@ def main():
     #output_folder = ""
 
     # Output File Name:
-    output_file = "test_original_min.tif"
+    output_file = "test_original_all_bands_min5.tif"
 
     ######################   NO USER INPUT BEYOND THIS POINT   ###############################
 
@@ -35,30 +36,9 @@ def main():
     outname = output_folder + output_file
 
     # arr: full size numpy array 3D XxYxZ 200x300x100
-    arr = import_arr.gdal_array(input_file)
-    result = apply_along_axis.parallel_apply_along_axis(func1d=minimum, arr=arr, axis=0, cores=mp.cpu_count())
+    arr = ras_preprocessing.rio_array(input_file)
+    result = apply_along_axis.parallel_apply_along_axis(func1d=function.minimum, arr=arr, axis=0, cores=mp.cpu_count())
     export_arr.out_array(outname=outname, arr=result, input_file = input_file)
-
-
-# func1d: functions to be applied on 1D array
-def quantile(arr1d, percentile=0.5):
-    import numpy as np
-    return np.quantile(arr1d, percentile)
-
-
-def minimum(arr1d):
-    import numpy as np
-    return np.min(arr1d)
-
-
-def maximum(arr1d):
-    import numpy as np
-    return np.max(arr1d)
-
-
-def mean(arr1d):
-    import numpy as np
-    return np.mean(arr1d)
 
 
 # main func
