@@ -3,8 +3,9 @@ import rasterio as rio
 
 def out_array(outname, arr, input_file):
     with rio.open(input_file) as src:
-        ras_data = src.read()
         ras_meta = src.profile
+        corr_count = {'count': 1}
+        ras_meta.update(corr_count)
 
     # make any necessary changes to raster properties, e.g.:
     ras_meta['dtype'] = "float32"
