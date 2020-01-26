@@ -13,7 +13,7 @@ def main():
     # input_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester/Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/GEO402_Testdaten/"
 
     # Input file name
-    input_filename = "S1_A_VH_agulhas_full_study_site_50m"
+    input_filename = "S1A_VH_Agulhas_50m_selected_bands_VH_subset2.tif"
 
     # Output Folder Marlin:
     output_folder = "C:/Users/marli/Desktop/GEO402_Testdaten/AAA_output/"
@@ -21,7 +21,7 @@ def main():
     #output_folder = ""
 
     # Output File Name:
-    output_file = input_filename + "_slope1.tif"
+    output_file = input_filename + "_slope_vs_slope4.tif"
 
     ######################   NO USER INPUT BEYOND THIS POINT   ###############################
 
@@ -41,8 +41,9 @@ def main():
     arr = ras_preprocessing.rio_array(input_file)
     time_series_length = arr.shape[0]
     #print(time_series_length)
-    result = apply_along_axis.parallel_apply_along_axis(func1d=function.slope, arr=arr, axis=0, cores=mp.cpu_count())
-    export_arr.out_array(outname=outname, arr=result, input_file = input_file, dtype="float64")
+    result = apply_along_axis.parallel_apply_along_axis(func1d=function.slope_vs_slope, arr=arr, axis=0, cores=mp.cpu_count())
+    export_arr.out_array(outname=outname, arr=result, input_file = input_file, dtype="int32")
+    ### maybe add function wich checks used func1d and chosen dtype and lets you know before programm runs
 
 ### catch error of files dtype: ValueError: the array's dtype 'float32' does not match the file's dtype 'int32'  ####
 
