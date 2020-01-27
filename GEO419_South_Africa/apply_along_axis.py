@@ -5,8 +5,7 @@ import numpy as np
 def parallel_apply_along_axis(func1d, axis, arr, cores, *args, **kwargs):
     """
     Like :func:`numpy.apply_along_axis()`, but takes advantage of multiple cores.
-    Adapted from `here <https://stackoverflow.com/questions/45526700/
-    easy-parallelization-of-numpy-apply-along-axis>`_.
+    Adapted from `here <https://github.com/johntruckenbrodt/S1_ARD/blob/master/S1_ARD/util.py>`_.
 
     Parameters
     ----------
