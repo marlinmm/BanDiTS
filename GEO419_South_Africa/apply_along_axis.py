@@ -37,7 +37,7 @@ def parallel_apply_along_axis(func1d, axis, arr, cores, *args, **kwargs):
         return np.apply_along_axis(func1d, axis, arr, *args, **kwargs)
 
     chunks = [(func1d, effective_axis, sub_arr, args, kwargs)
-              for sub_arr in np.array_split(arr, 4*mp.cpu_count())]  # somehow 4 * cpu_count improves runtime by 10%
+              for sub_arr in np.array_split(arr, 4*cores)]  # somehow 4 * cpu_count improves runtime by 10%
 
     pool = mp.Pool(cores)
     individual_results = pool.map(unpack, chunks)
