@@ -2,7 +2,7 @@
 
 ### This tool aims to make detecting breakpoints and anomalies in Sentinel-1 time series easier:
 
-* Importing raster data from Sentinel-1 satellite missions
+* Importing time series data and preliminary light cleaning of data (specifically developed for Sentinel-1 stacks created in ENVI, but should work with all kinds of time series stacks)
 * applying different functions along time axis of data to retrieve different metrics on a time scale
 * giving user choice, which functions should be applied or used (planned)
 * creating new raster files to visualize applied functions
