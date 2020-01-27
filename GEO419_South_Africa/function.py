@@ -22,6 +22,11 @@ def mean(arr1d):
     return np.mean(arr1d)
 
 
+def stdev(arr1d):
+    import numpy as np
+    return np.std(arr1d)
+
+
 def amplitude_if_test(arr1d):
     import numpy as np
     diff = np.max(arr1d) - np.min(arr1d)
@@ -29,11 +34,6 @@ def amplitude_if_test(arr1d):
         return 0
     if diff >= 7.5:
         return 1
-
-
-def stdev(arr1d):
-    import numpy as np
-    return np.std(arr1d)
 
 
 def slope(arr1d):
