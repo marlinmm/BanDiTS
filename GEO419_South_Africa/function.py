@@ -49,30 +49,28 @@ def slope(arr1d):
 def slope_vs_slope(arr1d):
     import numpy as np
     from scipy import stats
-    x = arr1d
+    time_series = arr1d
     arr_shape = arr1d.shape[0]
-    #print(x)
-    y = np.indices((arr_shape,))[0]
-    #print("orig: " + str(y))
+    time_series_index = np.indices((arr_shape,))[0]
+
+    # internal function to split time series in n sub time series
     def split_list(alist, wanted_parts=1):          # based on: https://stackoverflow.com/a/752562
         length = len(alist)
         return [alist[i * length // wanted_parts: (i + 1) * length // wanted_parts]
                 for i in range(wanted_parts)]
-    x_split = split_list(x, wanted_parts=4)
-    #print(x_split[0])
-    y_split = split_list(y, wanted_parts=4)
-    #print(y_split[0])
+
+    # split time series and list of time series indices in 4 subarrays
+    time_series_split = split_list(time_series, wanted_parts=4)
+    time_series_index_split = split_list(time_series_index, wanted_parts=4)
     slope_list = []
-    for i in range (0,len(y_split)):
-        slope, intercept, r_value, p_value, std_err = stats.linregress(x_split[i],y_split[i])
+
+    # calculate linear regression for each time series subarray
+    for i in range (0,len(time_series_index_split)):
+        slope, intercept, r_value, p_value, std_err = stats.linregress(time_series_split[i],time_series_index_split[i])
         i +=1
-        slope_list = [slope_list, slope]
+        slope_list = [slope_list, slope]        # weird list append, cause .append doesnt work with multiprocessing
 
-    #print(l[1])
-    #print(l[0][1])
-    #print(l[0][0][1])
-    #print(l[0][0][0][1])
-
+    # check for dropping slope values from one quarter of time series to next
     if slope_list[0][0][0][1] > 0 and slope_list[0][0][1] < 0:
         if slope_list[0][0][0][1] - slope_list[0][0][1] > 3:
             return 1
@@ -92,8 +90,6 @@ def slope_vs_slope(arr1d):
             return 6
     else:
         return 0
-    #print(slope_list)
-    #return slope
 
     #### UNFERTIG ####
 
