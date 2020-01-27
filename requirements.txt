@@ -1,3 +1,4 @@
+fiona
 scipy
 pathos
 numpy
