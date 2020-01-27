@@ -1,6 +1,11 @@
 import rasterio as rio
 import numpy as np
+import fiona
 
+def fiona_shape(shape_path):
+    with fiona.open(shape_path, "r") as shapefile:
+        shapes = [feature["geometry"] for feature in shapefile]
+    return shapes
 
 def rio_array(input_file):
     # import of raster file
