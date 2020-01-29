@@ -23,7 +23,7 @@ def main():
     #output_folder = ""
 
     # Output File Name:
-    output_file = raster_filename + "_mask_test_test.tif"
+    output_file = raster_filename + "_mask_test_test1.tif"
 
     ######################   NO USER INPUT BEYOND THIS POINT   ###############################
 
@@ -66,7 +66,7 @@ def main():
     #mask_raster.raster_mask_func(raster=input_raster, shape=shapes, output_folder=output_folder)
 
     result = tes_local_2.mask_raster_test(outname)
-    #export_arr.out_array(outname=outname, arr=result, input_file=input_raster, dtype="float32")
+    export_arr.out_array(outname=outname, arr=result, input_file=input_raster, dtype="float32")
 
     #result = apply_along_axis.parallel_apply_along_axis(func1d=function.stdev, arr=arr, axis=0, cores=mp.cpu_count())
     #export_arr.out_array(outname=outname, arr=result, input_file = input_raster, dtype="float32")
