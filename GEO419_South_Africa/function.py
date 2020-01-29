@@ -27,6 +27,36 @@ def stdev(arr1d):
     return np.std(arr1d)
 
 
+def improved_stdev(arr1d):
+    import numpy as np
+    diff1 = np.mean(arr1d)-3*np.std(arr1d)
+    if np.min(arr1d) < diff1:
+        return 1
+    else:
+        return 0
+
+
+def threshold(arr1d):
+    import numpy as np
+    if np.min(arr1d) < -20:
+        return 1
+    else:
+        return 0
+
+
+def combined(arr1d):
+    import numpy as np
+    diff = np.max(arr1d) - np.min(arr1d)
+    sigma = np.mean(arr1d) - 3 * np.std(arr1d)
+    if diff >= 8:
+        if np.min(arr1d) < sigma:
+            return 1
+        else:
+            return 0
+    else:
+        return 0
+
+
 def amplitude_if_test(arr1d):
     import numpy as np
     diff = np.max(arr1d) - np.min(arr1d)
