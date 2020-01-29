@@ -47,8 +47,8 @@ def threshold(arr1d):
 def combined(arr1d):
     import numpy as np
     diff = np.max(arr1d) - np.min(arr1d)
-    sigma = np.mean(arr1d) - 3 * np.std(arr1d)
-    if diff >= 8:
+    sigma = np.mean(arr1d) - 2.5 * np.std(arr1d)
+    if diff >= 7:
         if np.min(arr1d) < sigma:
             return 1
         else:
@@ -60,9 +60,9 @@ def combined(arr1d):
 def amplitude_if_test(arr1d):
     import numpy as np
     diff = np.max(arr1d) - np.min(arr1d)
-    if diff < 7.5:
+    if diff < 9:
         return 0
-    if diff >= 7.5:
+    if diff >= 9:
         return 1
 
 
@@ -105,19 +105,19 @@ def slope_vs_slope(arr1d):
         if slope_list[0][0][0][1] - slope_list[0][0][1] > 3:
             return 1
         else:
-            return 2
+            return 0
 
     if slope_list[0][0][1] > 0 and slope_list[0][1] < 0:
         if slope_list[0][0][1] - slope_list[0][1] > 3:
             return 3
         else:
-            return 4
+            return 0
 
     if slope_list[0][1] > 0 and slope_list[1] < 0:
         if slope_list[0][1] - slope_list[1] > 3:
             return 5
         else:
-            return 6
+            return 0
     else:
         return 0
 
