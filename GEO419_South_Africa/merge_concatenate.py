@@ -91,11 +91,11 @@ def main():
 
     #mask_raster.raster_mask_func(raster=input_raster, shape=shapes, output_folder=output_folder)
 
-    result = tes_local_2.mask_raster_test(outname)
-    export_arr.out_array(outname=outname, arr=result, input_file=input_raster, dtype="float32")
+    #result = tes_local_2.mask_raster_test(outname)
+    #export_arr.out_array(outname=outname, arr=result, input_file=input_raster, dtype="float32")
 
-    #result = apply_along_axis.parallel_apply_along_axis(func1d=function.stdev, arr=arr, axis=0, cores=mp.cpu_count())
-    #export_arr.out_array(outname=outname, arr=result, input_file = input_raster, dtype="float32")
+    result = apply_along_axis.parallel_apply_along_axis(func1d=function.stdev, arr=arr, axis=0, cores=mp.cpu_count())
+    export_arr.out_array(outname=outname, arr=result, input_file = input_raster, dtype="float32")
     ### maybe add function wich checks used func1d and chosen dtype and lets you know before programm runs
 
 ### catch error of files dtype: ValueError: the array's dtype 'float32' does not match the file's dtype 'int32'  ####
