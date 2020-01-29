@@ -37,7 +37,7 @@ def main():
     # raster_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester\Vorlesungsmitschriften/GEO402 - Ableitung von Landoberflächenparametern/Subset/"
 
     # Input file name
-    raster_filename = "S1A_VH_Agulhas_50m_selected_bands_VH_subset2.tif"
+    raster_filename = "S1_A_VH_agulhas_full_study_site_50m"
     #raster_filename = "SubsetVH.tif"
     # shape_filename = "threshold_VH.shp"
 
@@ -49,7 +49,7 @@ def main():
     # output_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester\Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/GEO402_Output/"
 
     # Output File Name:
-    output_file = raster_filename + "_combined_VH_2.tif"
+    output_file = raster_filename + "_sl_v_sl_subset_test1.tif"
 
     ######################   NO USER INPUT BEYOND THIS POINT   ###############################
 
@@ -94,7 +94,7 @@ def main():
     #result = tes_local_2.mask_raster_test(outname)
     #export_arr.out_array(outname=outname, arr=result, input_file=input_raster, dtype="float32")
 
-    result = apply_along_axis.parallel_apply_along_axis(func1d=function.combined, arr=arr, axis=0, cores=mp.cpu_count())
+    result = apply_along_axis.parallel_apply_along_axis(func1d=function.slope_vs_slope, arr=arr, axis=0, cores=mp.cpu_count())
     export_arr.out_array(outname=outname, arr=result, input_file = input_raster, dtype="int32")
     ### maybe add function wich checks used func1d and chosen dtype and lets you know before programm runs
 
