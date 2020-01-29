@@ -90,8 +90,8 @@ def slope_vs_slope(arr1d):
                 for i in range(wanted_parts)]
 
     # split time series and list of time series indices in 4 subarrays
-    time_series_split = split_list(time_series, wanted_parts=4)
-    time_series_index_split = split_list(time_series_index, wanted_parts=4)
+    time_series_split = split_list(time_series, wanted_parts=5)
+    time_series_index_split = split_list(time_series_index, wanted_parts=5)
     slope_list = []
 
     # calculate linear regression for each time series subarray
@@ -101,26 +101,33 @@ def slope_vs_slope(arr1d):
         slope_list = [slope_list, slope]        # weird list append, cause .append doesnt work with multiprocessing
 
     # check for dropping slope values from one quarter of time series to next
+    x = 0
+
+    if slope_list[0][0][0][0][1] > 0 and slope_list[0][0][0][1] < 0:
+        if slope_list[0][0][0][0][1] - slope_list[0][0][0][1] > 3:
+            x = x + 1
+        else:
+            x = 2
     if slope_list[0][0][0][1] > 0 and slope_list[0][0][1] < 0:
         if slope_list[0][0][0][1] - slope_list[0][0][1] > 3:
-            return 1
+            x = x + 305
         else:
-            return 0
+            x = 400
 
     if slope_list[0][0][1] > 0 and slope_list[0][1] < 0:
         if slope_list[0][0][1] - slope_list[0][1] > 3:
-            return 3
+            x = x + 500
         else:
-            return 0
+            x = x + 600
 
     if slope_list[0][1] > 0 and slope_list[1] < 0:
         if slope_list[0][1] - slope_list[1] > 3:
-            return 5
+            x = x + 700
         else:
-            return 0
-    else:
-        return 0
-
+            x = x + 800
+    # else:
+    #     x = 100
+    return x
     #### UNFERTIG ####
 
 
