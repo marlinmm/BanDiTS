@@ -32,7 +32,7 @@ def main():
 
     # Input Folder Marlin:
     raster_folder = "C:/Users/marli/Desktop/GEO402_Testdaten/Input_Files/Raster/"
-    shape_folder = "C:/Users/marli/Desktop/GEO402_Testdaten/Input_Files/Shapes/"
+    #shape_folder = "C:/Users/marli/Desktop/GEO402_Testdaten/Input_Files/Shapes/"
     # Input Folder Jonas:
     # raster_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester\Vorlesungsmitschriften/GEO402 - Ableitung von Landoberflächenparametern/Subset/"
 
@@ -63,18 +63,18 @@ def main():
         # os.makedirs(subdir, exist_ok=True)
 
     input_raster = raster_folder + raster_filename
-    input_shape = shape_folder + shape_filename
+    #input_shape = shape_folder + shape_filename
     outname = output_folder + output_file
 
     # arr: full size numpy array 3D XxYxZ 200x300x100
     arr = preprocessing.rio_array(input_raster)
-    shp = preprocessing.fiona_shape(shape_path = input_shape)
-    shapes = [feature["geometry"] for feature in shp]
-    shapes1 = [shapes[0]]
-    print(shapes1)
-    print(shapes[0])
-    print(type(shapes1))
-    print(type(shapes[0]))
+    #shp = preprocessing.fiona_shape(shape_path = input_shape)
+    #shapes = [feature["geometry"] for feature in shp]
+    #shapes1 = [shapes[0]]
+    #print(shapes1)
+    #print(shapes[0])
+    #print(type(shapes1))
+    #print(type(shapes[0]))
 
 
     #print(shp)
@@ -94,8 +94,8 @@ def main():
     #result = tes_local_2.mask_raster_test(outname)
     #export_arr.out_array(outname=outname, arr=result, input_file=input_raster, dtype="float32")
 
-    result = apply_along_axis.parallel_apply_along_axis(func1d=function.stdev, arr=arr, axis=0, cores=mp.cpu_count())
-    export_arr.out_array(outname=outname, arr=result, input_file = input_raster, dtype="float32")
+    result = apply_along_axis.parallel_apply_along_axis(func1d=function.combined, arr=arr, axis=0, cores=mp.cpu_count())
+    export_arr.out_array(outname=outname, arr=result, input_file = input_raster, dtype="int32")
     ### maybe add function wich checks used func1d and chosen dtype and lets you know before programm runs
 
 ### catch error of files dtype: ValueError: the array's dtype 'float32' does not match the file's dtype 'int32'  ####
