@@ -6,24 +6,50 @@ from datetime import datetime
 start_time = datetime.now()
 
 def main():
+    # # Input Folder Marlin:
+    # raster_folder = "C:/Users/marli/Desktop/GEO402_Testdaten/Input_Files/Raster/"
+    # shape_folder = "C:/Users/marli/Desktop/GEO402_Testdaten/Input_Files/Shapes/"
+    # # Input Folder Jonas:
+    # # raster_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester/Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/GEO402_Testdaten/"
+    #
+    # # Input file name
+    # raster_filename = "S1A_VH_Agulhas_50m_selected_bands_VH_subset2.tif"
+    # shape_filename = "fire_feb_2017_subset_reproj.shp"
+    #
+    #
+    # # Output Folder Marlin:
+    # output_folder = "C:/Users/marli/Desktop/GEO402_Testdaten/AAA_output/"
+    # # Output Folder Jonas:
+    # #output_folder = ""
+    #
+    # # Output File Name:
+    # output_file = raster_filename + "_mask_test_test1.tif"
+    #
+    # ######################   NO USER INPUT BEYOND THIS POINT   ###############################
+
+
+    ###################################     INPUT    ########################################
+
     # Input Folder Marlin:
     raster_folder = "C:/Users/marli/Desktop/GEO402_Testdaten/Input_Files/Raster/"
     shape_folder = "C:/Users/marli/Desktop/GEO402_Testdaten/Input_Files/Shapes/"
     # Input Folder Jonas:
-    # raster_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester/Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/GEO402_Testdaten/"
+    # raster_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester\Vorlesungsmitschriften/GEO402 - Ableitung von Landoberflächenparametern/Subset/"
 
     # Input file name
     raster_filename = "S1A_VH_Agulhas_50m_selected_bands_VH_subset2.tif"
-    shape_filename = "fire_feb_2017_subset_reproj.shp"
+    #raster_filename = "SubsetVH.tif"
+    # shape_filename = "threshold_VH.shp"
 
+    ###################################     OUTPUT    ########################################
 
     # Output Folder Marlin:
     output_folder = "C:/Users/marli/Desktop/GEO402_Testdaten/AAA_output/"
     # Output Folder Jonas:
-    #output_folder = ""
+    # output_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester\Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/GEO402_Output/"
 
     # Output File Name:
-    output_file = raster_filename + "_mask_test_test1.tif"
+    output_file = raster_filename + "_combined_VH_2.tif"
 
     ######################   NO USER INPUT BEYOND THIS POINT   ###############################
 
