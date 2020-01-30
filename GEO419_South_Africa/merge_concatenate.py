@@ -23,7 +23,7 @@ def main():
     # output_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester\Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/GEO402_Output/"
 
     # Output File Name:
-    output_file = raster_filename + "_slope_slope_min.tif"
+    output_file = raster_filename + "_stdev_test_2111231.tif"
     ######################   NO USER INPUT BEYOND THIS POINT   ###############################
 
 
@@ -34,7 +34,7 @@ def main():
     arr = preprocessing.rio_array(input_raster)
 
     # crating results with calling wnated algorithm in parallel_apply_along_axis for quick runtime
-    result = apply_along_axis.parallel_apply_along_axis(func1d=function.slope_minimum, arr=arr, axis=0, cores=mp.cpu_count())
+    result = apply_along_axis.parallel_apply_along_axis(func1d=function.stdev, arr=arr, axis=0, cores=mp.cpu_count())
 
     # selecting dtype based on result
     dtype = type(result[0][0])
