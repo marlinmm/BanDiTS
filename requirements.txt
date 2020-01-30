@@ -1,3 +1,5 @@
+fiona
+scipy
 pathos
 numpy
 rasterio
