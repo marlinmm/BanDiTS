@@ -49,7 +49,7 @@ def main():
     # output_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester\Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/GEO402_Output/"
 
     # Output File Name:
-    output_file = raster_filename + "_sl_v_sl_subset_test1.tif"
+    output_file = raster_filename + "_threshold_20.tif"
 
     ######################   NO USER INPUT BEYOND THIS POINT   ###############################
 
@@ -94,8 +94,9 @@ def main():
     #result = tes_local_2.mask_raster_test(outname)
     #export_arr.out_array(outname=outname, arr=result, input_file=input_raster, dtype="float32")
 
-    result = apply_along_axis.parallel_apply_along_axis(func1d=function.slope_vs_slope, arr=arr, axis=0, cores=mp.cpu_count())
-    export_arr.out_array(outname=outname, arr=result, input_file = input_raster, dtype="int32")
+    result = apply_along_axis.parallel_apply_along_axis(func1d=function.threshold, arr=arr, axis=0, cores=mp.cpu_count())
+    dtype = type(result[0][0])
+    export_arr.out_array(outname=outname, arr=result, input_file=input_raster, dtype=dtype)
     ### maybe add function wich checks used func1d and chosen dtype and lets you know before programm runs
 
 ### catch error of files dtype: ValueError: the array's dtype 'float32' does not match the file's dtype 'int32'  ####
