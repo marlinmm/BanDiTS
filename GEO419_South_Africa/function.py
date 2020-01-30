@@ -100,9 +100,8 @@ def slope_vs_slope(arr1d):
         i +=1
         slope_list = [slope_list, slope]        # weird list append, cause .append doesnt work with multiprocessing
 
-    # check for dropping slope values from one quarter of time series to next
+    # check for dropping slope values from one fifth of time series to next
     x = 0
-
     if slope_list[0][0][0][0][1] > 0 and slope_list[0][0][0][1] < 0:
         if slope_list[0][0][0][0][1] - slope_list[0][0][0][1] > 3:
             x = x + 1
@@ -130,3 +129,13 @@ def slope_vs_slope(arr1d):
     return x
 
 
+def percentile_year(arr1d):
+    import numpy as np
+    # do stuff here
+    np.percentile(arr1d)
+    #https://docs.scipy.org/doc/numpy/reference/generated/numpy.percentile.html
+
+
+# recurrence matrix
+# https://pypi.org/project/PyRQA/
+# http://www.pik-potsdam.de/~donges/pyunicorn/api/timeseries/recurrence_plot.html
