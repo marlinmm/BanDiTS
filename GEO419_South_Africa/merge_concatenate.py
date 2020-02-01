@@ -5,6 +5,7 @@ from datetime import datetime
 start_time = datetime.now()
 
 def main():
+
     ###################################     INPUT    ########################################
 
     # Input Folder Marlin:
@@ -17,6 +18,7 @@ def main():
     # raster_filename = "SubsetVH.tif"
 
     ###################################     OUTPUT    ########################################
+
     # Output Folder Marlin:
     output_folder = "C:/Users/marli/Desktop/GEO402_Testdaten/AAA_output/"
     # Output Folder Jonas:
@@ -24,8 +26,8 @@ def main():
 
     # Output File Name:
     output_file = raster_filename + "_stdev_test_2111231.tif"
-    ######################   NO USER INPUT BEYOND THIS POINT   ###############################
 
+    ######################   NO USER INPUT BEYOND THIS POINT   ###############################
 
     input_raster = raster_folder + raster_filename
     outname = output_folder + output_file
