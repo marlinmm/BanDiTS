@@ -23,6 +23,9 @@ def rio_array(input_file):
     arr = np.delete(arr, no_data[0], 0) # delete all bands with -99 values
 
     # only for "aghulas test site" to delete 2 layers, where top third was -99
-    arr = np.delete(arr, 16, 0)
-    arr = np.delete(arr, 26, 0)
-    return arr
+    if len(no_data[0]) > 0:
+        arr = np.delete(arr, 16, 0)
+        arr = np.delete(arr, 26, 0)
+        return arr
+    else:
+        return arr
