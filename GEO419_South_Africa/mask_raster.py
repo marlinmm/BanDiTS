@@ -39,14 +39,11 @@ def mask_raster_test():
                          "transform": out_transform,
                          "nodata": 0. })
 
-        #print(ras_meta)
-        #print(out_image)
+
         list1 = []
         for j in range(0, len(out_image)):
             tmp = np.nanmean(out_image[j])
             list1.append(tmp)
-        #print(list1)
-
         plt.plot(list1)
         plt.show()
 
