@@ -2,11 +2,6 @@ import numpy as np
 
 
 # func1d: functions to be applied on 1D array
-def quantile(arr1d, percentile=0.5):
-    import numpy as np
-    return np.percentile(arr1d, percentile)
-
-
 def minimum(arr1d):
     import numpy as np
     return np.min(arr1d)
@@ -124,8 +119,6 @@ def slope_vs_slope(arr1d):
             x = x + 700
         else:
             x = x + 800
-    # else:
-    #     x = 100
     return x
 
 
@@ -135,7 +128,18 @@ def percentile_year(arr1d):
     np.percentile(arr1d)
     #https://docs.scipy.org/doc/numpy/reference/generated/numpy.percentile.html
 
+    # def quantile(arr1d, percentile=0.5):
+    #     import numpy as np
+    #     return np.percentile(arr1d, percentile)
 
-# recurrence matrix
+
+
+
+# Recurrence matrix:
 # https://pypi.org/project/PyRQA/
 # http://www.pik-potsdam.de/~donges/pyunicorn/api/timeseries/recurrence_plot.html
+
+
+# Convolution -> for use in filtering
+# http://juanreyero.com/article/python/python-convolution.html
+# https://stackoverflow.com/questions/20036663/understanding-numpys-convolve
