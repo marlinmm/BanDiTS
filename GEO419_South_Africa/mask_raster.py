@@ -1,8 +1,10 @@
 import fiona
 import rasterio as rio
 import rasterio.mask
+import numpy as np
 import csv
 import matplotlib.pyplot as plt
+import scipy.signal as sig
 from GEO419_South_Africa import preprocessing
 from GEO419_South_Africa import export_arr
 
@@ -44,8 +46,65 @@ def mask_raster_test():
         for j in range(0, len(out_image)):
             tmp = np.nanmean(out_image[j])
             list1.append(tmp)
-        plt.plot(list1)
-        plt.show()
+
+
+        med_filter = sig.medfilt(list1, kernel_size=9)
+
+
+        kernel = [-5, -5, -5, -5, 0, 5, 5, 5, 5]
+        #print(kernel)
+        out = np.float32(np.convolve(med_filter, kernel, "valid"))
+
+
+        from scipy.signal import find_peaks
+        peaks = find_peaks(out, height=20)
+        print(peaks)
+        print(peaks[0])
+
+        # median_value = np.median(out)
+        # mean_value = np.mean(out)
+        #
+        # data1 = list1
+        # data2 = med_filter
+        # data3 = out
+        # data4 = [median_value] * len(data3)
+        # data5 = [mean_value] * len(data3)
+        #
+        #
+        #
+        # fig, ax1 = plt.subplots()
+        #
+        # color = '#bebebe'
+        # ax1.set_xlabel('no. of values')
+        # ax1.plot(data1, color=color, linewidth=1)
+        #
+        # color = 'tab:red'
+        # ax1.set_ylabel('median', color=color)  # we already handled the x-label with ax1
+        # ax1.plot(data2, color=color)
+        # ax1.tick_params(axis='y', labelcolor=color)
+        #
+        # ax3 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
+        #
+        # color = 'tab:green'
+        # ax3.set_ylabel('Edge detection', color=color)  # we already handled the x-label with ax1
+        # ax3.plot(data3, color=color)
+        # ax3.tick_params(axis='y', labelcolor=color)
+        #
+        # color = 'tab:blue'
+        # ax3.plot(data4, color=color)
+        #
+        # color = '#ffff00'
+        # ax3.plot(data5, color=color)
+        #
+        # fig.tight_layout()  # otherwise the right y-label is slightly clipped
+        # plt.show()
+
+        # fig, ax1 = plt.subplots()
+        # # plt.plot(out)
+        # ax1.set_ylabel("db" + str(i))
+        # plt.plot(list1)
+        # plt.show()
+
 
 
 
@@ -68,4 +127,4 @@ def mask_raster_test():
 
 
 #### activate for testing this file standalone ####
-#mask_raster_test()
+mask_raster_test()
