@@ -15,7 +15,7 @@ def main():
     # raster_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester\Vorlesungsmitschriften/GEO402 - Ableitung von Landoberflächenparametern/Subset/"
 
     # Input file name
-    raster_filename = "S1A_VH_Agulhas_50m_selected_bands_VH_subset2.tif"
+    raster_filename = "S1_A_VH_agulhas_full_study_site_50m"
     # raster_filename = "SubsetVH.tif"
 
     ###################################     OUTPUT    ########################################
@@ -26,7 +26,7 @@ def main():
     # output_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester\Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/GEO402_Output/"
 
     # Output File Name:
-    output_file = raster_filename + "_test5.tif"
+    output_file = raster_filename + "_test3.tif"
 
     ######################   NO USER INPUT BEYOND THIS POINT   ###############################
 
@@ -37,15 +37,15 @@ def main():
     arr = preprocessing.rio_array(input_raster)
 
     # creating filtered array depending on set filter function
-    # filtered_arr = apply_along_axis.parallel_apply_along_axis(func1d=filter_functions.mean_filter, arr=arr, axis=0, cores=mp.cpu_count())
+    # filtered_arr = apply_along_axis.parallel_apply_along_axis(func1d=filter_functions.mean_filter5, arr=arr, axis=0, cores=mp.cpu_count())
     # filtered_arr = np.rollaxis(filtered_arr, 2)
     # filtered_arr = np.rollaxis(filtered_arr, 1)
     # filtered_arr = np.rollaxis(filtered_arr, 2)
-    #dtype = type(filtered_arr[0][0][0])
-    #export_arr.functions_out_array(outname=outname, arr=filtered_arr, input_file=input_raster, dtype=dtype)
+    # dtype = type(filtered_arr[0][0][0])
+    # export_arr.functions_out_array(outname=outname, arr=filtered_arr, input_file=input_raster, dtype=dtype)
 
 
-    # crating results with calling wanted algorithm in parallel_apply_along_axis for quick runtime
+    # creating results with calling wanted algorithm in parallel_apply_along_axis for quick runtime
     result = apply_along_axis.parallel_apply_along_axis(func1d=function.minimum, arr=arr, axis=0, cores=mp.cpu_count())
 
     # selecting dtype based on result
