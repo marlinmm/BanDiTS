@@ -30,6 +30,8 @@ def functions_out_array(outname, arr, input_file, dtype):
             dst.write(arr,)
 
 
+# only necessary for input files with -99 values following ENVI stacking
+# count = 117 only applicable for agulhas dataset
 def cleaned_out_array(outname, arr, input_file, dtype):
     with rio.open(input_file) as src:
         ras_meta = src.profile
