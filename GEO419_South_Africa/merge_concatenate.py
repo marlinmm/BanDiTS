@@ -1,6 +1,7 @@
-from GEO419_South_Africa import preprocessing, apply_along_axis, export_arr, function, mask_raster
+from GEO419_South_Africa import preprocessing, apply_along_axis, export_arr, function, filter_functions
 from pathos import multiprocessing as mp
 from datetime import datetime
+import numpy as np
 
 start_time = datetime.now()
 
@@ -25,7 +26,7 @@ def main():
     # output_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester\Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/GEO402_Output/"
 
     # Output File Name:
-    output_file = raster_filename + "_stdev_test_21112hjk3dfghd1.tif"
+    output_file = raster_filename + "_test5.tif"
 
     ######################   NO USER INPUT BEYOND THIS POINT   ###############################
 
@@ -35,15 +36,23 @@ def main():
     # arr: full size numpy array 3D XxYxZ 200x300x100
     arr = preprocessing.rio_array(input_raster)
 
-    # crating results with calling wnated algorithm in parallel_apply_along_axis for quick runtime
-    result = apply_along_axis.parallel_apply_along_axis(func1d=function.slope, arr=arr, axis=0, cores=mp.cpu_count())
+    # creating filtered array depending on set filter function
+    # filtered_arr = apply_along_axis.parallel_apply_along_axis(func1d=filter_functions.mean_filter, arr=arr, axis=0, cores=mp.cpu_count())
+    # filtered_arr = np.rollaxis(filtered_arr, 2)
+    # filtered_arr = np.rollaxis(filtered_arr, 1)
+    # filtered_arr = np.rollaxis(filtered_arr, 2)
+    #dtype = type(filtered_arr[0][0][0])
+    #export_arr.functions_out_array(outname=outname, arr=filtered_arr, input_file=input_raster, dtype=dtype)
+
+
+    # crating results with calling wanted algorithm in parallel_apply_along_axis for quick runtime
+    result = apply_along_axis.parallel_apply_along_axis(func1d=function.minimum, arr=arr, axis=0, cores=mp.cpu_count())
 
     # selecting dtype based on result
     dtype = type(result[0][0])
 
     # exporting result to new raster
     export_arr.functions_out_array(outname=outname, arr=result, input_file=input_raster, dtype=dtype)
-
 
     end_time = datetime.now()
     print("end-time = ", end_time-start_time, "Hr:min:sec")
