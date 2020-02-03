@@ -4,7 +4,7 @@ import rasterio as rio
 def functions_out_array(outname, arr, input_file, dtype):
     arr_shape = arr.shape
     tmp = arr_shape[0]
-    if len(arr_shape) < 2:
+    if len(arr_shape) <= 2:
         with rio.open(input_file) as src:
             ras_meta = src.profile
             corr_count = {'count': 1}
