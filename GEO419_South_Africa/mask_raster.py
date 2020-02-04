@@ -28,7 +28,7 @@ from GEO419_South_Africa import export_arr
 list_list = []
 def mask_raster_test():
     import numpy as np
-    shapefile = fiona.open("C:/Users/marli/Desktop/GEO402_Testdaten/Input_Files/Shapes/2018_merge_clipped_reproj.shp", "r")
+    shapefile = fiona.open("C:/Users/marli/Desktop/GEO402_Testdaten/Input_Files/Shapes/pivot_test_reproj.shp", "r")
     shapes = [feature["geometry"] for feature in shapefile]
 
     for i in range(0, len(shapes)):
@@ -48,18 +48,20 @@ def mask_raster_test():
             list1.append(tmp)
 
 
-        med_filter = sig.medfilt(list1, kernel_size=9)
+        med_filter = sig.medfilt(list1, kernel_size=5)
 
 
-        kernel = [-5, -5, -5, -5, 0, 5, 5, 5, 5]
+        # kernel = [-5, -5, -5, -5, 0, 5, 5, 5, 5]
+        kernel = [-5, 0, 5]
         #print(kernel)
-        out = np.float32(np.convolve(med_filter, kernel, "valid"))
+        out = np.float32(np.convolve(-1*med_filter, kernel, "valid"))
 
 
         from scipy.signal import find_peaks
-        peaks = find_peaks(out, height=20)
-        print(peaks)
+        peaks = find_peaks(out, height=10, distance=10)
+        #print(peaks)
         print(peaks[0])
+        print(peaks[1])
 
         # median_value = np.median(out)
         # mean_value = np.mean(out)
