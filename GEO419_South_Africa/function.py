@@ -148,7 +148,7 @@ def combined_time(arr1d):
     sigma_list = []
     for i in range (0,len(time_series_index_split)):
         mea = np.mean(time_series_split[i])
-        std_mea = 1.5*np.std(time_series_split[i])
+        std_mea = 2*np.std(time_series_split[i])
         mini = min(time_series_split[i])
         sigma = mea - std_mea
         i +=1
@@ -157,27 +157,25 @@ def combined_time(arr1d):
 
     # check for dropping slope values from one fifth of time series to next
     temp = 0
-    if mini_list[0][0][0][0][1] < sigma_list[0][0][0][0][1]:
-        temp = temp + 1
-    #else:
-    #    temp = 2
+    # if mini_list[0][0][0][0][1] < sigma_list[0][0][0][0][1]:
+    #   # temp = temp + 1
+    #     return 1
     if mini_list[0][0][0][1] < sigma_list[0][0][0][1]:
-        temp = temp + 305
-    #else:
-    #    temp = temp + 400
-    if mini_list[0][0][1] < sigma_list[0][0][1]:
-        temp = temp + 500
-    #else:
-    #    temp = temp + 600
-    if mini_list[0][1] < sigma_list[0][1]:
-        temp = temp + 700
-
-    if mini_list[1] < sigma_list[1]:
-        temp = temp + 800
-    else:
-        return 0
+      return 1
+    # #else:
+    # #    temp = temp + 400
+    # elif mini_list[0][0][1] < sigma_list[0][0][1]:
+    #   temp = temp + 500
+    # #else:
+    # #    temp = temp + 600
+    # elif mini_list[0][1] < sigma_list[0][1]:
+    #   temp = temp + 700
+    # elif mini_list[1] < sigma_list[1]:
+    #   temp = temp + 800
+    # elif temp == 0:
+    #   return 0
+    else: return 0
     return temp
-
 
     # if sigma_list[0][0][0][1] > 0 and sigma_list[0][0][1] < 0:
     #     if sigma_list[0][0][0][1] - sigma_list[0][0][1] > 3:
@@ -201,7 +199,7 @@ def combined_time(arr1d):
 
 def find_peaks(arr1d):
     from scipy.signal import find_peaks
-    peaks = find_peaks(arr1d, height=25)
+    peaks = find_peaks(arr1d, height=35)
     if len(peaks[0]) >= 2 or len(peaks[0]) == 0:
         return 0
     if len(peaks[0]) == 1:
@@ -210,6 +208,14 @@ def find_peaks(arr1d):
         # print(peaks[0])
 
 
+
+def find_peaks2(arr1d):
+    from scipy.signal import find_peaks
+    peaks = find_peaks(-1*arr1d, height=40)
+    if len(peaks[0]) >= 1:
+        return 1
+    if len(peaks[0]) < 1:
+        return 0
 
 
 def percentile(arr1d):
