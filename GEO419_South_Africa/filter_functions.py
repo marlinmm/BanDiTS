@@ -37,8 +37,15 @@ def simple_edge_detection(arr1d):
         return 0
 
 
-def simple_edge_detection2(arr1d):
+def simple_edge_detection9(arr1d):
     import numpy as np
     kernel = [-5, -5, -5, -5, 0, 5, 5, 5, 5]
+    out = np.float32(np.convolve(arr1d, kernel, "valid"))
+    return out
+
+
+def simple_edge_detection3(arr1d):
+    import numpy as np
+    kernel = [-5, 0, 5]
     out = np.float32(np.convolve(arr1d, kernel, "valid"))
     return out
