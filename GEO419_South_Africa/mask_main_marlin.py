@@ -1,6 +1,5 @@
 #import os
-from GEO419_South_Africa import preprocessing, apply_along_axis, export_arr, function, mask_raster
-from pathos import multiprocessing as mp
+from GEO419_South_Africa import preprocessing, export_arr
 from datetime import datetime
 
 start_time = datetime.now()
@@ -31,15 +30,6 @@ def main():
 
     ######################   NO USER INPUT BEYOND THIS POINT   ###############################
 
-    # example of changeble output names
-        # basename = 'out{}.tif'
-        # tuning = 3
-        # outname = os.path.join(raster_folder, basename.format(tuning))
-
-    # example of new sub directory creation
-        # subdir = os.path.join(raster_folder, 'sub')
-        # os.makedirs(subdir, exist_ok=True)
-
     input_raster = raster_folder + raster_filename
     #input_shape = shape_folder + shape_filename
     outname = output_folder + output_file
@@ -49,16 +39,6 @@ def main():
     #shp = preprocessing.fiona_shape(shape_path = input_shape)
     #shapes = [feature["geometry"] for feature in shp]
     #shapes1 = [shapes[0]]
-    #print(shapes1)
-    #print(shapes[0])
-    #print(type(shapes1))
-    #print(type(shapes[0]))
-
-
-    #print(shp)
-    #print(next(shp))
-    #print(shp[0])
-    #print(shp[1])
 
     #burn_dates = preprocessing.fiona_burn_date(input_shape)
     #print(burn_dates)
