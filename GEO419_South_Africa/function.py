@@ -165,7 +165,7 @@ def combined_time(arr1d):
     else:
         return 0
     return temp
-    ### UNFERTIG ###
+    ### NOT WORKING PROPERLY ###
 
 def find_peaks(arr1d):
     from scipy.signal import find_peaks
@@ -176,13 +176,14 @@ def find_peaks(arr1d):
         return 1
 
 
-def find_peaks2(arr1d):
+def find_troughs(arr1d):
     from scipy.signal import find_peaks
     peaks = find_peaks(-1*arr1d, height=40)
     if len(peaks[0]) >= 1:
         return 1
     if len(peaks[0]) < 1:
         return 0
+    ### NOT WORKING PROPERLY ###
 
 
 def percentile(arr1d):
