@@ -86,9 +86,7 @@ def slope_vs_slope(arr1d):
 
     # split time series and list of time series indices in 4 subarrays
     time_series_split = split_list(time_series, wanted_parts=5)
-    #print(time_series_split[0])
     time_series_index_split = split_list(time_series_index, wanted_parts=5)
-    #print(time_series_index_split[0])
 
     # calculate linear regression for each time series subarray
     slope_list = []
@@ -126,7 +124,6 @@ def slope_vs_slope(arr1d):
 
 def combined_time(arr1d):
     import numpy as np
-    from scipy import stats
     time_series = arr1d
     arr_shape = arr1d.shape[0]
     time_series_index = np.indices((arr_shape,))[0]
@@ -139,11 +136,9 @@ def combined_time(arr1d):
 
     # split time series and list of time series indices in 4 subarrays
     time_series_split = split_list(time_series, wanted_parts=5)
-    #print(time_series_split[0])
-    #print("sdsdasdasd")
     time_series_index_split = split_list(time_series_index, wanted_parts=5)
 
-    # calculate linear regression for each time series subarray
+    # calculate mean, stdev and minimum of each subarray
     mini_list = []
     sigma_list = []
     for i in range (0,len(time_series_index_split)):
@@ -155,47 +150,22 @@ def combined_time(arr1d):
         mini_list = [mini_list, mini]
         sigma_list = [sigma_list, sigma]        # weird list append, cause .append doesnt work with multiprocessing
 
-    # check for dropping slope values from one fifth of time series to next
+    # check, if minimum of time n is smaller than 2 sigma probability space
     temp = 0
-    # if mini_list[0][0][0][0][1] < sigma_list[0][0][0][0][1]:
-    #   # temp = temp + 1
+    # if mini_list[0][0][0][0][1] < sigma_list[0][0][0][0][1]:      # first time frame
     #     return 1
-    if mini_list[0][0][0][1] < sigma_list[0][0][0][1]:
+    if mini_list[0][0][0][1] < sigma_list[0][0][0][1]:              # second time frame
       return 1
-    # #else:
-    # #    temp = temp + 400
-    # elif mini_list[0][0][1] < sigma_list[0][0][1]:
-    #   temp = temp + 500
-    # #else:
-    # #    temp = temp + 600
-    # elif mini_list[0][1] < sigma_list[0][1]:
-    #   temp = temp + 700
-    # elif mini_list[1] < sigma_list[1]:
-    #   temp = temp + 800
-    # elif temp == 0:
-    #   return 0
-    else: return 0
+    # if mini_list[0][0][1] < sigma_list[0][0][1]:                  # third time frame
+    #   return 1
+    # if mini_list[0][1] < sigma_list[0][1]:                        # fourth time frame
+    #   return 1
+    # if mini_list[1] < sigma_list[1]:                              # fifth time frame
+    #   return 1
+    else:
+        return 0
     return temp
-
-    # if sigma_list[0][0][0][1] > 0 and sigma_list[0][0][1] < 0:
-    #     if sigma_list[0][0][0][1] - sigma_list[0][0][1] > 3:
-    #         temp = temp + 305
-    #     else:
-    #         temp = 400
-    #
-    # if sigma_list[0][0][1] > 0 and sigma_list[0][1] < 0:
-    #     if sigma_list[0][0][1] - sigma_list[0][1] > 3:
-    #         temp = temp + 500
-    #     else:
-    #         temp = temp + 600
-    #
-    # if sigma_list[0][1] > 0 and sigma_list[1] < 0:
-    #     if sigma_list[0][1] - sigma_list[1] > 3:
-    #         temp = temp + 700
-    #     else:
-    #         temp = temp + 800
-    # return temp
-
+    ### UNFERTIG ###
 
 def find_peaks(arr1d):
     from scipy.signal import find_peaks
@@ -204,9 +174,6 @@ def find_peaks(arr1d):
         return 0
     if len(peaks[0]) == 1:
         return 1
-        # print(peaks)
-        # print(peaks[0])
-
 
 
 def find_peaks2(arr1d):
@@ -223,13 +190,6 @@ def percentile(arr1d):
     upper = np.percentile(arr1d, 99)
     lower = np.percentile(arr1d, 1)
     return upper - lower
-
-    #https://docs.scipy.org/doc/numpy/reference/generated/numpy.percentile.html
-    # def quantile(arr1d, percentile=90):
-    #     import numpy as np
-    #     return np.percentile(arr1d, percentile)
-
-
 
 
 # Recurrence matrix:
