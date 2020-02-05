@@ -4,11 +4,13 @@ def mean_filter5(arr1d):
     out = np.float32(np.convolve(arr1d, kernel, "valid"))
     return(out)
 
+
 def mean_filter9(arr1d):
     import numpy as np
     kernel = (1 / 9.0) * np.ones((9))
     out = np.float32(np.convolve(arr1d, kernel, "valid"))
     return(out)
+
 
 def median_filter5(arr1d):
     import scipy.signal as sig
@@ -26,6 +28,7 @@ def median_filter11(arr1d):
     import scipy.signal as sig
     out = sig.medfilt(arr1d, kernel_size= 11)
     return out
+
 
 def simple_edge_detection(arr1d):
     import numpy as np
