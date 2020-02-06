@@ -12,6 +12,7 @@ def functions_out_array(outname, arr, input_file, dtype):
 
         # make any necessary changes to raster properties, e.g.:
         ras_meta['dtype'] = dtype
+        #ras_meta['band'] = ["test"]*117
         #ras_meta['nodata'] = -99
 
         with rio.open(outname, 'w', **ras_meta) as dst:
@@ -19,7 +20,12 @@ def functions_out_array(outname, arr, input_file, dtype):
     else:
         with rio.open(input_file) as src:
             ras_meta = src.profile
+            tags = src.tags()
+            print(ras_meta)
+            print(tags)
             corr_count = {'count': tmp}
+            ras_meta['band'] = ["test"] * 117
+            #print(ras_meta)
             ras_meta.update(corr_count)
 
         # make any necessary changes to raster properties, e.g.:
