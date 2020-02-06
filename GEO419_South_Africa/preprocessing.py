@@ -29,3 +29,20 @@ def rio_array(input_file):
         return arr
     else:
         return arr
+
+
+def date_import(input_file):
+    raw_date_file = open(input_file, "r")
+    date_string = raw_date_file.read()
+    raw_date_file.close()
+    start_index = date_string.find("band names = {")
+    raw_date_string = date_string[start_index+14:len(date_string)-1]
+    raw_date_list = raw_date_string.split(sep=", ")
+    date_list = []
+    for i in range(0, len(raw_date_list)):
+        date_list.append(raw_date_list[i][raw_date_list[i].find("20"):raw_date_list[i].find("20")+8])
+    print(date_list)
+
+
+#date_import(input_file="C:/Users/marli/Desktop/GEO402_Testdaten/Input_Files/Raster/S1_A_VH_agulhas_full_study_site_50m.hdr")
+
