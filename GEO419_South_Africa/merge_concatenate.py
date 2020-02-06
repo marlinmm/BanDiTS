@@ -10,23 +10,23 @@ def main():
     ###################################     INPUT    ########################################
 
     # Input Folder Marlin:
-    # raster_folder = "C:/Users/marli/Desktop/GEO402_Testdaten/Input_Files/Raster/"
+    raster_folder = "C:/Users/marli/Desktop/GEO402_Testdaten/Input_Files/Raster/"
     # Input Folder Jonas:
-    raster_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester\Vorlesungsmitschriften/GEO402 - Ableitung von Landoberflächenparametern/Subset/"
+    # raster_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester\Vorlesungsmitschriften/GEO402 - Ableitung von Landoberflächenparametern/Subset/"
 
     # Input file name
-    # raster_filename = "S1_A_VH_agulhas_full_study_site_50m_median5.tif"
-    raster_filename = "SubsetVH.tif"
+    raster_filename = "S1_A_VH_agulhas_full_study_site_50m"
+    # raster_filename = "SubsetVH.tif"
 
     ###################################     OUTPUT    ########################################
 
     # Output Folder Marlin:
-    # output_folder = "C:/Users/marli/Desktop/GEO402_Testdaten/AAA_output/"
+    output_folder = "C:/Users/marli/Desktop/GEO402_Testdaten/AAA_output/"
     # Output Folder Jonas:
-    output_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester\Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/GEO402_Output/"
+    # output_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester\Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/GEO402_Output/"
 
     # Output File Name:
-    output_file = raster_filename[0:len(raster_filename)-4] + "_median_filtered.tif"
+    output_file = raster_filename[0:len(raster_filename)-4] + "_median_filtered3.tif"
 #simple_edge_detection
     ######################   NO USER INPUT BEYOND THIS POINT   ###############################
 
@@ -42,6 +42,11 @@ def main():
     filtered_arr = np.rollaxis(filtered_arr, 1)
     filtered_arr = np.rollaxis(filtered_arr, 2)
     dtype = type(filtered_arr[0][0][0])
+    #print(type(dtype)
+    #if type(dtype) == np.float64:
+    #    print("lalala")
+    # --> change float64 to float32
+
     export_arr.functions_out_array(outname=outname, arr=filtered_arr, input_file=input_raster, dtype=dtype)
 
 
