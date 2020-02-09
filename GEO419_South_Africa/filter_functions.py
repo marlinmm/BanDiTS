@@ -30,6 +30,20 @@ def median_filter11(arr1d):
     return out
 
 
+def sobel_filter9(arr1d):
+    import numpy as np
+    kernel = [-5, -5, -5, -5, 0, 5, 5, 5, 5]
+    out = np.float32(np.convolve(arr1d, kernel, "valid"))
+    return out
+
+
+def sobel_filter3(arr1d):
+    import numpy as np
+    kernel = [-5, 0, 5]
+    out = np.float32(np.convolve(arr1d, kernel, "valid"))
+    return out
+
+
 def simple_edge_detection(arr1d):
     import numpy as np
     kernel = [-5, -5, -5, -5, 0, 5, 5, 5, 5]
@@ -38,17 +52,3 @@ def simple_edge_detection(arr1d):
         return 1
     else:
         return 0
-
-
-def simple_edge_detection9(arr1d):
-    import numpy as np
-    kernel = [-5, -5, -5, -5, 0, 5, 5, 5, 5]
-    out = np.float32(np.convolve(arr1d, kernel, "valid"))
-    return out
-
-
-def simple_edge_detection3(arr1d):
-    import numpy as np
-    kernel = [-5, 0, 5]
-    out = np.float32(np.convolve(arr1d, kernel, "valid"))
-    return out
