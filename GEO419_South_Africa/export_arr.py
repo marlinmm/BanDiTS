@@ -1,7 +1,7 @@
 import rasterio as rio
 
 
-def functions_out_array(outname, arr, input_file, dtype):
+def functions_out_array(outname, arr, dates, input_file, dtype):
     arr_shape = arr.shape
     tmp = arr_shape[0]
     if len(arr_shape) <= 2:
@@ -10,43 +10,40 @@ def functions_out_array(outname, arr, input_file, dtype):
             corr_count = {'count': 1}
             ras_meta.update(corr_count)
 
-        # make any necessary changes to raster properties, e.g.:
+        # make any necessary changes to raster properties:
         ras_meta['dtype'] = dtype
-        #ras_meta['band'] = ["test"]*117
-        #ras_meta['nodata'] = -99
 
         with rio.open(outname, 'w', **ras_meta) as dst:
             dst.write(arr, 1)
     else:
         with rio.open(input_file) as src:
             ras_meta = src.profile
-            tags = src.tags()
-            print(ras_meta)
-            print(tags)
+            # tags = src.tags(1)
+            # print(tags)
             corr_count = {'count': tmp}
-            ras_meta['band'] = ["test"] * 117
-            #print(ras_meta)
             ras_meta.update(corr_count)
 
-        # make any necessary changes to raster properties, e.g.:
+        # make any necessary changes to raster properties:
         ras_meta['dtype'] = dtype
-        # ras_meta['nodata'] = -99
 
         with rio.open(outname, 'w', **ras_meta) as dst:
             dst.write(arr,)
 
 
-# only necessary for input files with -99 values following ENVI stacking
-# count = 117 only applicable for agulhas dataset
-def cleaned_out_array(outname, arr, input_file, dtype):
-    with rio.open(input_file) as src:
-        ras_meta = src.profile
-        corr_count = {'count': 117}
-        ras_meta.update(corr_count)
+######## DEPRECATED FUNCTION? ########
 
-    # make any necessary changes to raster properties, e.g.:
-    ras_meta['dtype'] = dtype
-    #ras_meta['nodata'] = -99
+# # only necessary for input files with -99 values following ENVI stacking
+# # count = 117 only applicable for agulhas dataset
+# def cleaned_out_array(outname, arr, input_file, dtype):
+#     with rio.open(input_file) as src:
+#         ras_meta = src.profile
+#         corr_count = {'count': 117}
+#         ras_meta.update(corr_count)
+#
+#     # make any necessary changes to raster properties, e.g.:
+#     ras_meta['dtype'] = dtype
+#
+#     with rio.open(outname, 'w', **ras_meta) as dst:
+#         dst.write(arr)
 
-    with rio.open(outname, 'w', **ras_meta) as dst:
-        dst.write(arr)
+######## DEPRECATED FUNCTION? ########
