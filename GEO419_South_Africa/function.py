@@ -62,6 +62,21 @@ def stdev(arr1d):
     import numpy as np
     return np.std(arr1d)
 
+def median(arr1d):
+    """
+    calculates the median of the time series for one pixel
+    ----------
+    arr1d: numpy.array
+        1D array representing the time series for one pixel
+
+    Returns
+    -------
+    numpy.float64
+        median of the time series for one pixel
+    """
+    import numpy as np
+    return np.median(arr1d)
+
 
 def improved_stdev(arr1d):
     """
@@ -114,7 +129,7 @@ def combined(arr1d):
     import numpy as np
     diff = np.max(arr1d) - np.min(arr1d)
     sigma = np.mean(arr1d) - 2 * np.std(arr1d)
-    if diff >= 5:
+    if diff >= 7:
         if np.min(arr1d) < sigma:
             return 1
         else:
@@ -139,7 +154,7 @@ def amplitude_if_test(arr1d):
     """
     import numpy as np
     diff = np.max(arr1d) - np.min(arr1d)
-    if diff < 6:
+    if diff < 8:
         return 0
     if diff >= 6:
         return 1
@@ -213,7 +228,7 @@ def slope_vs_slope(arr1d):
         return [alist[i * length // wanted_parts: (i + 1) * length // wanted_parts]
                 for i in range(wanted_parts)]
 
-    # split time series and list of time series indices in 4 subarrays
+    # split time series and list of time series indices in 5 subarrays
     time_series_split = split_list(time_series, wanted_parts=5)
     time_series_index_split = split_list(time_series_index, wanted_parts=5)
 
@@ -337,8 +352,8 @@ def find_troughs(arr1d):
 
 def percentile(arr1d):
     import numpy as np
-    upper = np.percentile(arr1d, 99)
-    lower = np.percentile(arr1d, 1)
+    upper = np.percentile(arr1d, 90)
+    lower = np.percentile(arr1d, 10)
     return upper - lower
 
 
