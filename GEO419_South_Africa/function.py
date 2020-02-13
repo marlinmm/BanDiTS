@@ -85,21 +85,23 @@ def improved_stdev(arr1d):
         return 0
 
 
-def threshold(arr1d, threshold):
+### def threshold(arr1d, threshold):
+def simple_threshold(arr1d):
     """
     simple threshold function, which checks, if the minimum value of the time series falls below a certain threshold
     ----------
     arr1d: numpy.array
         1D array representing the time series for one pixel
-    threshold: int
-        should be set between -15 and -25 for best results depending on use case
-
+    ### threshold: int
+    ###    should be set between -15 and -25 for best results depending on use case
+    ### DOESNT WORK LIKE THAT
     Returns
     -------
     numpy.int32
         returns either 1, if the minimum value is lower than the set threshold or returns 0 if this is not the case
     """
     import numpy as np
+    threshold = -20
     if np.min(arr1d) < threshold:
         return 1
     else:
@@ -296,7 +298,8 @@ def combined_time(arr1d):
     return temp
     ### NOT WORKING PROPERLY ###
 
-def find_peaks(arr1d, threshold):
+### def find_peaks(arr1d, threshold):
+def find_peaks(arr1d):
     """
     !!! STACK NEEDS TO BE MEDIAN- AND SOBEL-FILTERED BEFORE USE OF THIS FUNCTION (see filter_functions.py)!!!
     finds peaks greater than set height in median- and sobel-filtered time series for each pixel if there is only one
@@ -304,8 +307,9 @@ def find_peaks(arr1d, threshold):
     ----------
     arr1d: numpy.array
         1D array representing the time series for one pixel
-    threshold: int
-        should be set between 20 and 50 for best results
+    ### threshold: int
+    ###     should be set between 20 and 50 for best results
+    ### DOESNT WORK LIKE THAT
 
     Returns
     -------
@@ -313,6 +317,7 @@ def find_peaks(arr1d, threshold):
         returns either 1, if the time series contains one and only one peak higher than set threshold, otherwise 0
     """
     from scipy.signal import find_peaks
+    threshold = 35
     peaks = find_peaks(arr1d, height=threshold)
     if len(peaks[0]) >= 2 or len(peaks[0]) == 0:
         return 0
