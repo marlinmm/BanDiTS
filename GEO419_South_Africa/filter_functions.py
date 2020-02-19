@@ -26,7 +26,8 @@ def median_filter9(arr1d):
 
 def median_filter11(arr1d):
     import scipy.signal as sig
-    out = sig.medfilt(arr1d, kernel_size= 11)
+    import numpy as np
+    out = np.float32(sig.medfilt(arr1d, kernel_size= 11))
     return out
 
 
