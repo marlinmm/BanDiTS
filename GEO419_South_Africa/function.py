@@ -7,7 +7,7 @@ def minimum(arr1d):
         1D array representing the time series for one pixel
 
     Returns
-    -------
+    ----------
     numpy.float64
         minimum of the time series for one pixel
     """
@@ -23,7 +23,7 @@ def maximum(arr1d):
         1D array representing the time series for one pixel
 
     Returns
-    -------
+    ----------
     numpy.float64
         maximum of the time series for one pixel
     """
@@ -39,7 +39,7 @@ def mean(arr1d):
         1D array representing the time series for one pixel
 
     Returns
-    -------
+    ----------
     numpy.float64
         mean of the time series for one pixel
     """
@@ -55,7 +55,7 @@ def stdev(arr1d):
         1D array representing the time series for one pixel
 
     Returns
-    -------
+    ----------
     numpy.float64
         standard deviation of the time series for one pixel
     """
@@ -70,7 +70,7 @@ def median(arr1d):
         1D array representing the time series for one pixel
 
     Returns
-    -------
+    ----------
     numpy.float64
         median of the time series for one pixel
     """
@@ -87,7 +87,7 @@ def improved_stdev(arr1d):
         1D array representing the time series for one pixel
 
     Returns
-    -------
+    ----------
     numpy.int32
         returns either 1, if the minimum value is lower than the mean values minus two times the standard deviation
         or returns 0 if this is not the case
@@ -100,23 +100,20 @@ def improved_stdev(arr1d):
         return 0
 
 
-### def threshold(arr1d, threshold):
-def simple_threshold(arr1d):
+def simple_threshold(arr1d, threshold):
     """
     simple threshold function, which checks, if the minimum value of the time series falls below a certain threshold
     ----------
     arr1d: numpy.array
         1D array representing the time series for one pixel
-    ### threshold: int
-    ###    should be set between -15 and -25 for best results depending on use case
-    ### DOESNT WORK LIKE THAT
+    threshold: int
+        should be set between -15 and -25 for best results depending on use case
     Returns
-    -------
+    ----------
     numpy.int32
         returns either 1, if the minimum value is lower than the set threshold or returns 0 if this is not the case
     """
     import numpy as np
-    threshold = -20
     if np.min(arr1d) < threshold:
         return 1
     else:
@@ -138,7 +135,7 @@ def combined(arr1d):
         return 0
 
 
-def amplitude_if_test(arr1d):
+def amplitude_if_test(arr1d, threshold):
     """
     calculates the amplitude of the time series and applies a threshold for the amplitude
     ----------
@@ -148,15 +145,15 @@ def amplitude_if_test(arr1d):
         should be set between 4 and 10 for best results depending on use case
 
     Returns
-    -------
+    ----------
     numpy.int32
         returns either 1, if the amplitude value is higher than the set threshold or returns 0 if this is not the case
     """
     import numpy as np
     diff = np.max(arr1d) - np.min(arr1d)
-    if diff < 8:
+    if diff < threshold:
         return 0
-    if diff >= 6:
+    if diff >= threshold:
         return 1
 
 
@@ -168,7 +165,7 @@ def slope(arr1d):
         1D array representing the time series for one pixel
 
     Returns
-    -------
+    ----------
     numpy.float64
         returns slope value of the time series for one pixel
     """
@@ -194,7 +191,7 @@ def slope_vs_slope(arr1d):
         1D array representing the time series for one pixel
 
     Returns
-    -------
+    ----------
     numpy.int32
         0 = no negative slope change detected
         1 = negative slope change between time frame 1 and 2
@@ -314,7 +311,7 @@ def combined_time(arr1d):
     ### NOT WORKING PROPERLY ###
 
 ### def find_peaks(arr1d, threshold):
-def find_peaks(arr1d):
+def find_peaks(arr1d, threshold):
     """
     !!! STACK NEEDS TO BE MEDIAN- AND SOBEL-FILTERED BEFORE USE OF THIS FUNCTION (see filter_functions.py)!!!
     finds peaks greater than set height in median- and sobel-filtered time series for each pixel if there is only one
@@ -322,17 +319,15 @@ def find_peaks(arr1d):
     ----------
     arr1d: numpy.array
         1D array representing the time series for one pixel
-    ### threshold: int
-    ###     should be set between 20 and 50 for best results
-    ### DOESNT WORK LIKE THAT
+    threshold: int
+         should be set between 20 and 50 for best results
 
     Returns
-    -------
+    ----------
     numpy.int32
         returns either 1, if the time series contains one and only one peak higher than set threshold, otherwise 0
     """
     from scipy.signal import find_peaks
-    threshold = 35
     peaks = find_peaks(arr1d, height=threshold)
     if len(peaks[0]) >= 2 or len(peaks[0]) == 0:
         return 0
@@ -340,7 +335,7 @@ def find_peaks(arr1d):
         return 1
 
 
-def find_peaks_time(arr1d):
+def find_peaks_time(arr1d, threshold):
     """
     !!! STACK NEEDS TO BE MEDIAN- AND SOBEL-FILTERED BEFORE USE OF THIS FUNCTION (see filter_functions.py)!!!
     finds peaks greater than set height in median- and sobel-filtered time series for each pixel if there is only one
@@ -348,19 +343,17 @@ def find_peaks_time(arr1d):
     ----------
     arr1d: numpy.array
         1D array representing the time series for one pixel
-    ### threshold: int
-    ###     should be set between 20 and 50 for best results
-    ### DOESNT WORK LIKE THAT
+    threshold: int
+        should be set between 20 and 50 for best results
 
     Returns
-    -------
+    ----------
     numpy.int32
         returns either the index in the time series (time of peak), if the time series contains one and only one peak
         higher than set threshold, otherwise 0
     """
     from scipy.signal import find_peaks
     import numpy as np
-    threshold = 30
     peaks = find_peaks(arr1d, height=threshold)
     if len(peaks[0]) >= 2 or len(peaks[0]) == 0:
         return 0
@@ -368,9 +361,9 @@ def find_peaks_time(arr1d):
         return np.int32(peaks[0][0])
 
 
-def find_troughs(arr1d):
+def find_troughs(arr1d, threshold):
     from scipy.signal import find_peaks
-    peaks = find_peaks(-1*arr1d, height=40)
+    peaks = find_peaks(-1*arr1d, height=threshold)
     if len(peaks[0]) >= 1:
         return 1
     if len(peaks[0]) < 1:
@@ -378,10 +371,10 @@ def find_troughs(arr1d):
     ### NOT WORKING PROPERLY ###
 
 
-def percentile(arr1d):
+def percentile(arr1d, upper, lower):
     import numpy as np
-    upper = np.percentile(arr1d, 90)
-    lower = np.percentile(arr1d, 10)
+    upper = np.percentile(arr1d, upper)
+    lower = np.percentile(arr1d, lower)
     return upper - lower
 
 
