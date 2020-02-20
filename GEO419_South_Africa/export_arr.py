@@ -1,7 +1,7 @@
 import rasterio as rio
 
 
-def functions_out_array(outname, arr, dates, input_file, dtype):
+def functions_out_array(outname, arr, input_file, dtype):
     arr_shape = arr.shape
     tmp = arr_shape[0]
     if len(arr_shape) <= 2:
