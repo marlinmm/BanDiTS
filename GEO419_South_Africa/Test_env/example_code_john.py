@@ -6,3 +6,5 @@
 # example of new sub directory creation
 # subdir = os.path.join(raster_folder, 'sub')
 # os.makedirs(subdir, exist_ok=True)
+
+print(2523//6)
