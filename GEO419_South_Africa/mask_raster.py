@@ -141,4 +141,4 @@ def mask_raster_test():
 
 
 #### activate for testing this file standalone ####
-#mask_raster_test()
+mask_raster_test()

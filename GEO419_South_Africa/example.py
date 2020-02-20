@@ -1,6 +1,6 @@
 from GEO419_South_Africa import preprocessing, apply_along_axis, export_arr, filter_functions, function
-#from GEO419_South_Africa.filter_functions import median_filter, sobel_filter, mean_filter
-from GEO419_South_Africa.function import simple_threshold
+from GEO419_South_Africa.filter_functions import *
+from GEO419_South_Africa.function import *
 from pathos import multiprocessing as mp
 from datetime import datetime
 import numpy as np
@@ -12,25 +12,25 @@ def main():
     ###################################     INPUT    ########################################
 
     # Input Folder Marlin:
-    raster_folder = "C:/Users/marli/Desktop/GEO402_Testdaten/Input_Files/Raster/"
+    raster_folder = "C:/Users/marli/Desktop/Marcel_Daten/Original/"
     # Input Folder Jonas:
     # raster_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester\Vorlesungsmitschriften/GEO402 - Ableitung von Landoberflächenparametern/Subset/"
 
     # Input file name
-    raster_filename = "S1_A_VH_agulhas_full_study_site_50m"
+    raster_filename = "S1_A_VH_stack_pilanesberg_full_scene_50m_center.tif"
     # raster_filename = "SubsetVH.tif"
 
     ###################################     OUTPUT    ########################################
 
     # Output Folder Marlin:
-    output_folder = "C:/Users/marli/Desktop/GEO402_Testdaten/AAA_output/"
+    output_folder = "C:/Users/marli/Desktop/Marcel_Daten/Output/"
     # Output Folder Jonas:
     # output_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester\Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/GEO402_Output/"
 
     # time series functions to be applied; see function.py for options
-    functions = [simple_threshold]
+    functions = [median_filter]
 
-    args = [{"threshold": -20}]
+    args = [{"kernel_size": 9}]
     #args = [{'kernel': 9}, {'kernel_size': 5}, {'kernel': [-5, -5, -5, -5, 0, 5, 5, 5, 5]}]
 
     # Output File Name:
@@ -43,7 +43,7 @@ def main():
 
 def filter(raster_folder, raster_filename, output_folder, functions, args):
     input_raster = raster_folder + raster_filename
-    hdr_file = input_raster + ".hdr"
+    hdr_file = ""#input_raster + ".hdr"
     outname = output_folder + raster_filename
 
     # arr: full size numpy array 3D XxYxZ 200x300x100
@@ -107,7 +107,7 @@ def breakpoint(raster_folder, raster_filename, output_folder, functions, args):
 # main func
 if __name__ == '__main__':
     in_variables = main()
-    #filter(raster_folder=str(in_variables[0]), raster_filename=str(in_variables[1]),
-    #       output_folder=str(in_variables[2]), functions=in_variables[3], args=in_variables[4])
-    breakpoint(raster_folder=str(in_variables[0]), raster_filename=str(in_variables[1]),
-               output_folder=str(in_variables[2]), functions=in_variables[3], args=in_variables[4])
+    filter(raster_folder=str(in_variables[0]), raster_filename=str(in_variables[1]),
+           output_folder=str(in_variables[2]), functions=in_variables[3], args=in_variables[4])
+    #breakpoint(raster_folder=str(in_variables[0]), raster_filename=str(in_variables[1]),
+    #           output_folder=str(in_variables[2]), functions=in_variables[3], args=in_variables[4])

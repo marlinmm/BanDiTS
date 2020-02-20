@@ -20,7 +20,8 @@ def rio_array(input_file, hdr_file):
     rotate_arr = arr
     rotate_arr = np.rollaxis(rotate_arr, 2)
     rotate_arr = np.rollaxis(rotate_arr, 2)
-    rotate_arr = rotate_arr[y_axis_len // 2][x_axis_len // 2]   # get time series from center of image
+    # rotate_arr = rotate_arr[y_axis_len // 2][x_axis_len // 2]   # get time series from center of image
+    rotate_arr = rotate_arr[y_axis_len // 2][int(x_axis_len // 2)]  # get time series from center of image
     no_data = np.where(rotate_arr == -99.)  # get list of indices where value = -99
     arr = np.delete(arr, no_data[0], 0) # delete all bands with -99 values
 
@@ -29,14 +30,16 @@ def rio_array(input_file, hdr_file):
         all_dates = date_import(hdr_file)
         all_dates = np.delete(all_dates, no_data[0], 0)
         # only for "aghulas test site" to delete 2 layers, where top third was -99
-        if len(no_data[0]) > 0:
-            all_dates = np.delete(all_dates, 16, 0)
-            all_dates = np.delete(all_dates, 26, 0)
+        # if len(no_data[0]) > 0:
+        #     all_dates = np.delete(all_dates, 16, 0)
+        #     all_dates = np.delete(all_dates, 26, 0)
 
-    # only for "aghulas test site" to delete 2 layers, where top third was -99
+
+
     if len(no_data[0]) > 0:
-        arr = np.delete(arr, 16, 0)
-        arr = np.delete(arr, 26, 0)
+        # only for "aghulas test site" to delete 2 layers, where top third was -99
+        # arr = np.delete(arr, 16, 0)
+        # arr = np.delete(arr, 26, 0)
         return arr, all_dates
     else:
         return arr, all_dates
@@ -53,4 +56,3 @@ def date_import(hdr_file):
     for i in range(0, len(raw_date_list)):
         date_list.append(raw_date_list[i][raw_date_list[i].find("20"):raw_date_list[i].find("20")+8])
     return date_list
-
