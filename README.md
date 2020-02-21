@@ -1,4 +1,4 @@
-# Breakpoint Detection in Sentinel-1 Time Series
+# BANDITS (BreAkpoiNt Detection In Timeseries using Sentinel-1)
 
 ### This tool aims to make detecting breakpoints and anomalies in Sentinel-1 time series easier:
 This package is a project by Marlin M. Mueller and Jonas Ziemer for the module GEO419 of the M.Sc. Geoinformatics at the Friedrich-Schiller-University Jena. 
@@ -20,6 +20,6 @@ _developed in Python 3.8_
 # Installation
 In case you have git installed you can install the package as follows:
 
-    pip install git+https://github.com/marlinmm/GEO419_South_Africa.git
+    pip install git+https://github.com/marlinmm/BANDITS.git
 
 # _WORK IN PROGRESS_
