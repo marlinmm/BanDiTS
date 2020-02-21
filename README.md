@@ -1,9 +1,9 @@
-# BanDiTS (Breakpoint Detection in Timeseries using Sentinel-1)
+# BanDiTS (Breakpoint Detection in Timeseries for Sentinel-1)
 
 ### This tool aims to make detecting breakpoints and anomalies in Sentinel-1 time series easier:
 This package is a project by Marlin M. Mueller and Jonas Ziemer for the module GEO419 of the M.Sc. Geoinformatics at the Friedrich-Schiller-University Jena. 
 It provides a framework for importing 3D-raster files in _rasterio_-compatible formats and provides basic filtering and statistical functionality. 
-It was developed mainly for fire and agricultural breakpoint- and anomly-detection
+It was developed mainly for fire and agricultural breakpoint detection
 
 Basic functionality includes:
 
@@ -20,6 +20,6 @@ _developed in Python 3.8_
 # Installation
 In case you have git installed you can install the package as follows:
 
-    pip install git+https://github.com/marlinmm/BANDITS.git
+    pip install git+https://github.com/marlinmm/BanDiTS.git
 
 # _WORK IN PROGRESS_
