@@ -57,14 +57,15 @@ def combined_density(arr1d):
     sigma25 = np.mean(arr1d) - 2.5 * np.std(arr1d)
     sigma3 = np.mean(arr1d) - 3 * np.std(arr1d)
     sigma4 = np.mean(arr1d) - 4 * np.std(arr1d)
-    if diff >= 5:
+    if diff >= 6:
         if np.min(arr1d) < sigma4:
             return 40
         if np.min(arr1d) < sigma3:
             return 30
         if np.min(arr1d) < sigma25:
             return 25
-        if np.min(arr1d) >= sigma25:
+        # if np.min(arr1d) >= sigma25:
+        else:
             return 0
     else:
         return 300
@@ -234,21 +235,23 @@ def amplitude_time(arr1d):
             return 0
         return temp
 
-def find_peaks(arr1d):
-    from scipy.signal import find_peaks
-    peaks = find_peaks(arr1d, height=35)
-    if len(peaks[0]) >= 2 or len(peaks[0]) == 0:
-        return 0
-    if len(peaks[0]) == 1:
-        return 1
-        # print(peaks)
-        # print(peaks[0])
 
-
-
-def find_peaks2(arr1d):
+def find_peaksVH(arr1d):
     from scipy.signal import find_peaks
     peaks = find_peaks(arr1d, height=30)
+    if len(peaks[0]) >= 3:
+        return 3
+    if len(peaks[0]) >= 2:
+        return 2
+    if len(peaks[0]) >= 1:
+        return 1
+    if len(peaks[0]) < 1:
+        return 0
+
+
+def find_peaksVV(arr1d):
+    from scipy.signal import find_peaks
+    peaks = find_peaks(arr1d, height=25)
     if len(peaks[0]) >= 3:
         return 3
     if len(peaks[0]) >= 2:

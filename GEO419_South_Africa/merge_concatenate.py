@@ -17,7 +17,7 @@ def main():
 
     # Input file name
     # raster_filename = "S1_A_VH_agulhas_full_study_site_50m_median5.tif"
-    raster_filename = "SubsetVH.tif"
+    raster_filename = "SubsetVV.tif"
 
     ###################################     OUTPUT    ########################################
 
@@ -56,7 +56,7 @@ def main():
 
     # exporting result to new raster
     export_arr.functions_out_array(outname=outname, arr=result, input_file=input_raster, dtype=dtype)
-    # export_arr.functions_out_array(outname=outname, arr=filtered_arr, input_file=input_raster, dtype=dtype)
+
 
     end_time = datetime.now()
     print("end-time = ", end_time-start_time, "Hr:min:sec")
