@@ -78,13 +78,42 @@ def median(arr1d):
     return np.median(arr1d)
 
 
-def improved_stdev(arr1d):
+def percentile(arr1d, upper, lower):
     """
-    calculates the 95% probability space of each time series and checks if the minimum value falls within the
-    95% intervall or not
+    calculates the amplitude of the time series between upper and lower percentile
     ----------
     arr1d: numpy.array
         1D array representing the time series for one pixel
+    upper: int
+        should be set between 50 and 100
+    lower: int
+        should be set between 0 and 50
+
+    Returns
+    ----------
+    numpy.int32
+        returns range between lower and upper percentile
+    """
+    import numpy as np
+    upper = np.percentile(arr1d, upper)
+    lower = np.percentile(arr1d, lower)
+    return upper - lower
+
+
+def binary_stdev(arr1d, sigma):
+    """
+    calculates the probability space of each time series and checks if the minimum value falls within the
+    sigma interval or not
+        - if sigma = 1      -> 68.3%
+        - if sigma = 2      -> 95.5%
+        - if sigma = 2.5    -> 99.0%
+        - if sigma = 3      -> 99.7%
+        - if sigma = 4      -> 99.9%
+    ----------
+    arr1d: numpy.array
+        1D array representing the time series for one pixel
+    sigma: float
+        number multiplied with standard deviation to define the probability space for a breakpoint
 
     Returns
     ----------
@@ -93,7 +122,7 @@ def improved_stdev(arr1d):
         or returns 0 if this is not the case
     """
     import numpy as np
-    diff1 = np.mean(arr1d)-2*np.std(arr1d)
+    diff1 = np.mean(arr1d)-sigma*np.std(arr1d)
     if np.min(arr1d) < diff1:
         return 1
     else:
@@ -108,6 +137,7 @@ def simple_threshold(arr1d, threshold):
         1D array representing the time series for one pixel
     threshold: int
         should be set between -15 and -25 for best results depending on use case
+
     Returns
     ----------
     numpy.int32
@@ -120,14 +150,35 @@ def simple_threshold(arr1d, threshold):
         return 0
 
 
-def combined(arr1d):
-    ### ADD DOCSTRING ###
+def amplitude_stdev(arr1d, sigma, threshold):
+    """
+    calculates the probability space of each time series and checks if the minimum value falls within the
+    sigma interval or not
+        - if sigma = 1      -> 68.3%
+        - if sigma = 2      -> 95.5%
+        - if sigma = 2.5    -> 99.0%
+        - if sigma = 3      -> 99.7%
+        - if sigma = 4      -> 99.9%
+    ----------
+    arr1d: numpy.array
+        1D array representing the time series for one pixel
+    sigma: float
+        number multiplied with standard deviation to define the probability space for a breakpoint
+    threshold: float
+        difference between maximum and minimum value over time;
+        should be set between 5 and 10 for best results depending on use case
 
+    Returns
+    ----------
+    numpy.int32
+        returns either 1, if the minimum value is lower than the mean values minus two times the standard deviation
+        or returns 0 if this is not the case
+    """
     import numpy as np
     diff = np.max(arr1d) - np.min(arr1d)
-    sigma = np.mean(arr1d) - 2 * np.std(arr1d)
-    if diff >= 7:
-        if np.min(arr1d) < sigma:
+    prob_space = np.mean(arr1d) - sigma * np.std(arr1d)
+    if diff >= threshold:
+        if np.min(arr1d) < prob_space:
             return 1
         else:
             return 0
@@ -310,7 +361,7 @@ def combined_time(arr1d):
     return temp
     ### NOT WORKING PROPERLY ###
 
-### def find_peaks(arr1d, threshold):
+
 def find_peaks(arr1d, threshold):
     """
     !!! STACK NEEDS TO BE MEDIAN- AND SOBEL-FILTERED BEFORE USE OF THIS FUNCTION (see filter_functions.py)!!!
@@ -362,6 +413,22 @@ def find_peaks_time(arr1d, threshold):
 
 
 def find_troughs(arr1d, threshold):
+    """
+    !!! STACK NEEDS TO BE MEDIAN- AND SOBEL-FILTERED BEFORE USE OF THIS FUNCTION (see filter_functions.py)!!!
+    opposite of find_peaks()
+    finds troughs greater than set height in median- and sobel-filtered time series for each pixel if there is only one
+    trough in the time series
+    ----------
+    arr1d: numpy.array
+        1D array representing the time series for one pixel
+    threshold: int
+         should be set between 20 and 50 for best results
+
+    Returns
+    ----------
+    numpy.int32
+        returns either 1, if the time series contains one and only one trough higher than set threshold, otherwise 0
+    """
     from scipy.signal import find_peaks
     peaks = find_peaks(-1*arr1d, height=threshold)
     if len(peaks[0]) >= 1:
@@ -371,13 +438,7 @@ def find_troughs(arr1d, threshold):
     ### NOT WORKING PROPERLY ###
 
 
-def percentile(arr1d, upper, lower):
-    import numpy as np
-    upper = np.percentile(arr1d, upper)
-    lower = np.percentile(arr1d, lower)
-    return upper - lower
-
-
+### info for devs ###
 # Recurrence matrix:
 # https://pypi.org/project/PyRQA/
 # http://www.pik-potsdam.de/~donges/pyunicorn/api/timeseries/recurrence_plot.html
