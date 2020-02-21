@@ -1,11 +1,10 @@
-from GEO419_South_Africa import preprocessing, apply_along_axis, export_arr, filter_functions, functions
-from GEO419_South_Africa.functions import *
+from GEO419_South_Africa import preprocessing, apply_along_axis, export_arr, filter_functions, statistical_functions
+from GEO419_South_Africa.statistical_functions import *
 from GEO419_South_Africa.filter_functions import *
 from pathos import multiprocessing as mp
 from datetime import datetime
 import numpy as np
 
-start_time = datetime.now()
 
 
 def main():
@@ -27,20 +26,25 @@ def main():
     # Output Folder Jonas:
     # output_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester\Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/GEO402_Output/"
 
-    # time series functions to be applied; see functions.py for options
-    functions = [slope, mean_filter]
+    #
+    filter_functions = [mean_filter]
+    filter_args = [{"kernel": 11}]
 
-    args = [{"threshold": -20}]
-    #args = [{'kernel': 9}, {'kernel_size': 5}, {'kernel': [-5, -5, -5, -5, 0, 5, 5, 5, 5]}]
+    #
+    statistical_functions = [simple_threshold]
+    statistical_args = [{"threshold": -20}]
 
     # Output File Name:
     output_file = raster_filename
-    return raster_folder, raster_filename, output_folder, functions, args
+    return raster_folder, raster_filename, output_folder, filter_functions, filter_args, statistical_functions, statistical_args
+    main_time = datetime.now()
+    print("main-time = ", main_time - start_time, "Hr:min:sec")
 
     ######################   NO USER INPUT BEYOND THIS POINT   ###############################
 
 
-def filter(raster_folder, raster_filename, output_folder, functions, args):
+def filter(raster_folder, raster_filename, output_folder, filter_functions, filter_args):
+    start_time = datetime.now()
     input_raster = raster_folder + raster_filename
     hdr_file = input_raster + ".hdr"
     outname = output_folder + raster_filename
@@ -52,9 +56,9 @@ def filter(raster_folder, raster_filename, output_folder, functions, args):
     # jupyter notebook
     # infile = '../rasterstack'
 
-    for i, func in enumerate(functions):
+    for i, func in enumerate(filter_functions):
         filtered_arr = apply_along_axis.parallel_apply_along_axis(func1d=func, arr=arr[0], axis=0, cores=mp.cpu_count(),
-                                                                  **args[i])
+                                                                  **filter_args[i])
         filtered_arr = np.rollaxis(filtered_arr, 2)
         filtered_arr = np.rollaxis(filtered_arr, 1)
         filtered_arr = np.rollaxis(filtered_arr, 2)
@@ -67,12 +71,12 @@ def filter(raster_folder, raster_filename, output_folder, functions, args):
         export_arr.functions_out_array(outname=outname + "_" + func_name, arr=filtered_arr, input_file=input_raster,
                                        dtype=dtype)
 
+    filter_time = datetime.now()
+    print("filter-time = ", filter_time - start_time, "Hr:min:sec")
 
-filter_time = datetime.now()
-print("end-time_filter = ", filter_time - start_time, "Hr:min:sec")
 
-
-def breakpoint(raster_folder, raster_filename, output_folder, functions, args):
+def statistics(raster_folder, raster_filename, output_folder, statistical_functions, statistical_args):
+    start_time = datetime.now()
     input_raster = raster_folder + raster_filename
     hdr_file = input_raster + ".hdr"
     outname = output_folder + raster_filename
@@ -84,10 +88,10 @@ def breakpoint(raster_folder, raster_filename, output_folder, functions, args):
     # jupyter notebook
     infile = '../rasterstack'
 
-    for i, func in enumerate(functions):
+    for i, func in enumerate(statistical_functions):
         # creating results with calling wanted algorithm in parallel_apply_along_axis for quick runtime
         result = apply_along_axis.parallel_apply_along_axis(func1d=func, arr=arr[0], axis=0,
-                                                            cores=mp.cpu_count(), **args[i])
+                                                            cores=mp.cpu_count(), **statistical_args[i])
 
         # selecting dtype based on result
         dtype = type(result[0][0])
@@ -100,14 +104,14 @@ def breakpoint(raster_folder, raster_filename, output_folder, functions, args):
         export_arr.functions_out_array(outname=outname + "_" + func_name, arr=result, input_file=input_raster,
                                        dtype=dtype)
 
-end_time = datetime.now()
-print("end-time_breakpoint = ", end_time - filter_time, "Hr:min:sec")
-
+    breakpoint_time = datetime.now()
+    print("breakpoint-time = ", breakpoint_time - start_time, "Hr:min:sec")
 
 # main func
 if __name__ == '__main__':
+    start_time = datetime.now()
     in_variables = main()
     filter(raster_folder=str(in_variables[0]), raster_filename=str(in_variables[1]),
-           output_folder=str(in_variables[2]), functions=in_variables[3], args=in_variables[4])
-    breakpoint(raster_folder=str(in_variables[0]), raster_filename=str(in_variables[1]),
-               output_folder=str(in_variables[2]), functions=in_variables[3], args=in_variables[4])
+           output_folder=str(in_variables[2]), filter_functions=in_variables[3], filter_args=in_variables[4])
+    statistics(raster_folder=str(in_variables[0]), raster_filename=str(in_variables[1]),
+               output_folder=str(in_variables[2]),  statistical_functions=in_variables[5], statistical_args=in_variables[6])
