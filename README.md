@@ -1,4 +1,4 @@
-# BanDiTS (Breakpoint Detection in Timeseries using Sentinel-1)
+# BanDiTS (Breakpoint Detection in Timeseries for Sentinel-1)
 
 ### This tool aims to make detecting breakpoints and anomalies in Sentinel-1 time series easier:
 This package is a project by Marlin M. Mueller and Jonas Ziemer for the module GEO419 of the M.Sc. Geoinformatics at the Friedrich-Schiller-University Jena. 
