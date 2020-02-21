@@ -16,7 +16,6 @@ def mean_filter(arr1d, kernel):
     import numpy as np
     kernel = (1 / float(kernel)) * np.ones((kernel))
     out = np.float32(np.convolve(arr1d, kernel, "valid"))
-    print(type(out))
     return(out)
 
 
