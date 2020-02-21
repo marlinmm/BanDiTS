@@ -43,7 +43,6 @@ def stdev_time(arr1d, stdev):
         85 = breakpoints in all section
     """
     import numpy as np
-    from scipy import stats
     time_series = arr1d
     arr_shape = arr1d.shape[0]
     time_series_index = np.indices((arr_shape,))[0]
@@ -56,8 +55,6 @@ def stdev_time(arr1d, stdev):
 
     # split time series and list of time series indices in 4 subarrays
     time_series_split = split_list(time_series, wanted_parts=5)
-    #print(time_series_split[0])
-    #print("sdsdasdasd")
     time_series_index_split = split_list(time_series_index, wanted_parts=5)
 
     # calculate linear regression for each time series subarray
@@ -87,6 +84,7 @@ def stdev_time(arr1d, stdev):
     if temp == 0:
        return 0
     return temp
+
 
 def amplitude_time(arr1d, threshold):
     """
@@ -128,7 +126,6 @@ def amplitude_time(arr1d, threshold):
         85 = breakpoints in all section
     """
     import numpy as np
-    from scipy import stats
     time_series = arr1d
     arr_shape = arr1d.shape[0]
     time_series_index = np.indices((arr_shape,))[0]
@@ -141,8 +138,6 @@ def amplitude_time(arr1d, threshold):
 
     # split time series and list of time series indices in 4 subarrays
     time_series_split = split_list(time_series, wanted_parts=5)
-    # print(time_series_split[0])
-    # print("sdsdasdasd")
     time_series_index_split = split_list(time_series_index, wanted_parts=5)
 
     # calculate linear regression for each time series subarray
@@ -170,6 +165,7 @@ def amplitude_time(arr1d, threshold):
     if temp == 0:
         return 0
     return temp
+
 
 def count_breakpoint(arr1d, height):
     """
