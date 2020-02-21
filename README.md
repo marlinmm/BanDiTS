@@ -21,5 +21,7 @@ _developed in Python 3.8_
 In case you have git installed you can install the package as follows:
 
     pip install git+https://github.com/marlinmm/BanDiTS.git
+    
+If not and you have trouble to find a way, please [open an issue](https://github.com/marlinmm/BanDiTS/issues).
 
 # _WORK IN PROGRESS_
