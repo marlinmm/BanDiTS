@@ -1,8 +1,8 @@
-# Project for course GEO419 at FSU Jena
+# Breakpoint Detection in Sentinel-1 Time Series
 
 ### This tool aims to make detecting breakpoints and anomalies in Sentinel-1 time series easier:
 This package is a project by Marlin M. Mueller and Jonas Ziemer for the module GEO419 of the M.Sc. Geoinformatics at the Friedrich-Schiller-University Jena. 
-It provides a framework for importing 3D-raster files in rasterio-compatible formats and provides basic filtering and statistical functionality. 
+It provides a framework for importing 3D-raster files in _rasterio_-compatible formats and provides basic filtering and statistical functionality. 
 It was developed mainly for fire and agricultural breakpoint- and anomly-detection
 
 Basic functionality includes:
@@ -11,7 +11,8 @@ Basic functionality includes:
 * applying different statistical functions along time axis of data to retrieve different metrics on a time scale
 * applying different filter functions along time axis of data to enable better detection of breakpoints
 * creating new raster files to visualize applied functions
-* working in parallelized, multithreaded way _(6x faster with 16 threads vs 1 thread)_
+* working in parallelized, multithreaded way for efficient computation _(6x faster with 16 threads vs 1 thread)_
+    * 2n RAM-usage
 * easy expansion with new functions is possible
 
 _developed in Python 3.8_
@@ -20,7 +21,5 @@ _developed in Python 3.8_
 In case you have git installed you can install the package as follows:
 
     pip install git+https://github.com/marlinmm/GEO419_South_Africa.git
-
-
 
 # _WORK IN PROGRESS_
