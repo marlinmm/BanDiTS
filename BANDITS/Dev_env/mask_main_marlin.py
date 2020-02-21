@@ -1,5 +1,5 @@
 #import os
-from GEO419_South_Africa import preprocessing, export_arr
+from BANDITS import preprocessing, export_arr
 from datetime import datetime
 
 start_time = datetime.now()

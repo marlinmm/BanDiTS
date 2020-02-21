@@ -1,6 +1,6 @@
-from GEO419_South_Africa import preprocessing, apply_along_axis, export_arr, filter_functions, statistical_functions
-from GEO419_South_Africa.statistical_functions import *
-from GEO419_South_Africa.filter_functions import *
+from BANDITS import preprocessing, apply_along_axis, export_arr, filter_functions, statistical_functions
+from BANDITS.statistical_functions import *
+from BANDITS.filter_functions import *
 from pathos import multiprocessing as mp
 from datetime import datetime
 import numpy as np
