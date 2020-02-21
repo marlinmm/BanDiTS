@@ -1,6 +1,6 @@
-from GEO419_South_Africa import preprocessing, apply_along_axis, export_arr, filter_functions, function
-#from GEO419_South_Africa.filter_functions import median_filter, sobel_filter, mean_filter
-from GEO419_South_Africa.function import simple_threshold
+from GEO419_South_Africa import preprocessing, apply_along_axis, export_arr, filter_functions, functions
+from GEO419_South_Africa.functions import *
+from GEO419_South_Africa.filter_functions import *
 from pathos import multiprocessing as mp
 from datetime import datetime
 import numpy as np
@@ -27,14 +27,13 @@ def main():
     # Output Folder Jonas:
     # output_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester\Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/GEO402_Output/"
 
-    # time series functions to be applied; see function.py for options
-    functions = [simple_threshold]
+    # time series functions to be applied; see functions.py for options
+    functions = [slope, mean_filter]
 
     args = [{"threshold": -20}]
     #args = [{'kernel': 9}, {'kernel_size': 5}, {'kernel': [-5, -5, -5, -5, 0, 5, 5, 5, 5]}]
 
     # Output File Name:
-    # output_file = raster_file name[0:len(raster_filename)-4] + "_median_filtered3.tif"
     output_file = raster_filename
     return raster_folder, raster_filename, output_folder, functions, args
 
@@ -68,8 +67,9 @@ def filter(raster_folder, raster_filename, output_folder, functions, args):
         export_arr.functions_out_array(outname=outname + "_" + func_name, arr=filtered_arr, input_file=input_raster,
                                        dtype=dtype)
 
-        end_time = datetime.now()
-        print("end-time = ", end_time - start_time, "Hr:min:sec")
+
+filter_time = datetime.now()
+print("end-time_filter = ", filter_time - start_time, "Hr:min:sec")
 
 
 def breakpoint(raster_folder, raster_filename, output_folder, functions, args):
@@ -100,14 +100,14 @@ def breakpoint(raster_folder, raster_filename, output_folder, functions, args):
         export_arr.functions_out_array(outname=outname + "_" + func_name, arr=result, input_file=input_raster,
                                        dtype=dtype)
 
-        end_time = datetime.now()
-        print("end-time = ", end_time - start_time, "Hr:min:sec")
+end_time = datetime.now()
+print("end-time_breakpoint = ", end_time - filter_time, "Hr:min:sec")
 
 
 # main func
 if __name__ == '__main__':
     in_variables = main()
-    #filter(raster_folder=str(in_variables[0]), raster_filename=str(in_variables[1]),
-    #       output_folder=str(in_variables[2]), functions=in_variables[3], args=in_variables[4])
+    filter(raster_folder=str(in_variables[0]), raster_filename=str(in_variables[1]),
+           output_folder=str(in_variables[2]), functions=in_variables[3], args=in_variables[4])
     breakpoint(raster_folder=str(in_variables[0]), raster_filename=str(in_variables[1]),
                output_folder=str(in_variables[2]), functions=in_variables[3], args=in_variables[4])
