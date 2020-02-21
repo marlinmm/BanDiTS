@@ -1,5 +1,5 @@
 #import os
-from BANDITS import preprocessing, export_arr
+from BanDiTS import preprocessing, export_arr
 from datetime import datetime
 
 start_time = datetime.now()
