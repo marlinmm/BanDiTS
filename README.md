@@ -3,7 +3,7 @@
 ### This tool aims to make detecting breakpoints and anomalies in Sentinel-1 time series easier:
 This package is a project by Marlin M. Mueller and Jonas Ziemer for the module GEO419 of the M.Sc. Geoinformatics at the Friedrich-Schiller-University Jena. 
 It provides a framework for importing 3D-raster files in _rasterio_-compatible formats and provides basic filtering and statistical functionality. 
-It was developed mainly for fire and agricultural breakpoint- and anomly-detection
+It was developed mainly for fire and agricultural breakpoint detection
 
 Basic functionality includes:
 
