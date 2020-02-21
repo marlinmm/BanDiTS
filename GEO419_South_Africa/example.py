@@ -31,8 +31,8 @@ def main():
     filter_args = [{"kernel": 11}]
 
     #
-    statistical_functions = [simple_threshold]
-    statistical_args = [{"threshold": -20}]
+    statistical_functions = [simple_threshold, stdev]
+    statistical_args = [{"threshold": -20}, {}]
 
     # Output File Name:
     output_file = raster_filename
@@ -53,6 +53,9 @@ def filter(raster_folder, raster_filename, output_folder, filter_functions, filt
     arr = preprocessing.rio_array(input_raster, hdr_file=hdr_file)
     dates = arr[1]
 
+    # JONAS DAS IST WAS FUER DICH #
+    #print(dates)
+
     # jupyter notebook
     # infile = '../rasterstack'
 
@@ -68,6 +71,7 @@ def filter(raster_folder, raster_filename, output_folder, filter_functions, filt
         func_name_start = 10
         func_name = str(func)[func_name_start:func_name_end]
 
+        #### ADD THRESHOLD TO OUTPUT NAME ####
         export_arr.functions_out_array(outname=outname + "_" + func_name, arr=filtered_arr, input_file=input_raster,
                                        dtype=dtype)
 
@@ -101,6 +105,7 @@ def statistics(raster_folder, raster_filename, output_folder, statistical_functi
         func_name = str(func)[func_name_start:func_name_end]
 
         # exporting result to new raster
+        #### ADD THRESHOLD TO OUTPUT NAME ####
         export_arr.functions_out_array(outname=outname + "_" + func_name, arr=result, input_file=input_raster,
                                        dtype=dtype)
 
@@ -111,7 +116,7 @@ def statistics(raster_folder, raster_filename, output_folder, statistical_functi
 if __name__ == '__main__':
     start_time = datetime.now()
     in_variables = main()
-    filter(raster_folder=str(in_variables[0]), raster_filename=str(in_variables[1]),
-           output_folder=str(in_variables[2]), filter_functions=in_variables[3], filter_args=in_variables[4])
+    #filter(raster_folder=str(in_variables[0]), raster_filename=str(in_variables[1]),
+    #       output_folder=str(in_variables[2]), filter_functions=in_variables[3], filter_args=in_variables[4])
     statistics(raster_folder=str(in_variables[0]), raster_filename=str(in_variables[1]),
                output_folder=str(in_variables[2]),  statistical_functions=in_variables[5], statistical_args=in_variables[6])
