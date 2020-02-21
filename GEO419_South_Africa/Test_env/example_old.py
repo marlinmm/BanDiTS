@@ -1,4 +1,4 @@
-from GEO419_South_Africa import preprocessing, apply_along_axis, export_arr, function, filter_functions
+from GEO419_South_Africa import preprocessing, apply_along_axis, export_arr, statistical_functions, filter_functions
 from pathos import multiprocessing as mp
 from datetime import datetime
 import numpy as np
