@@ -20,6 +20,6 @@ _developed in Python 3.8_
 # Installation
 In case you have git installed you can install the package as follows:
 
-    pip install git+https://github.com/marlinmm/BANDITS.git
+    pip install git+https://github.com/marlinmm/BanDiTS.git
 
 # _WORK IN PROGRESS_
