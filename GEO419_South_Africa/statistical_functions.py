@@ -313,55 +313,6 @@ def slope_vs_slope(arr1d):
             temp = temp + 800
     return temp
 
-
-def combined_time(arr1d):
-    ### ADD DOCSTRING ###
-
-    import numpy as np
-    time_series = arr1d
-    arr_shape = arr1d.shape[0]
-    time_series_index = np.indices((arr_shape,))[0]
-
-    # internal function to split time series in n sub time series
-    def split_list(alist, wanted_parts=1):          # based on: https://stackoverflow.com/a/752562
-        length = len(alist)
-        return [alist[i * length // wanted_parts: (i + 1) * length // wanted_parts]
-                for i in range(wanted_parts)]
-
-    # split time series and list of time series indices in 4 subarrays
-    time_series_split = split_list(time_series, wanted_parts=5)
-    time_series_index_split = split_list(time_series_index, wanted_parts=5)
-
-    # calculate mean, stdev and minimum of each subarray
-    mini_list = []
-    sigma_list = []
-    for i in range (0,len(time_series_index_split)):
-        mea = np.mean(time_series_split[i])
-        std_mea = 2*np.std(time_series_split[i])
-        mini = min(time_series_split[i])
-        sigma = mea - std_mea
-        i +=1
-        mini_list = [mini_list, mini]
-        sigma_list = [sigma_list, sigma]        # weird list append, cause .append doesnt work with multiprocessing
-
-    # check, if minimum of time n is smaller than 2 sigma probability space
-    temp = 0
-    # if mini_list[0][0][0][0][1] < sigma_list[0][0][0][0][1]:      # first time frame
-    #     return 1
-    if mini_list[0][0][0][1] < sigma_list[0][0][0][1]:              # second time frame
-      return 1
-    # if mini_list[0][0][1] < sigma_list[0][0][1]:                  # third time frame
-    #   return 1
-    # if mini_list[0][1] < sigma_list[0][1]:                        # fourth time frame
-    #   return 1
-    # if mini_list[1] < sigma_list[1]:                              # fifth time frame
-    #   return 1
-    else:
-        return 0
-    return temp
-    ### NOT WORKING PROPERLY ###
-
-
 def find_peaks(arr1d, threshold):
     """
     !!! STACK NEEDS TO BE MEDIAN- AND SOBEL-FILTERED BEFORE USE OF THIS FUNCTION (see filter_functions.py)!!!
