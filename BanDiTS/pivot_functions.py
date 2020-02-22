@@ -167,14 +167,14 @@ def amplitude_time(arr1d, threshold):
     return temp
 
 
-def count_breakpoint(arr1d, height):
+def count_breakpoint(arr1d, threshold):
     """
     !!! STACK NEEDS TO BE MEDIAN- AND SOBEL-FILTERED BEFORE USE OF THIS FUNCTION (see filter_functions.py)!!!
     finds number of peaks greater than set height in median- and sobel-filtered time series for each pixel
     ----------
     arr1d: numpy.array
         1D array representing the time series for one pixel
-    height: int
+    threshold: int
         should be set between 20 and 50 for best results;
         probably slightly higher for VH than for VV polarization
 
@@ -184,12 +184,6 @@ def count_breakpoint(arr1d, height):
         returns either 1, if the time series contains one and only one peak higher than set threshold, otherwise 0
     """
     from scipy.signal import find_peaks
-    peaks = find_peaks(arr1d, height=height)
-    if len(peaks[0]) >= 3:
-        return 3
-    if len(peaks[0]) >= 2:
-        return 2
-    if len(peaks[0]) >= 1:
-        return 1
-    if len(peaks[0]) < 1:
-        return 0
+    peaks = find_peaks(arr1d, height=threshold)
+    return len(peaks[0])
+
