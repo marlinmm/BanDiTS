@@ -346,6 +346,7 @@ def find_peaks_time(arr1d, threshold):
     arr1d: numpy.array
         1D array representing the time series for one pixel
     threshold: int
+        #### NEEDS REWORK DEPENDING ON USED SOBEL-FILTER SIZE
         should be set between 20 and 50 for best results
 
     Returns
@@ -361,6 +362,20 @@ def find_peaks_time(arr1d, threshold):
         return 0
     if len(peaks[0]) == 1:
         return np.int32(peaks[0][0])
+
+
+def biggest_peak(arr1d, threshold):
+    """
+    ####
+    """
+    from scipy.signal import find_peaks
+    import numpy as np
+    peaks = find_peaks(arr1d, height=threshold)
+    if len(peaks[0]) >= 1:
+        return np.max(peaks[0])
+    else:
+        return 0
+
 
 
 def find_troughs(arr1d, threshold):
