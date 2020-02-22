@@ -28,18 +28,8 @@ def rio_array(input_file, hdr_file):
     if hdr_file != "":
         all_dates = date_import(hdr_file)
         all_dates = np.delete(all_dates, no_data[0], 0)
-        # only for "aghulas test site" to delete 2 layers, where top third was -99
-        if len(no_data[0]) > 0:
-            all_dates = np.delete(all_dates, 16, 0)
-            all_dates = np.delete(all_dates, 26, 0)
 
-    # only for "aghulas test site" to delete 2 layers, where top third was -99
-    if len(no_data[0]) > 0:
-        arr = np.delete(arr, 16, 0)
-        arr = np.delete(arr, 26, 0)
-        return arr, all_dates
-    else:
-        return arr, all_dates
+    return arr, all_dates
 
 
 def date_import(hdr_file):
