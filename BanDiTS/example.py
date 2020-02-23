@@ -36,8 +36,8 @@ def main():
     # filter_args = [{"kernel": [-5, -5, 0, 5, 5]}, {"kernel": [-5, -5, -5, -5, 0, 5, 5, 5, 5]}, {"kernel": [-5, -5, -5, -5, -5, -5, 0, 5, 5, 5, 5, 5, 5]}, {"kernel": [-5, -5, -5, -5, -5, -5, -5, -5, -5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5]}]
 
     ####### user-dependent statistical functions to be used in this script ########
-    statistical_functions = [slope_vs_slope]
-    statistical_args = [{}]
+    statistical_functions = [count_breakpoint]
+    statistical_args = [{"threshold": 50}]
 
     # Output File Name:
     output_file = raster_filename
@@ -57,9 +57,6 @@ def filter(raster_folder, raster_filename, output_folder, filter_functions, filt
     # arr: full size numpy array 3D XxYxZ 200x300x100
     arr = preprocessing.rio_array(input_raster, hdr_file=hdr_file)
     dates = arr[1]
-
-    # JONAS DAS IST WAS FUER DICH #
-    #print(dates)
 
     # jupyter notebook
     # infile = '../rasterstack'

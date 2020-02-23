@@ -175,7 +175,10 @@ def count_breakpoint(arr1d, threshold):
     arr1d: numpy.array
         1D array representing the time series for one pixel
     threshold: int
-        should be set between 20 and 50 for best results;
+        depends on the size of the filter matrix;
+            the bigger the matrix the more dates were eliminated at the beginning and the end of the time series
+                -> this leads to peak shifting
+        should be set between 20 and 50 for an [-5, -5, 0, 5, 5] matrix;
         probably slightly higher for VH than for VV polarization
 
     Returns
