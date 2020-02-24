@@ -12,13 +12,13 @@ def main():
     ###################################     INPUT    ########################################
 
     # Input Folder Marlin:
-    # raster_folder = "E:/Marcel_Daten/Original/"
+    raster_folder = "E:/Marcel_Daten/Original/"
     # Input Folder Jonas:
-    raster_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester\Vorlesungsmitschriften/GEO402 - Ableitung von Landoberflächenparametern/Subset/"
+    # raster_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester\Vorlesungsmitschriften/GEO402 - Ableitung von Landoberflächenparametern/Subset/"
 
     # Input file name
-    # raster_filename = "S1_A_VH_stack_pilanesberg_full_scene_50m_center_median_filter13_sobel_filter19.tif"
-    raster_filename = "SubsetVH.tif"
+    raster_filename = "S1_A_VH_stack_pilanesberg_full_scene_50m_center_median_filter13_sobel_filter19.tif"
+    # raster_filename = "SubsetVH.tif"
 
     ###################################     OUTPUT    ########################################
 
@@ -36,8 +36,8 @@ def main():
     # filter_args = [{"kernel": [-5, -5, 0, 5, 5]}, {"kernel": [-5, -5, -5, -5, 0, 5, 5, 5, 5]}, {"kernel": [-5, -5, -5, -5, -5, -5, 0, 5, 5, 5, 5, 5, 5]}, {"kernel": [-5, -5, -5, -5, -5, -5, -5, -5, -5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5]}]
 
     ####### user-dependent statistical functions to be used in this script ########
-    statistical_functions = [count_breakpoint]
-    statistical_args = [{"threshold": 50}]
+    statistical_functions = [count_breakpoint, count_breakpoint, count_breakpoint, count_breakpoint, count_breakpoint]
+    statistical_args = [{"threshold": 60}, {"threshold": 80}, {"threshold": 100}, {"threshold": 120}, {"threshold": 140}]
 
     # Output File Name:
     output_file = raster_filename
