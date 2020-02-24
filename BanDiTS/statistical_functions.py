@@ -364,15 +364,15 @@ def find_peaks_time(arr1d, threshold):
         return np.int32(peaks[0][0])
 
 
-def biggest_peak(arr1d, threshold):
+def peak_height(arr1d, threshold):
     """
     ####
     """
     from scipy.signal import find_peaks
     import numpy as np
     peaks = find_peaks(arr1d, height=threshold)
-    if len(peaks[0]) >= 1:
-        return np.max(peaks[0])
+    if len(peaks[1]["peak_heights"]) >= 1:
+        return np.max(peaks[1]["peak_heights"])
     else:
         return 0
 
