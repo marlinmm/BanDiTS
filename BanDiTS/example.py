@@ -34,7 +34,7 @@ def main():
     filter_args = [{"kernel": [-5, -5, 0, 5, 5]}, {"kernel": [-5, -5, -5, -5, 0, 5, 5, 5, 5]}, {"kernel": [-5, -5, -5, -5, -5, -5, 0, 5, 5, 5, 5, 5, 5]}, {"kernel": [-5, -5, -5, -5, -5, -5, -5, -5, -5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5]}]
 
     #
-    statistical_functions = [count_breakpoint, count_breakpoint, count_breakpoint, count_breakpoint, count_breakpoint]
+    statistical_functions = [peak_height, peak_height, peak_height, peak_height, peak_height]
     statistical_args = [{"threshold": 60}, {"threshold": 80}, {"threshold": 100}, {"threshold": 120}, {"threshold": 140}, ]
 
     # Output File Name:
