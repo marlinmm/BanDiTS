@@ -6,7 +6,7 @@ def mean_filter(arr1d, kernel):
     arr1d: numpy.array
         1D array representing the time series for one pixel
     kernel: int
-         should be set between 3 and 21 for best results, but values need to be uneven
+         should be set between 3 and 21 for best results, but values need to be uneven, e.g. {"kernel": 3}
 
     Returns
     ----------
@@ -27,7 +27,7 @@ def median_filter(arr1d, kernel):
     arr1d: numpy.array
         1D array representing the time series for one pixel
     kernel: int
-         should be set between 3 and 21 for best results, but values need to be uneven
+         should be set between 3 and 21 for best results, but values need to be uneven, e.g. {"kernel": 3}
 
     Returns
     ----------
@@ -50,6 +50,7 @@ def sobel_filter(arr1d, kernel):
     arr1d: numpy.array
         1D array representing the time series for one pixel
     kernel: int
+         series of integers in a list, e. g. {"kernel": [-5, -5, 0, 5, 5]}
          should be set between 3 and 21 for best results, but values need to be uneven
 
     Returns
