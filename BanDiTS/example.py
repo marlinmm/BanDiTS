@@ -1,7 +1,7 @@
 from BanDiTS import preprocessing, apply_along_axis, export_arr, filter_functions, statistical_functions
 from BanDiTS.statistical_functions import *
 from BanDiTS.filter_functions import *
-from BanDiTS.pivot_functions import *
+from BanDiTS.breakpoint_functions import *
 from pathos import multiprocessing as mp
 from datetime import datetime
 import numpy as np
@@ -27,7 +27,7 @@ def main():
     # Output Folder Jonas:
     output_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester\Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/GEO402_Output/Latest/"
 
-    ####### user-dependent filter functions to be used in this script ########
+    ####################### USER-DEPENDENT FILTER-FUNCTIONS TO BE USED #######################
     filter_functions = [mean_filter]
     filter_args = [{"kernel": 3}]
     # filter_functions = [median_filter, median_filter, median_filter, median_filter, median_filter, median_filter]
@@ -35,7 +35,7 @@ def main():
     # filter_functions = [sobel_filter, sobel_filter, sobel_filter, sobel_filter]
     # filter_args = [{"kernel": [-5, -5, 0, 5, 5]}, {"kernel": [-5, -5, -5, -5, 0, 5, 5, 5, 5]}, {"kernel": [-5, -5, -5, -5, -5, -5, 0, 5, 5, 5, 5, 5, 5]}, {"kernel": [-5, -5, -5, -5, -5, -5, -5, -5, -5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5]}]
 
-    ####### user-dependent statistical functions to be used in this script ########
+    ##################### USER-DEPENDENT STATISTICAL FUNCTIONS TO BE USED #####################
     statistical_functions = [count_breakpoint, count_breakpoint, count_breakpoint, count_breakpoint, count_breakpoint]
     statistical_args = [{"threshold": 60}, {"threshold": 80}, {"threshold": 100}, {"threshold": 120}, {"threshold": 140}]
 
