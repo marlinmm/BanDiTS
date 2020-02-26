@@ -151,6 +151,28 @@ def simple_threshold(arr1d, threshold):
         return 0
 
 
+def amplitude_if_test(arr1d, threshold):
+    """
+    calculates the amplitude of the time series and applies a threshold for the amplitude
+    ----------
+    arr1d: numpy.array
+        1D array representing the time series for one pixel
+    threshold: int
+        should be set between 4 and 10 for best results depending on use case
+
+    Returns
+    ----------
+    numpy.int32
+        returns either 1, if the amplitude value is higher than the set threshold or returns 0 if this is not the case
+    """
+    import numpy as np
+    diff = np.max(arr1d) - np.min(arr1d)
+    if diff < threshold:
+        return 0
+    if diff >= threshold:
+        return 1
+
+
 def amplitude_stdev(arr1d, sigma, threshold):
     """
     calculates the probability space of each time series and checks if the minimum value falls within the
@@ -187,28 +209,6 @@ def amplitude_stdev(arr1d, sigma, threshold):
         return 0
 
 
-def amplitude_if_test(arr1d, threshold):
-    """
-    calculates the amplitude of the time series and applies a threshold for the amplitude
-    ----------
-    arr1d: numpy.array
-        1D array representing the time series for one pixel
-    threshold: int
-        should be set between 4 and 10 for best results depending on use case
-
-    Returns
-    ----------
-    numpy.int32
-        returns either 1, if the amplitude value is higher than the set threshold or returns 0 if this is not the case
-    """
-    import numpy as np
-    diff = np.max(arr1d) - np.min(arr1d)
-    if diff < threshold:
-        return 0
-    if diff >= threshold:
-        return 1
-
-
 def slope(arr1d):
     """
     calculates the slope for the whole time series for one pixel
@@ -234,9 +234,9 @@ def slope_vs_slope(arr1d):
     """
     calculates the slopes for subsections of the time series for one pixel and compares the negative slope change from
     time n-n and n-n+1, the n-n+1 and n-n+2 until n-1 and n. During this process a value for each result is created
-    allowing the user to extract info on a slope change at a specific time, e.g. the value 1 means a negative slope
-    change between section 1 and 2 of the time series, the value 501 means a negative slope change between section 1
-    and 2 and also a negative slope change between section 3 and 4. End values containing the numbers 2, 400, 600 and
+    allowing the user to extract information on a slope change at a specific time, e.g. the value 1 means a negative
+    slope change between section 1 and 2 of the time series, the value 501 means a negative slope change between section
+    1 and 2 and also a negative slope change between section 3 and 4. End values containing the numbers 2, 400, 600 and
     800 mean that there was no negative slope change detected in the corresponding time frame
     ----------
     arr1d: numpy.array
