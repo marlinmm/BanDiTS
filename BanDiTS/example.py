@@ -12,13 +12,13 @@ def main():
     ###################################     INPUT    ########################################
 
     # Input Folder Marlin:
-    raster_folder = "E:/Marcel_Daten/Original/"
+    # raster_folder = "E:/Marcel_Daten/Original/"
     # Input Folder Jonas:
-    # raster_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester\Vorlesungsmitschriften/GEO402 - Ableitung von Landoberflächenparametern/Subset/"
+    raster_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester\Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/GEO402_Output/Latest/"
 
     # Input file name
-    raster_filename = "S1_A_VH_stack_pilanesberg_full_scene_50m_center_median_filter13_sobel_filter19.tif"
-    # raster_filename = "SubsetVH.tif"
+    # raster_filename = "S1_A_VH_stack_pilanesberg_full_scene_50m_center_median_filter13_sobel_filter19.tif"
+    raster_filename = "SubsetVH.tif"
 
     ###################################     OUTPUT    ########################################
 
@@ -36,8 +36,8 @@ def main():
     # filter_args = [{"kernel": [-5, -5, 0, 5, 5]}, {"kernel": [-5, -5, -5, -5, 0, 5, 5, 5, 5]}, {"kernel": [-5, -5, -5, -5, -5, -5, 0, 5, 5, 5, 5, 5, 5]}, {"kernel": [-5, -5, -5, -5, -5, -5, -5, -5, -5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5]}]
 
     ##################### USER-DEPENDENT STATISTICAL FUNCTIONS TO BE USED #####################
-    statistical_functions = [count_breakpoint, count_breakpoint, count_breakpoint, count_breakpoint, count_breakpoint]
-    statistical_args = [{"threshold": 60}, {"threshold": 80}, {"threshold": 100}, {"threshold": 120}, {"threshold": 140}]
+    statistical_functions = [enhanced_amplitude_stdev]
+    statistical_args = [{"sigma1": 2, "sigma2": 3, "sigma3": 4, "threshold": 6}]
 
     # Output File Name:
     output_file = raster_filename
@@ -57,9 +57,6 @@ def filter(raster_folder, raster_filename, output_folder, filter_functions, filt
     # arr: full size numpy array 3D XxYxZ 200x300x100
     arr = preprocessing.rio_array(input_raster, hdr_file=hdr_file)
     dates = arr[1]
-
-    # jupyter notebook
-    # infile = '../rasterstack'
 
     for i, func in enumerate(filter_functions):
         kernel_size = str(filter_args[i]['kernel'])
@@ -95,9 +92,6 @@ def statistics(raster_folder, raster_filename, output_folder, statistical_functi
     arr = preprocessing.rio_array(input_raster, hdr_file=hdr_file)
     dates = arr[1]
 
-    # jupyter notebook
-    infile = '../rasterstack'
-
     for i, func in enumerate(statistical_functions):
         # creating results with calling wanted algorithm in parallel_apply_along_axis for quick runtime
         result = apply_along_axis.parallel_apply_along_axis(func1d=func, arr=arr[0], axis=0,
@@ -122,7 +116,7 @@ def statistics(raster_folder, raster_filename, output_folder, statistical_functi
 if __name__ == '__main__':
     start_time = datetime.now()
     in_variables = main()
-    filter(raster_folder=str(in_variables[0]), raster_filename=str(in_variables[1]),
-           output_folder=str(in_variables[2]), filter_functions=in_variables[3], filter_args=in_variables[4])
-    # statistics(raster_folder=str(in_variables[0]), raster_filename=str(in_variables[1]),
-    #            output_folder=str(in_variables[2]),  statistical_functions=in_variables[5], statistical_args=in_variables[6])
+    # filter(raster_folder=str(in_variables[0]), raster_filename=str(in_variables[1]),
+    #        output_folder=str(in_variables[2]), filter_functions=in_variables[3], filter_args=in_variables[4])
+    statistics(raster_folder=str(in_variables[0]), raster_filename=str(in_variables[1]),
+               output_folder=str(in_variables[2]),  statistical_functions=in_variables[5], statistical_args=in_variables[6])
