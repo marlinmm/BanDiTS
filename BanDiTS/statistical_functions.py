@@ -211,7 +211,7 @@ def amplitude_stdev(arr1d, sigma, threshold):
 def enhanced_amplitude_stdev(arr1d, sigma1, sigma2, sigma3, threshold):
     """
     calculates the probability space of each time series and checks if the minimum value falls within the
-    sigma interval or not
+    various sigma intervals or not
         - if sigma = 1      -> 68.3%
         - if sigma = 2      -> 95.5%
         - if sigma = 2.5    -> 99.0%
