@@ -22,6 +22,9 @@ In case you have git installed you can install the package as follows:
 
     pip install git+https://github.com/marlinmm/BanDiTS.git
     
+
+If you have trouble, installing _rasterio_ or the needed _GDAL_ package, download and install the .whl file directly from [here](https://www.lfd.uci.edu/~gohlke/pythonlibs/).
+
 If not and you have trouble to find a way, please [open an issue](https://github.com/marlinmm/BanDiTS/issues).
 
 # _WORK IN PROGRESS_
