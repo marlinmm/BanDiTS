@@ -62,6 +62,7 @@ def stdev(arr1d):
     import numpy as np
     return np.std(arr1d)
 
+
 def median(arr1d):
     """
     calculates the median of the time series for one pixel
@@ -150,6 +151,28 @@ def simple_threshold(arr1d, threshold):
         return 0
 
 
+def amplitude_if_test(arr1d, threshold):
+    """
+    calculates the amplitude of the time series and applies a threshold for the amplitude
+    ----------
+    arr1d: numpy.array
+        1D array representing the time series for one pixel
+    threshold: int
+        should be set between 4 and 10 for best results depending on use case
+
+    Returns
+    ----------
+    numpy.int32
+        returns either 1, if the amplitude value is higher than the set threshold or returns 0 if this is not the case
+    """
+    import numpy as np
+    diff = np.max(arr1d) - np.min(arr1d)
+    if diff < threshold:
+        return 0
+    if diff >= threshold:
+        return 1
+
+
 def amplitude_stdev(arr1d, sigma, threshold):
     """
     calculates the probability space of each time series and checks if the minimum value falls within the
@@ -185,27 +208,51 @@ def amplitude_stdev(arr1d, sigma, threshold):
     else:
         return 0
 
-
-def amplitude_if_test(arr1d, threshold):
+def enhanced_amplitude_stdev(arr1d, sigma1, sigma2, sigma3, threshold):
     """
-    calculates the amplitude of the time series and applies a threshold for the amplitude
+    calculates the probability space of each time series and checks if the minimum value falls within the
+    various sigma intervals or not
+        - if sigma = 1      -> 68.3%
+        - if sigma = 2      -> 95.5%
+        - if sigma = 2.5    -> 99.0%
+        - if sigma = 3      -> 99.7%
+        - if sigma = 4      -> 99.9%
     ----------
     arr1d: numpy.array
         1D array representing the time series for one pixel
-    threshold: int
-        should be set between 4 and 10 for best results depending on use case
+    sigma1: float
+        number multiplied with standard deviation to define the lowest probability space for a breakpoint
+    sigma2: float
+        number multiplied with standard deviation to define the probability space for a breakpoint
+        --> should be higher than sigma1 but lower than sigma3
+    sigma3: float
+        number multiplied with standard deviation to define the highest probability space for a breakpoint
+    threshold: float
+        difference between maximum and minimum value over time;
+        should be set between 5 and 10 for best results depending on use case
 
     Returns
     ----------
     numpy.int32
-        returns either 1, if the amplitude value is higher than the set threshold or returns 0 if this is not the case
+        returns either 1, if the minimum value is lower than the mean values minus two times the standard deviation
+        or returns 0 if this is not the case
     """
     import numpy as np
     diff = np.max(arr1d) - np.min(arr1d)
-    if diff < threshold:
-        return 0
+    prob_space1 = np.mean(arr1d) - sigma1 * np.std(arr1d)
+    prob_space2 = np.mean(arr1d) - sigma2 * np.std(arr1d)
+    prob_space3 = np.mean(arr1d) - sigma3 * np.std(arr1d)
     if diff >= threshold:
-        return 1
+        if np.min(arr1d) < prob_space3:
+            return 3
+        if np.min(arr1d) < prob_space2:
+            return 2
+        if np.min(arr1d) < prob_space1:
+            return 1
+        if np.min(arr1d) >= prob_space1:
+            return 100
+    else:
+        return 0
 
 
 def slope(arr1d):
@@ -233,9 +280,9 @@ def slope_vs_slope(arr1d):
     """
     calculates the slopes for subsections of the time series for one pixel and compares the negative slope change from
     time n-n and n-n+1, the n-n+1 and n-n+2 until n-1 and n. During this process a value for each result is created
-    allowing the user to extract info on a slope change at a specific time, e.g. the value 1 means a negative slope
-    change between section 1 and 2 of the time series, the value 501 means a negative slope change between section 1
-    and 2 and also a negative slope change between section 3 and 4. End values containing the numbers 2, 400, 600 and
+    allowing the user to extract information on a slope change at a specific time, e.g. the value 1 means a negative
+    slope change between section 1 and 2 of the time series, the value 501 means a negative slope change between section
+    1 and 2 and also a negative slope change between section 3 and 4. End values containing the numbers 2, 400, 600 and
     800 mean that there was no negative slope change detected in the corresponding time frame
     ----------
     arr1d: numpy.array
@@ -312,81 +359,6 @@ def slope_vs_slope(arr1d):
         else:
             temp = temp + 800
     return temp
-
-def find_peaks(arr1d, threshold):
-    """
-    !!! STACK NEEDS TO BE MEDIAN- AND SOBEL-FILTERED BEFORE USE OF THIS FUNCTION (see filter_functions.py)!!!
-    finds peaks greater than set height in median- and sobel-filtered time series for each pixel if there is only one
-    peak in the time series
-    ----------
-    arr1d: numpy.array
-        1D array representing the time series for one pixel
-    threshold: int
-         should be set between 20 and 50 for best results
-
-    Returns
-    ----------
-    numpy.int32
-        returns either 1, if the time series contains one and only one peak higher than set threshold, otherwise 0
-    """
-    from scipy.signal import find_peaks
-    peaks = find_peaks(arr1d, height=threshold)
-    if len(peaks[0]) >= 2 or len(peaks[0]) == 0:
-        return 0
-    if len(peaks[0]) == 1:
-        return 1
-
-
-def find_peaks_time(arr1d, threshold):
-    """
-    !!! STACK NEEDS TO BE MEDIAN- AND SOBEL-FILTERED BEFORE USE OF THIS FUNCTION (see filter_functions.py)!!!
-    finds peaks greater than set height in median- and sobel-filtered time series for each pixel if there is only one
-    peak in the time series
-    ----------
-    arr1d: numpy.array
-        1D array representing the time series for one pixel
-    threshold: int
-        should be set between 20 and 50 for best results
-
-    Returns
-    ----------
-    numpy.int32
-        returns either the index in the time series (time of peak), if the time series contains one and only one peak
-        higher than set threshold, otherwise 0
-    """
-    from scipy.signal import find_peaks
-    import numpy as np
-    peaks = find_peaks(arr1d, height=threshold)
-    if len(peaks[0]) >= 2 or len(peaks[0]) == 0:
-        return 0
-    if len(peaks[0]) == 1:
-        return np.int32(peaks[0][0])
-
-
-def find_troughs(arr1d, threshold):
-    """
-    !!! STACK NEEDS TO BE MEDIAN- AND SOBEL-FILTERED BEFORE USE OF THIS FUNCTION (see filter_functions.py)!!!
-    opposite of find_peaks()
-    finds troughs greater than set height in median- and sobel-filtered time series for each pixel if there is only one
-    trough in the time series
-    ----------
-    arr1d: numpy.array
-        1D array representing the time series for one pixel
-    threshold: int
-         should be set between 20 and 50 for best results
-
-    Returns
-    ----------
-    numpy.int32
-        returns either 1, if the time series contains one and only one trough higher than set threshold, otherwise 0
-    """
-    from scipy.signal import find_peaks
-    peaks = find_peaks(-1*arr1d, height=threshold)
-    if len(peaks[0]) >= 1:
-        return 1
-    if len(peaks[0]) < 1:
-        return 0
-    ### NOT WORKING PROPERLY ###
 
 
 ### info for devs ###

@@ -1,6 +1,6 @@
 def stdev_time(arr1d, stdev):
     """
-    detects breakpoints through multiple standard deviations and devides breakpoints into timely separated sections (wanted_parts)
+    detects breakpoints through multiple standard deviations and divides breakpoints into timely separated sections (wanted_parts)
         - if sigma = 1      -> 68.3%
         - if sigma = 2      -> 95.5%
         - if sigma = 2.5    -> 99.0%
@@ -88,7 +88,7 @@ def stdev_time(arr1d, stdev):
 
 def amplitude_time(arr1d, threshold):
     """
-    detects breakpoints through amplitude threshold and devides breakpoints into timely separated sections (wanted_parts)
+    detects breakpoints through amplitude threshold and divides breakpoints into timely separated sections (wanted_parts)
     ----------
     arr1d: numpy.array
         1D array representing the time series for one pixel
@@ -167,15 +167,18 @@ def amplitude_time(arr1d, threshold):
     return temp
 
 
-def count_breakpoint(arr1d, height):
+def count_breakpoint(arr1d, threshold):
     """
     !!! STACK NEEDS TO BE MEDIAN- AND SOBEL-FILTERED BEFORE USE OF THIS FUNCTION (see filter_functions.py)!!!
-    finds number of peaks greater than set height in median- and sobel-filtered time series for each pixel
+    finds number of peaks greater than set height in median- and Sobel-filtered time series for each pixel
     ----------
     arr1d: numpy.array
         1D array representing the time series for one pixel
-    height: int
-        should be set between 20 and 50 for best results;
+    threshold: int
+        depends on the size of the filter matrix;
+            the bigger the matrix the more dates were eliminated at the beginning and the end of the time series
+                -> this leads to peak shifting
+        should be set between 20 and 50 for an [-5, -5, 0, 5, 5] matrix;
         probably slightly higher for VH than for VV polarization
 
     Returns
@@ -184,12 +187,95 @@ def count_breakpoint(arr1d, height):
         returns either 1, if the time series contains one and only one peak higher than set threshold, otherwise 0
     """
     from scipy.signal import find_peaks
-    peaks = find_peaks(arr1d, height=height)
-    if len(peaks[0]) >= 3:
-        return 3
-    if len(peaks[0]) >= 2:
-        return 2
+    peaks = find_peaks(arr1d, height=threshold)
+    return len(peaks[0])
+
+
+def find_single_peaks(arr1d, threshold):
+    """
+    !!! STACK NEEDS TO BE MEDIAN- AND SOBEL-FILTERED BEFORE USE OF THIS FUNCTION (see filter_functions.py)!!!
+    finds peaks greater than set height in median- and Sobel-filtered time series for each pixel if there is only one
+    peak in the time series
+    ----------
+    arr1d: numpy.array
+        1D array representing the time series for one pixel
+    threshold: int
+         should be set between 20 and 50 for best results
+
+    Returns
+    ----------
+    numpy.int32
+        returns either 1, if the time series contains one and only one peak higher than set threshold, otherwise 0
+    """
+    from scipy.signal import find_peaks
+    peaks = find_peaks(arr1d, height=threshold)
+    if len(peaks[0]) >= 2 or len(peaks[0]) == 0:
+        return 0
+    if len(peaks[0]) == 1:
+        return 1
+
+
+def find_single_peaks_time(arr1d, threshold):
+    """
+    !!! STACK NEEDS TO BE MEDIAN- AND SOBEL-FILTERED BEFORE USE OF THIS FUNCTION (see filter_functions.py)!!!
+    finds peaks greater than set height in median- and Sobel-filtered time series for each pixel if there is only one
+    peak in the time series
+    ----------
+    arr1d: numpy.array
+        1D array representing the time series for one pixel
+    threshold: int
+        #### NEEDS REWORK DEPENDING ON USED SOBEL-FILTER SIZE
+        should be set between 20 and 50 for best results
+
+    Returns
+    ----------
+    numpy.int32
+        returns either the index in the time series (time of peak), if the time series contains one and only one peak
+        higher than set threshold, otherwise 0
+    """
+    from scipy.signal import find_peaks
+    import numpy as np
+    peaks = find_peaks(arr1d, height=threshold)
+    if len(peaks[0]) >= 2 or len(peaks[0]) == 0:
+        return 0
+    if len(peaks[0]) == 1:
+        return np.int32(peaks[0][0])
+
+
+def peak_height(arr1d, threshold):
+    """
+    ####
+    """
+    from scipy.signal import find_peaks
+    import numpy as np
+    peaks = find_peaks(arr1d, height=threshold)
+    if len(peaks[1]["peak_heights"]) >= 1:
+        return np.max(peaks[1]["peak_heights"])
+    else:
+        return 0
+
+
+def find_troughs(arr1d, threshold):
+    """
+    !!! STACK NEEDS TO BE MEDIAN- AND SOBEL-FILTERED BEFORE USE OF THIS FUNCTION (see filter_functions.py)!!!
+    opposite of find_peaks()
+    finds troughs greater than set height in median- and Sobel-filtered time series for each pixel if there is only one
+    trough in the time series
+    ----------
+    arr1d: numpy.array
+        1D array representing the time series for one pixel
+    threshold: int
+         should be set between 20 and 50 for best results
+
+    Returns
+    ----------
+    numpy.int32
+        returns either 1, if the time series contains one and only one trough higher than set threshold, otherwise 0
+    """
+    from scipy.signal import find_peaks
+    peaks = find_peaks(-1*arr1d, height=threshold)
     if len(peaks[0]) >= 1:
         return 1
     if len(peaks[0]) < 1:
         return 0
+    ### NOT WORKING PROPERLY ###

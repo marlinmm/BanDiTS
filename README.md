@@ -24,4 +24,8 @@ In case you have git installed you can install the package as follows:
     
 If not and you have trouble to find a way, please [open an issue](https://github.com/marlinmm/BanDiTS/issues).
 
+If you have trouble installing _rasterio_ or the needed _GDAL_ package on Windows, download and install the .whl file directly from [here](https://www.lfd.uci.edu/~gohlke/pythonlibs/).
+
+
+
 # _WORK IN PROGRESS_
