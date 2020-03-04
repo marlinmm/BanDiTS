@@ -12,32 +12,32 @@ def main():
     ###################################     INPUT    ########################################
 
     # Input Folder Marlin:
-    # raster_folder = "E:/Marcel_Daten/Original/"
+    raster_folder = "E:/Marcel_Daten/Original/"
     # Input Folder Jonas:
-    raster_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester\Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/GEO402_Output/Latest/"
+    # raster_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester\Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/GEO402_Output/Latest/"
 
     # Input file name
-    # raster_filename = "S1_A_VH_stack_pilanesberg_full_scene_50m_center_median_filter13_sobel_filter19.tif"
-    raster_filename = "SubsetVH.tif"
+    raster_filename = "S1_A_VH_stack_pilanesberg_full_scene_50m_center_median_filter13_sobel_filter19.tif"
+    # raster_filename = "SubsetVH.tif"
 
     ###################################     OUTPUT    ########################################
 
     # Output Folder Marlin:
-    # output_folder = "E:/Marcel_Daten/Output/"
+    output_folder = "E:/Marcel_Daten/Output/"
     # Output Folder Jonas:
-    output_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester\Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/GEO402_Output/Latest/"
+    # output_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester\Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/GEO402_Output/Latest/"
 
     ####################### USER-DEPENDENT FILTER-FUNCTIONS TO BE USED #######################
     filter_functions = [mean_filter]
     filter_args = [{"kernel": 3}]
     # filter_functions = [median_filter, median_filter, median_filter, median_filter, median_filter, median_filter]
     # filter_args = [{"kernel": 3}, {"kernel": 5}, {"kernel": 7}, {"kernel": 13}, {"kernel": 15}, {"kernel": 17}]
-    # filter_functions = [sobel_filter, sobel_filter, sobel_filter, sobel_filter]
-    # filter_args = [{"kernel": [-5, -5, 0, 5, 5]}, {"kernel": [-5, -5, -5, -5, 0, 5, 5, 5, 5]}, {"kernel": [-5, -5, -5, -5, -5, -5, 0, 5, 5, 5, 5, 5, 5]}, {"kernel": [-5, -5, -5, -5, -5, -5, -5, -5, -5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5]}]
+    # filter_functions = [sobel_filter, sobel_filter, sobel_filter]
+    # filter_args = [{"kernel": [-5, -5, 0, 5, 5]}, {"kernel": [-5, -5, -5, -5, 0, 5, 5, 5, 5]}, {"kernel": [-5, -5, -5, -5, -5, -5, 0, 5, 5, 5, 5, 5, 5]}]
 
     ##################### USER-DEPENDENT STATISTICAL FUNCTIONS TO BE USED #####################
-    statistical_functions = [enhanced_amplitude_stdev]
-    statistical_args = [{"sigma1": 2, "sigma2": 3, "sigma3": 4, "threshold": 6}]
+    statistical_functions = [stdev]
+    statistical_args = [{}]
 
     # Output File Name:
     output_file = raster_filename
@@ -116,7 +116,7 @@ def statistics(raster_folder, raster_filename, output_folder, statistical_functi
 if __name__ == '__main__':
     start_time = datetime.now()
     in_variables = main()
-    # filter(raster_folder=str(in_variables[0]), raster_filename=str(in_variables[1]),
-    #        output_folder=str(in_variables[2]), filter_functions=in_variables[3], filter_args=in_variables[4])
+    filter(raster_folder=str(in_variables[0]), raster_filename=str(in_variables[1]),
+           output_folder=str(in_variables[2]), filter_functions=in_variables[3], filter_args=in_variables[4])
     statistics(raster_folder=str(in_variables[0]), raster_filename=str(in_variables[1]),
                output_folder=str(in_variables[2]),  statistical_functions=in_variables[5], statistical_args=in_variables[6])
