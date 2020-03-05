@@ -4,11 +4,35 @@ import fiona
 
 
 def fiona_shape(shape_path):
+    """
+    imports the specified shapefile to python
+    ----------
+    shape_path: string
+        combined name of the input folder and file of the raster file
+
+    Returns
+    ----------
+    fiona.collection.Collection
+        returns shapefile in python readabale format
+    """
     shapefile = fiona.open(shape_path, "r")
     return shapefile
 
 
 def rio_array(input_file, hdr_file):
+    """
+    imports the specified rasterfile and if available the dates from the .hdr-file to python
+    ----------
+    input_file: string
+        combined name of the input folder and file of the raster file
+    hdr_file: string
+        combined name of the input folder and file of the .hdr-file
+    Returns
+    ----------
+    tuple
+        return tuple containing the input raster file as a numpy array and the dates of each band, if a .hdr-file is
+        available
+    """
     # import of raster file
     src = rio.open(input_file)
     arr = src.read()
@@ -33,6 +57,16 @@ def rio_array(input_file, hdr_file):
 
 
 def date_import(hdr_file):
+    """
+    extracts the dates from a specified .hdr-file, if available
+    ----------
+    hdr_file: string
+        combined name of the input folder and file of the .hdr-file
+    Returns
+    ----------
+    list
+        returns list conatining the dates of each band in the time series, according to the .hdr-file specified
+    """
     raw_date_file = open(hdr_file, "r")
     date_string = raw_date_file.read()
     raw_date_file.close()
