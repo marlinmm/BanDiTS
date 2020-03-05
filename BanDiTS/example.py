@@ -17,7 +17,7 @@ def main():
     # raster_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester\Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/GEO402_Output/Latest/"
 
     # Input file name
-    raster_filename = "S1_A_VH_stack_pilanesberg_full_scene_50m_center_median_filter13_sobel_filter19.tif"
+    raster_filename = "S1_A_VH_stack_pilanesberg_full_scene_50m"
     # raster_filename = "SubsetVH.tif"
 
     ###################################     OUTPUT    ########################################
@@ -28,8 +28,8 @@ def main():
     # output_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester\Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/GEO402_Output/Latest/"
 
     ####################### USER-DEPENDENT FILTER-FUNCTIONS TO BE USED #######################
-    filter_functions = [mean_filter]
-    filter_args = [{"kernel": 3}]
+    filter_functions = [median_filter, median_filter, median_filter]
+    filter_args = [{"kernel": 3}, {"kernel": 9}, {"kernel": 13}]
     # filter_functions = [median_filter, median_filter, median_filter, median_filter, median_filter, median_filter]
     # filter_args = [{"kernel": 3}, {"kernel": 5}, {"kernel": 7}, {"kernel": 13}, {"kernel": 15}, {"kernel": 17}]
     # filter_functions = [sobel_filter, sobel_filter, sobel_filter]
@@ -51,8 +51,11 @@ def main():
 def filter(raster_folder, raster_filename, output_folder, filter_functions, filter_args):
     start_time = datetime.now()
     input_raster = raster_folder + raster_filename
-    hdr_file = ""#input_raster + ".hdr"
+    hdr_file = "" #input_raster + ".hdr"        # only used for ENVI stacks
     outname = output_folder + raster_filename
+    if outname.find(".tif") != -1:
+        outname = outname[0:len(outname)-4]
+
 
     # arr: full size numpy array 3D XxYxZ 200x300x100
     arr = preprocessing.rio_array(input_raster, hdr_file=hdr_file)
@@ -72,10 +75,8 @@ def filter(raster_folder, raster_filename, output_folder, filter_functions, filt
         func_name_start = 10
         func_name = str(func)[func_name_start:func_name_end]
 
-        #### ADD THRESHOLD TO OUTPUT NAME ####
-        # export_arr.functions_out_array(outname=outname + "_" + func_name + kernel_size, arr=filtered_arr, input_file=input_raster,
-        #                                dtype=dtype)
-        export_arr.functions_out_array(outname=outname + "_" + func_name + str(i), arr=filtered_arr, input_file=input_raster,
+        # exporting result to new raster
+        export_arr.functions_out_array(outname=outname + "_" + func_name + str(kernel_size), arr=filtered_arr, input_file=input_raster,
                                        dtype=dtype)
 
     filter_time = datetime.now()
@@ -85,8 +86,10 @@ def filter(raster_folder, raster_filename, output_folder, filter_functions, filt
 def statistics(raster_folder, raster_filename, output_folder, statistical_functions, statistical_args):
     start_time = datetime.now()
     input_raster = raster_folder + raster_filename
-    hdr_file = ""#input_raster + ".hdr"
+    hdr_file = "" #input_raster + ".hdr"        # only used for ENVI stacks
     outname = output_folder + raster_filename
+    if outname.find(".tif") != -1:
+        outname = outname[0:len(outname)-4]
 
     # arr: full size numpy array 3D XxYxZ 200x300x100
     arr = preprocessing.rio_array(input_raster, hdr_file=hdr_file)
@@ -105,7 +108,6 @@ def statistics(raster_folder, raster_filename, output_folder, statistical_functi
         func_name = str(func)[func_name_start:func_name_end]
 
         # exporting result to new raster
-        #### ADD THRESHOLD TO OUTPUT NAME ####
         export_arr.functions_out_array(outname=outname + "_" + func_name + str(i), arr=result, input_file=input_raster,
                                        dtype=dtype)
 
@@ -118,5 +120,5 @@ if __name__ == '__main__':
     in_variables = main()
     filter(raster_folder=str(in_variables[0]), raster_filename=str(in_variables[1]),
            output_folder=str(in_variables[2]), filter_functions=in_variables[3], filter_args=in_variables[4])
-    statistics(raster_folder=str(in_variables[0]), raster_filename=str(in_variables[1]),
-               output_folder=str(in_variables[2]),  statistical_functions=in_variables[5], statistical_args=in_variables[6])
+    # statistics(raster_folder=str(in_variables[0]), raster_filename=str(in_variables[1]),
+    #            output_folder=str(in_variables[2]),  statistical_functions=in_variables[5], statistical_args=in_variables[6])
