@@ -15,6 +15,8 @@ def mean_filter(arr1d, kernel):
     """
     import numpy as np
     kernel = (1 / float(kernel)) * np.ones((kernel))
+    # !!! ATTENTION: np.convolve with mode set to "valid" will cut n//2 values (kernel size = n) off the beginning and
+    # end of the time series, bigger kernel sizes produces shorter time series with mor data loss.
     out = np.float32(np.convolve(arr1d, kernel, "valid"))
     return(out)
 
@@ -59,6 +61,8 @@ def sobel_filter(arr1d, kernel):
         returns sobel-filtered numpy array
     """
     import numpy as np
+    # !!! ATTENTION: np.convolve with mode set to "valid" will cut n//2 values (kernel size = n) off the beginning and
+    # end of the time series, bigger kernel sizes produces shorter time series with mor data loss.
     out = np.float32(np.convolve(arr1d, kernel, "valid"))
     return out
 
