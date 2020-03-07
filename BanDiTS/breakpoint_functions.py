@@ -1,6 +1,7 @@
 def stdev_time(arr1d, stdev):
     """
-    detects breakpoints through multiple standard deviations and divides breakpoints into timely separated sections (wanted_parts)
+    detects breakpoints through multiple standard deviations and divides breakpoints into timely separated sections
+    (wanted_parts)
         - if sigma = 1      -> 68.3%
         - if sigma = 2      -> 95.5%
         - if sigma = 2.5    -> 99.0%
@@ -47,7 +48,7 @@ def stdev_time(arr1d, stdev):
     time_series_index = np.indices((arr_shape,))[0]
 
     # internal function to split time series in n sub time series
-    def split_list(alist, wanted_parts=1):          # based on: https://stackoverflow.com/a/752562
+    def split_list(alist, wanted_parts=1):  # based on: https://stackoverflow.com/a/752562
         length = len(alist)
         return [alist[i * length // wanted_parts: (i + 1) * length // wanted_parts]
                 for i in range(wanted_parts)]
@@ -59,35 +60,36 @@ def stdev_time(arr1d, stdev):
     # calculate linear regression for each time series subarray
     mini_list = []
     sigma_list = []
-    for i in range (0,len(time_series_index_split)):
+    for i in range(0, len(time_series_index_split)):
         mea = np.mean(time_series_split[i])
-        std_mea = stdev*np.std(time_series_split[i])
+        std_mea = stdev * np.std(time_series_split[i])
         mini = min(time_series_split[i])
         sigma = mea - std_mea
-        i +=1
+        i += 1
         mini_list = [mini_list, mini]
-        sigma_list = [sigma_list, sigma]        # weird list append, cause .append doesnt work with multiprocessing
+        sigma_list = [sigma_list, sigma]  # weird list append, cause .append doesnt work with multiprocessing
 
     # check for dropping slope values from one fifth of time series to next
     temp = 0
     if mini_list[0][0][0][0][1] < sigma_list[0][0][0][0][1]:
-       temp = temp + 15
+        temp = temp + 15
     if mini_list[0][0][0][1] < sigma_list[0][0][0][1]:
-       temp = temp + 16
+        temp = temp + 16
     if mini_list[0][0][1] < sigma_list[0][0][1]:
-      temp = temp + 17
+        temp = temp + 17
     if mini_list[0][1] < sigma_list[0][1]:
-      temp = temp + 18
+        temp = temp + 18
     if mini_list[1] < sigma_list[1]:
-      temp = temp + 19
+        temp = temp + 19
     if temp == 0:
-       return 0
+        return 0
     return temp
 
 
 def amplitude_time(arr1d, threshold):
     """
-    detects breakpoints through amplitude threshold and divides breakpoints into timely separated sections (wanted_parts)
+    detects breakpoints through amplitude threshold and divides breakpoints into timely separated sections
+    (wanted_parts)
     ----------
     arr1d: numpy.array
         1D array representing the time series for one pixel
@@ -216,9 +218,9 @@ def find_single_peaks_index(arr1d, threshold):
     !!! STACK NEEDS TO BE MEDIAN- AND SOBEL-FILTERED BEFORE USE OF THIS FUNCTION (see filter_functions.py)!!!
     finds peaks greater than set height in median- and Sobel-filtered time series for each pixel if there is only one
     peak in the time series
-    ATTENTION: Due to the applied sobel-filter, n//2 values (sobel-filter kernel size = n) are cut off from the beginning
-    and end of the time series. This leads to a perceived shift of the data. To calculate the correct dates, add n//2
-    values to the beginning of the time series.
+    ATTENTION: Due to the applied sobel-filter, n//2 values (sobel-filter kernel size = n) are cut off from the
+    beginning and end of the time series. This leads to a perceived shift of the data. To calculate the correct dates,
+    add n//2 values to the beginning of the time series.
     ----------
     arr1d: numpy.array
         1D array representing the time series for one pixel
@@ -310,7 +312,7 @@ def find_single_troughs(arr1d, threshold):
         returns either 1, if the time series contains one and only one trough higher than set threshold, otherwise 0
     """
     from scipy.signal import find_peaks
-    peaks = find_peaks(-1*arr1d, height=threshold)
+    peaks = find_peaks(-1 * arr1d, height=threshold)
     if len(peaks[0]) >= 1:
         return 1
     if len(peaks[0]) < 1:
