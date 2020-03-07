@@ -215,7 +215,7 @@ def find_single_peaks(arr1d, threshold):
         return 1
 
 
-def find_single_peaks_time(arr1d, threshold):
+def find_single_peaks_index(arr1d, threshold):
     """
     !!! STACK NEEDS TO BE MEDIAN- AND SOBEL-FILTERED BEFORE USE OF THIS FUNCTION (see filter_functions.py)!!!
     finds peaks greater than set height in median- and Sobel-filtered time series for each pixel if there is only one
