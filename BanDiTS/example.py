@@ -46,11 +46,8 @@ def main():
     # Example for breakpoint functions (APPLY ONLY AFTER MEDIAN- AND SOBEL-FILTER!!!):
     breakpoint_functions = [count_breakpoint]
     breakpoint_args = [{"threshold": 120}]
-
     ######################   NO USER INPUT BEYOND THIS POINT   ###############################
 
-
-    # Output File Name:
     return raster_folder, raster_filename, output_folder, filter_functions, filter_args, statistical_functions, \
         statistical_args, breakpoint_functions, breakpoint_args
 
@@ -157,7 +154,6 @@ def breakpoint_func(raster_folder, raster_filename, output_folder, breakpoint_fu
     print("filter-time = ", filter_time - start_time, "Hr:min:sec")
 
 
-# main func
 if __name__ == '__main__':
     start_time = datetime.now()
     in_variables = main()
