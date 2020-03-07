@@ -293,7 +293,7 @@ def avg_peak_height(arr1d, threshold):
         return 0
 
 
-def find_troughs(arr1d, threshold):
+def find_single_troughs(arr1d, threshold):
     """
     !!! STACK NEEDS TO BE MEDIAN- AND SOBEL-FILTERED BEFORE USE OF THIS FUNCTION (see filter_functions.py)!!!
     opposite of find_peaks()
