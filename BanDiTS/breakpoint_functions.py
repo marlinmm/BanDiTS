@@ -184,7 +184,7 @@ def count_breakpoint(arr1d, threshold):
     Returns
     ----------
     numpy.int32
-        returns either 1, if the time series contains one and only one peak higher than set threshold, otherwise 0
+        returns the number of breakpoints detected in a time series of a pixel greater than set threshold
     """
     from scipy.signal import find_peaks
     peaks = find_peaks(arr1d, height=threshold)
