@@ -16,7 +16,7 @@ created in ENVI, but should work with all kinds of time series stacks)
 * Applying breakpoint detection functions based on filtered time series
 * Creating new raster files to visualize applied functions
 * Working in parallelized, multi-threaded way for efficient computation _(6x faster with 16 threads vs 1 thread)_
-    * 2n RAM-usage
+* Uses max. two times the amount of system memory of the input file size
 * Easy expansion with new functions is possible
 
 _Developed in Python 3.8_
