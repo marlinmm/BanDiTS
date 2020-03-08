@@ -34,7 +34,7 @@ directly from [here](https://www.lfd.uci.edu/~gohlke/pythonlibs/).
 
 # Example Notebook
 You can find an example notebook containing explanations for the general functionality [here](https://github.com/marlinmm/BanDiTS/blob/master/notebook/example.ipynb).
-
+* For plotting of the result maps in the notebook the package _matplotlib_ is required and the package _skimage_ is recommended
 
 
 # _WORK IN PROGRESS_
