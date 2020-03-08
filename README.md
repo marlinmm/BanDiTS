@@ -11,14 +11,15 @@ Basic functionality includes:
 
 * Importing time series data and preliminary light cleaning of data (specifically developed for Sentinel-1 stacks 
 created in ENVI, but should work with all kinds of time series stacks)
-* applying different statistical functions along time axis of data to retrieve different metrics on a time scale
-* applying different filter functions along time axis of data to enable better detection of breakpoints
-* creating new raster files to visualize applied functions
-* working in parallelized, multithreaded way for efficient computation _(6x faster with 16 threads vs 1 thread)_
+* Applying different statistical functions along time axis of data to retrieve different metrics on a time scale
+* Applying different filter functions along time axis of data to enable better detection of breakpoints
+* Applying breakpoint detection functions based on filtered time series
+* Creating new raster files to visualize applied functions
+* Working in parallelized, multi-threaded way for efficient computation _(6x faster with 16 threads vs 1 thread)_
     * 2n RAM-usage
-* easy expansion with new functions is possible
+* Easy expansion with new functions is possible
 
-_developed in Python 3.8_
+_Developed in Python 3.8_
 
 # Installation
 In case you have git installed you can install the package as follows:
