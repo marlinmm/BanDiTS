@@ -209,7 +209,54 @@ def amplitude_stdev(arr1d, sigma, threshold):
         return 0
 
 
-def slope(arr1d):
+def enhanced_amplitude_stdev(arr1d, sigma1, sigma2, sigma3, threshold):
+    """
+    calculates the probability space of each time series and checks if the minimum value falls within the
+    various sigma intervals or not
+        - if sigma = 1      -> 68.3%
+        - if sigma = 2      -> 95.5%
+        - if sigma = 2.5    -> 99.0%
+        - if sigma = 3      -> 99.7%
+        - if sigma = 4      -> 99.9%
+    ----------
+    arr1d: numpy.array
+        1D array representing the time series for one pixel
+    sigma1: float
+        number multiplied with standard deviation to define the lowest probability space for a breakpoint
+    sigma2: float
+        number multiplied with standard deviation to define the probability space for a breakpoint
+        --> should be higher than sigma1 but lower than sigma3
+    sigma3: float
+        number multiplied with standard deviation to define the highest probability space for a breakpoint
+    threshold: float
+        difference between maximum and minimum value over time;
+        should be set between 5 and 10 for best results depending on use case
+
+    Returns
+    ----------
+    numpy.int32
+        returns either 1, if the minimum value is lower than the mean values minus two times the standard deviation
+        or returns 0 if this is not the case
+    """
+    import numpy as np
+    diff = np.max(arr1d) - np.min(arr1d)
+    prob_space1 = np.mean(arr1d) - sigma1 * np.std(arr1d)
+    prob_space2 = np.mean(arr1d) - sigma2 * np.std(arr1d)
+    prob_space3 = np.mean(arr1d) - sigma3 * np.std(arr1d)
+    if diff >= threshold:
+        if np.min(arr1d) < prob_space3:
+            return 3
+        if np.min(arr1d) < prob_space2:
+            return 2
+        if np.min(arr1d) < prob_space1:
+            return 1
+        if np.min(arr1d) >= prob_space1:
+            return 100
+    else:
+        return 0
+
+
+def simple_slope(arr1d):
     """
     calculates the slope for the whole time series for one pixel
     ----------
@@ -226,7 +273,7 @@ def slope(arr1d):
     x = arr1d
     arr_shape = arr1d.shape[0]
     y = np.indices((arr_shape,))
-    slope, intercept, r_value, p_value, std_err = stats.linregress(x,y)
+    slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
     return slope
 
 
@@ -283,9 +330,9 @@ def slope_vs_slope(arr1d):
 
     # calculate linear regression for each time series subarray
     slope_list = []
-    for i in range (0,len(time_series_index_split)):
-        slope, intercept, r_value, p_value, std_err = stats.linregress(time_series_split[i],time_series_index_split[i])
-        i +=1
+    for i in range(0, len(time_series_index_split)):
+        slope, intercept, r_value, p_value, std_err = stats.linregress(time_series_split[i], time_series_index_split[i])
+        i += 1
         slope_list = [slope_list, slope]        # weird list append, cause .append doesnt work with multiprocessing
 
     # check for dropping slope values from one fifth of time series to next
