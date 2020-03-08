@@ -12,15 +12,15 @@ def main():
     ###################################     INPUT    ########################################
 
     # Input Folder:
-    raster_folder = ""
+    raster_folder = "/example/path/to/input/folder/"
 
     # Input File Name
-    raster_filename = ""
+    raster_filename = "example_file_name"
 
     ###################################     OUTPUT    ########################################
 
     # Output Folder:
-    output_folder = ""
+    output_folder = "/example/path/to/output/folder/"
 
     ####################### USER-DEPENDENT FILTER-FUNCTIONS TO BE USED #######################
     # Example for mean filter:
@@ -37,8 +37,8 @@ def main():
 
     ################### USER-DEPENDENT STATISTICAL FUNCTIONS TO BE USED ######################
     # Example for statistical function:
-    statistical_functions = [percentile]
-    statistical_args = [{"upper": 95, "lower": 5}]
+    statistical_functions = [percentile, median]
+    statistical_args = [{"upper": 95, "lower": 5}, {}]
 
     ###################### USER-DEPENDENT BREAKPOINT FUNCTIONS TO BE USED ####################
     # Example for breakpoint functions (APPLY ONLY AFTER MEDIAN- AND SOBEL-FILTER!!!):
