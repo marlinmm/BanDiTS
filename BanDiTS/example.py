@@ -10,35 +10,33 @@ from pathos import multiprocessing as mp
 
 def main():
     ###################################     INPUT    ########################################
-    # Input Folder:
-    raster_folder = "E:/Marcel_Daten/Original/"
-    # Input Folder Jonas:
-    # raster_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester\Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/GEO402_Output/Latest/"
 
-    # Input File:
-    raster_filename = "S1_A_VH_stack_pilanesberg_full_scene_50m_center_median_filter13_sobel_filter19.tif"
-    # raster_filename = "SubsetVH.tif"
+    # Input Folder:
+    raster_folder = ""
+
+    # Input File Name
+    raster_filename = ""
 
     ###################################     OUTPUT    ########################################
+
     # Output Folder:
-    output_folder = "E:/Marcel_Daten/Output/"
-    # Output Folder Jonas:
-    # output_folder = "C:/Users/jz199/Documents/Studium/Master/1. Semester\Vorlesungsmitschriften/GEO419 - Pythonprogrammierung Habermeyer/GEO402_Output/Latest/"
+    output_folder = ""
 
     ####################### USER-DEPENDENT FILTER-FUNCTIONS TO BE USED #######################
-    # # Example for median filter:
+    # Example for mean filter:
+    # filter_functions = [mean_filter, mean_filter, mean_filter]
+    # filter_args = [{"kernel": 3}, {"kernel": 9}, {"kernel": 13}]
+
+    # Example for median filter:
     # filter_functions = [median_filter, median_filter, median_filter]
     # filter_args = [{"kernel": 3}, {"kernel": 9}, {"kernel": 13}]
 
     # Example for Sobel filter:
-    filter_functions = [sobel_filter, sobel_filter]
-    filter_args = [{"kernel": [-5, -5, 0, 5, 5]}, {"kernel": [-5, -5, -5, -5, 0, 5, 5, 5, 5]}]
+    filter_functions = [sobel_filter, sobel_filter, sobel_filter]
+    filter_args = [{"kernel": [-5, 0, 5]}, {"kernel": [-5, -5, 0, 5, 5]}, {"kernel": [-5, -5, -5, -5, 0, 5, 5, 5, 5]}]
 
     ################### USER-DEPENDENT STATISTICAL FUNCTIONS TO BE USED ######################
     # Example for statistical function:
-    # statistical_functions = [stdev, minimum, percentile]
-    # statistical_args = [{}, {}, {"upper": 95, "lower": 5}]
-
     statistical_functions = [percentile]
     statistical_args = [{"upper": 95, "lower": 5}]
 
@@ -46,6 +44,7 @@ def main():
     # Example for breakpoint functions (APPLY ONLY AFTER MEDIAN- AND SOBEL-FILTER!!!):
     breakpoint_functions = [count_breakpoint]
     breakpoint_args = [{"threshold": 120}]
+
     ######################   NO USER INPUT BEYOND THIS POINT   ###############################
 
     return raster_folder, raster_filename, output_folder, filter_functions, filter_args, statistical_functions, \
@@ -159,8 +158,9 @@ if __name__ == '__main__':
     in_variables = main()
 
     # call this function to execute filter functions:
-    filter_func(raster_folder=str(in_variables[0]), raster_filename=str(in_variables[1]),
-                output_folder=str(in_variables[2]), filter_functions=in_variables[3], filter_args=in_variables[4])
+    # filter_func(raster_folder=str(in_variables[0]), raster_filename=str(in_variables[1]),
+    #             output_folder=str(in_variables[2]), filter_functions=in_variables[3],
+    #             filter_args=in_variables[4])
 
     # call this function to execute statistics functions:
     statistics_func(raster_folder=str(in_variables[0]), raster_filename=str(in_variables[1]),
@@ -168,6 +168,6 @@ if __name__ == '__main__':
                     statistical_args=in_variables[6])
 
     # call this function to execute breakpoint functions:
-    breakpoint_func(raster_folder=str(in_variables[0]), raster_filename=str(in_variables[1]),
-                    output_folder=str(in_variables[2]), breakpoint_functions=in_variables[7],
-                    breakpoint_args=in_variables[8])
+    # breakpoint_func(raster_folder=str(in_variables[0]), raster_filename=str(in_variables[1]),
+    #                 output_folder=str(in_variables[2]), breakpoint_functions=in_variables[7],
+    #                 breakpoint_args=in_variables[8])
