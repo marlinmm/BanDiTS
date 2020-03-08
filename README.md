@@ -32,5 +32,9 @@ If you have trouble installing _rasterio_ or the needed _GDAL_ package on Window
 directly from [here](https://www.lfd.uci.edu/~gohlke/pythonlibs/).
 
 
+# Example Notebook
+You can find an example notebook containing explanations for the general functionality [here](https://github.com/marlinmm/BanDiTS/blob/master/notebook/example.ipynb).
+
+
 
 # _WORK IN PROGRESS_
