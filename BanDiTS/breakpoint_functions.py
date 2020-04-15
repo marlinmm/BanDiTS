@@ -82,8 +82,8 @@ def stdev_time(arr1d, stdev):
     if mini_list[1] < sigma_list[1]:
         temp = temp + 19
     if temp == 0:
-        return 0
-    return temp
+        return np.int8(0)
+    return np.int8(temp)
 
 
 def amplitude_time(arr1d, threshold):
@@ -163,8 +163,8 @@ def amplitude_time(arr1d, threshold):
     if diff_list[1] > threshold:
         temp = temp + 19
     if temp == 0:
-        return 0
-    return temp
+        return np.int8(0)
+    return np.int8(temp)
 
 
 def count_breakpoint(arr1d, threshold):
@@ -184,8 +184,9 @@ def count_breakpoint(arr1d, threshold):
         returns the number of breakpoints detected in a time series of a pixel greater than set threshold
     """
     from scipy.signal import find_peaks
+    import numpy as np
     peaks = find_peaks(arr1d, height=threshold)
-    return len(peaks[0])
+    return np.int8(len(peaks[0]))
 
 
 def find_single_peaks(arr1d, threshold):
@@ -206,11 +207,12 @@ def find_single_peaks(arr1d, threshold):
         returns either 1, if the time series contains one and only one peak higher than set threshold, otherwise 0
     """
     from scipy.signal import find_peaks
+    import numpy as np
     peaks = find_peaks(arr1d, height=threshold)
     if len(peaks[0]) >= 2 or len(peaks[0]) == 0:
-        return 0
+        return np.int8(0)
     if len(peaks[0]) == 1:
-        return 1
+        return np.int8(1)
 
 
 def find_single_peaks_index(arr1d, threshold):
@@ -238,9 +240,9 @@ def find_single_peaks_index(arr1d, threshold):
     import numpy as np
     peaks = find_peaks(arr1d, height=threshold)
     if len(peaks[0]) >= 2 or len(peaks[0]) == 0:
-        return 0
+        return np.int16(0)
     if len(peaks[0]) == 1:
-        return np.int32(peaks[0][0])
+        return np.int16(peaks[0][0])
 
 
 def max_peak_height(arr1d, threshold):
@@ -264,9 +266,9 @@ def max_peak_height(arr1d, threshold):
     import numpy as np
     peaks = find_peaks(arr1d, height=threshold)
     if len(peaks[1]["peak_heights"]) >= 1:
-        return np.max(peaks[1]["peak_heights"])
+        return np.int16(np.max(peaks[1]["peak_heights"]))
     else:
-        return 0
+        return np.int16(0)
 
 
 def avg_peak_height(arr1d, threshold):
@@ -290,9 +292,9 @@ def avg_peak_height(arr1d, threshold):
     from scipy.signal import find_peaks
     peaks = find_peaks(arr1d, height=threshold)
     if len(peaks[1]["peak_heights"]) >= 1:
-        return np.sum(peaks[1]["peak_heights"] / len(peaks[0]))
+        return np.int16(np.sum(peaks[1]["peak_heights"] / len(peaks[0])))
     else:
-        return 0
+        return np.int16(0)
 
 
 def find_single_troughs(arr1d, threshold):
