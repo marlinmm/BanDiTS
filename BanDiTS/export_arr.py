@@ -1,7 +1,7 @@
 import rasterio as rio
 
 
-def functions_out_array(outname, arr, input_file, dtype):
+def functions_out_array(outname, arr, input_file, dtype, ras_meta1=None):
     """
     this function is used to export the numpy array to a georeferenced datatype that is equal to the input datatype
     ----------
@@ -23,7 +23,10 @@ def functions_out_array(outname, arr, input_file, dtype):
     tmp = arr_shape[0]
     if len(arr_shape) <= 2:
         with rio.open(input_file) as src:
-            ras_meta = src.profile
+            if ras_meta1==None:
+                ras_meta = src.profile
+            else:
+                ras_meta = ras_meta1
             corr_count = {'count': 1}
             ras_meta.update(corr_count)
 
@@ -34,7 +37,10 @@ def functions_out_array(outname, arr, input_file, dtype):
             dst.write(arr, 1)
     else:
         with rio.open(input_file) as src:
-            ras_meta = src.profile
+            if ras_meta1==None:
+                ras_meta = src.profile
+            else:
+                ras_meta = ras_meta1
             corr_count = {'count': tmp}
             ras_meta.update(corr_count)
 
