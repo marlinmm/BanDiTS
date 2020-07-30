@@ -27,7 +27,7 @@ setup(name='BanDiTS',
                         'pathos>=0.2',
                         'numpy'],
       python_requires='>=3.6.0',
-      url='https://github.com/marlinmm/GEO419_South_Africa.git',
+      url='https://github.com/marlinmm/BanDiTS.git',
       author='Marlin Mueller', #'Jonas Ziemer'  # how to add second author?
       author_email='marlin.markus.mueller@uni-jena.de',
       license='WTFPL',
