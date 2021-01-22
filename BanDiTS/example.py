@@ -102,8 +102,8 @@ def statistics_func(raster_folder, raster_filename, output_folder, statistical_f
 
     for i, func in enumerate(statistical_functions):
         # creating results with calling wanted algorithm in parallel_apply_along_axis for quick runtime
-        result = apply_along_axis.parallel_apply_along_axis(func1d=func, arr=arr[0], axis=0,
-                                                            cores=mp.cpu_count(), **statistical_args[i])
+        result = apply_along_axis.parallel_apply_along_axis(func1d=func, arr=arr[0], axis=0, cores=mp.cpu_count(),
+                                                            **statistical_args[i])
 
         # selecting dtype based on result
         dtype = type(result[0][0])
@@ -137,7 +137,7 @@ def breakpoint_func(raster_folder, raster_filename, output_folder, breakpoint_fu
     for i, func in enumerate(breakpoint_functions):
         threshold_size = str(breakpoint_args[i]['threshold'])
         result = apply_along_axis.parallel_apply_along_axis(func1d=func, arr=arr[0], axis=0, cores=mp.cpu_count(),
-                                                                  **breakpoint_args[i])
+                                                            **breakpoint_args[i])
         # selecting dtype based on result
         dtype = type(result[0][0])
 
