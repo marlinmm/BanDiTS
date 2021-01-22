@@ -158,14 +158,14 @@ if __name__ == '__main__':
     in_variables = main()
 
     # call this function to execute filter functions:
-    # filter_func(raster_folder=str(in_variables[0]), raster_filename=str(in_variables[1]),
-    #             output_folder=str(in_variables[2]), filter_functions=in_variables[3],
-    #             filter_args=in_variables[4])
+    filter_func(raster_folder=str(in_variables[0]), raster_filename=str(in_variables[1]),
+                output_folder=str(in_variables[2]), filter_functions=in_variables[3],
+                filter_args=in_variables[4])
 
     # call this function to execute statistics functions:
-    statistics_func(raster_folder=str(in_variables[0]), raster_filename=str(in_variables[1]),
-                    output_folder=str(in_variables[2]), statistical_functions=in_variables[5],
-                    statistical_args=in_variables[6])
+    # statistics_func(raster_folder=str(in_variables[0]), raster_filename=str(in_variables[1]),
+    #                 output_folder=str(in_variables[2]), statistical_functions=in_variables[5],
+    #                 statistical_args=in_variables[6])
 
     # call this function to execute breakpoint functions:
     # breakpoint_func(raster_folder=str(in_variables[0]), raster_filename=str(in_variables[1]),
